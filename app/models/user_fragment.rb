@@ -1,0 +1,2 @@
+class UserFragment < ApplicationRecord
+end

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idtopic: 1
+  name: MyText
+  score: 1
+
+two:
+  idtopic: 1
+  name: MyText
+  score: 1

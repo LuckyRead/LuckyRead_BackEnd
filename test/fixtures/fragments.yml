@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idfragment: 1
+  title: MyText
+  introduction: MyText
+  content: MyText
+  source: MyText
+  score: 1
+
+two:
+  idfragment: 1
+  title: MyText
+  introduction: MyText
+  content: MyText
+  source: MyText
+  score: 1

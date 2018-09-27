@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idphoto: 1
+  path: MyText
+  user_username: MyText
+  fragment_idfragment: 1
+
+two:
+  idphoto: 1
+  path: MyText
+  user_username: MyText
+  fragment_idfragment: 1
