@@ -46,6 +46,6 @@ class SubTopicsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def sub_topic_params
-      params.require(:sub_topic).permit(:idsub-topic, :name)
+      params.require(:sub_topic).permit(:idsub_topic, :name)
     end
 end

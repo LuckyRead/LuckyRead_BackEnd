@@ -12,7 +12,7 @@ class SubTopicsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create sub_topic" do
     assert_difference('SubTopic.count') do
-      post sub_topics_url, params: { sub_topic: { idsub-topic: @sub_topic.idsub-topic, name: @sub_topic.name } }, as: :json
+      post sub_topics_url, params: { sub_topic: { idsub_topic: @sub_topic.idsub_topic, name: @sub_topic.name } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class SubTopicsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update sub_topic" do
-    patch sub_topic_url(@sub_topic), params: { sub_topic: { idsub-topic: @sub_topic.idsub-topic, name: @sub_topic.name } }, as: :json
+    patch sub_topic_url(@sub_topic), params: { sub_topic: { idsub_topic: @sub_topic.idsub_topic, name: @sub_topic.name } }, as: :json
     assert_response 200
   end
 

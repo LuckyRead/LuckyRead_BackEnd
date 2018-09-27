@@ -1,7 +1,7 @@
 class CreateSubTopics < ActiveRecord::Migration[5.2]
   def change
     create_table :sub_topics do |t|
-      t.integer :idsub-topic
+      t.integer :idsub_topic
       t.text :name
 
       t.timestamps
