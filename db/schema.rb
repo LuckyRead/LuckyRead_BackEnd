@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_171528) do
+ActiveRecord::Schema.define(version: 2018_09_29_175533) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "idcomment"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 2018_09_29_171528) do
     t.integer "fragment_idfragment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "rel_subtopic_userfragment", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "sub_topic_id", null: false
+    t.bigint "userfragment_id", null: false
+  end
+
+  create_table "rel_userfragment_user", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "userfragment_id", null: false
   end
 
   create_table "responses", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
