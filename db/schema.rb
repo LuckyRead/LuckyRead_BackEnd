@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2018_09_27_071211) do
 
-  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "idcomment"
     t.text "message"
     t.integer "fragment_idfragment"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_071211) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "fragments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "fragments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "idfragment"
     t.text "title"
     t.text "introduction"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_071211) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "idphoto"
     t.text "path"
     t.text "user_username"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_071211) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "responses", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "responses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "idresponse"
     t.datetime "date"
     t.text "message"
@@ -50,14 +50,14 @@ ActiveRecord::Schema.define(version: 2018_09_27_071211) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "idsub_topic"
     t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "topics", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "idtopic"
     t.text "name"
     t.integer "score"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_071211) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_fragments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "user_fragments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "iduserfragment"
     t.text "title"
     t.text "introduction"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_071211) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "username"
     t.string "name"
     t.string "lastname"
