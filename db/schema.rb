@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_201509) do
+ActiveRecord::Schema.define(version: 2018_09_29_205917) do
 
   create_table "city", primary_key: "id_city", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "city_name"
@@ -47,7 +47,8 @@ ActiveRecord::Schema.define(version: 2018_09_29_201509) do
   end
 
   create_table "friend", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.string "followed", null: false
+    t.string "follower", null: false
   end
 
   create_table "photos", primary_key: "idphoto", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
