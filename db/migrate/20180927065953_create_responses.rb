@@ -1,7 +1,7 @@
 class CreateResponses < ActiveRecord::Migration[5.2]
   def change
-    create_table :responses do |t|
-      t.integer :idresponse
+    create_table :responses, id:false do |t|
+      t.integer :idresponse, primary_key: true
       t.datetime :date
       t.text :message
       t.integer :comment_idcoment

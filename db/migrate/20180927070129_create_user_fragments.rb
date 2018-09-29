@@ -1,7 +1,7 @@
 class CreateUserFragments < ActiveRecord::Migration[5.2]
   def change
-    create_table :user_fragments do |t|
-      t.integer :iduserfragment
+    create_table :user_fragments, id:false do |t|
+      t.integer :iduserfragment, primary_key: true
       t.text :title
       t.text :introduction
       t.text :content
