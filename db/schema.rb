@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_180526) do
+ActiveRecord::Schema.define(version: 2018_09_29_194201) do
+
+  create_table "city", primary_key: "id_city", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "city_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "idcomment"
     t.text "message"
     t.integer "fragment_idfragment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "country", primary_key: "id_country", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "country_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,9 +61,19 @@ ActiveRecord::Schema.define(version: 2018_09_29_180526) do
     t.bigint "user_id", null: false
   end
 
+  create_table "reaction_user_fragment", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "fragment_id", null: false
+  end
+
   create_table "rel_subtopic_userfragment", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "sub_topic_id", null: false
     t.bigint "userfragment_id", null: false
+  end
+
+  create_table "rel_topic_subtopic", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "topic_id", null: false
+    t.bigint "sub_topic_id", null: false
   end
 
   create_table "rel_userfragment_user", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -96,8 +118,7 @@ ActiveRecord::Schema.define(version: 2018_09_29_180526) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "username"
+  create_table "users", primary_key: "username", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.string "lastname"
     t.text "email"
