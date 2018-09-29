@@ -22,6 +22,7 @@ User.populate 20 do |user|
             response.message = Faker::String.random
             response.comment_idcoment = comment.idcomment
             response.user_username = user.user_username
+        end
     end
 end
 
