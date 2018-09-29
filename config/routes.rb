@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :cities
+  resources :countries
   resources :sub_topics
   resources :photos
   resources :user_fragments
