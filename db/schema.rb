@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_27_071211) do
+ActiveRecord::Schema.define(version: 2018_09_29_171528) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "idcomment"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_071211) do
     t.text "talk_to_us"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "Id_rel_country_city"
   end
 
 end
