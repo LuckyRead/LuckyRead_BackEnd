@@ -34,7 +34,7 @@ Fragment.populate 100 do |fragment|
     user.score = Faker::Number.between(1, 10)
     Topic.populate 20..100 do |topic|
         topic.score = Faker::Number.between(1, 100)
-        Sub_topic.populate 10..20 do |product|
+        Sub_topic.populate 10..20 do |sub_topic|
             sub_topic.idfragment = fragment.idfragment
             sub_topic.name = topic.name
         end
