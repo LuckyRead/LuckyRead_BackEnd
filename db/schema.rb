@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_175533) do
+ActiveRecord::Schema.define(version: 2018_09_29_180526) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "idcomment"
@@ -31,6 +31,10 @@ ActiveRecord::Schema.define(version: 2018_09_29_175533) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "friend", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "user_id", null: false
+  end
+
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "idphoto"
     t.text "path"
@@ -38,6 +42,11 @@ ActiveRecord::Schema.define(version: 2018_09_29_175533) do
     t.integer "fragment_idfragment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "preferece", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "sub_topic_id", null: false
+    t.bigint "user_id", null: false
   end
 
   create_table "rel_subtopic_userfragment", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
