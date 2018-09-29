@@ -10,12 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_194201) do
+ActiveRecord::Schema.define(version: 2018_09_29_201509) do
 
   create_table "city", primary_key: "id_city", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "city_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "city_has_country", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.bigint "country_id", null: false
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -91,7 +96,7 @@ ActiveRecord::Schema.define(version: 2018_09_29_194201) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "sub_topic", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "idsub_topic"
     t.text "name"
     t.datetime "created_at", null: false
