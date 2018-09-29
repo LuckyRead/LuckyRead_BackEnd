@@ -10,16 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_212743) do
+ActiveRecord::Schema.define(version: 2018_09_29_230601) do
 
   create_table "cities", primary_key: "id_city", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "city_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "city", primary_key: "id_city", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "city_name"
+    t.string "city_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -30,28 +24,23 @@ ActiveRecord::Schema.define(version: 2018_09_29_212743) do
   end
 
   create_table "comments", primary_key: "idcomment", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "message"
-    t.integer "fragment_idfragment"
+    t.text "message", null: false
+    t.integer "fragment_idfragment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "date", null: false
   end
 
   create_table "countries", primary_key: "id_country", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "country_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "country", primary_key: "id_country", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "country_name"
+    t.string "country_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "fragments", primary_key: "idfragment", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "title"
+    t.text "title", null: false
     t.text "introduction"
-    t.text "content"
+    t.text "content", null: false
     t.text "source"
     t.integer "score"
     t.datetime "created_at", null: false
@@ -64,16 +53,17 @@ ActiveRecord::Schema.define(version: 2018_09_29_212743) do
   end
 
   create_table "photos", primary_key: "idphoto", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "path"
+    t.text "path", null: false
     t.text "user_username"
     t.integer "fragment_idfragment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "preferece", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "preference", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "sub_topic_id", null: false
     t.bigint "user_id", null: false
+    t.integer "score", default: 0
   end
 
   create_table "reaction_user_fragment", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -98,48 +88,48 @@ ActiveRecord::Schema.define(version: 2018_09_29_212743) do
   end
 
   create_table "responses", primary_key: "idresponse", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.datetime "date"
-    t.text "message"
-    t.integer "comment_idcoment"
-    t.text "user_username"
+    t.datetime "date", null: false
+    t.text "message", null: false
+    t.integer "comment_idcoment", null: false
+    t.text "user_username", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "sub_topic", primary_key: "idsub_topic", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "name"
+    t.text "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "topics", primary_key: "idtopic", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "name"
-    t.integer "score"
+    t.text "name", null: false
+    t.integer "score", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "user_fragments", primary_key: "iduserfragment", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "title"
+    t.text "title", null: false
     t.text "introduction"
-    t.text "content"
+    t.text "content", null: false
     t.text "source"
-    t.integer "score"
-    t.text "state"
+    t.integer "score", default: 0
+    t.text "state", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", primary_key: "username", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-    t.string "lastname"
-    t.text "email"
-    t.text "password"
-    t.integer "score"
+    t.string "name", null: false
+    t.string "lastname", null: false
+    t.text "email", null: false
+    t.text "password", null: false
+    t.integer "score", default: 0
     t.text "talk_to_us"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "Id_rel_country_city"
+    t.string "Id_rel_country_city", null: false
   end
 
 end
