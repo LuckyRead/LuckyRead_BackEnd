@@ -1,0 +1,1 @@
+ALTER TABLE responses ADD FOREIGN KEY (user_username) REFERENCES users(username);

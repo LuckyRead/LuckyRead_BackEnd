@@ -50,11 +50,14 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
     t.integer "score", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_iduser", null: false
+    t.index ["user_iduser"], name: "user_iduser"
   end
 
   create_table "friend", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "followed", null: false
     t.string "follower", null: false
+    t.string "id_fiend", null: false
     t.index ["followed"], name: "followed"
     t.index ["follower"], name: "follower"
   end
@@ -62,9 +65,10 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
   create_table "photos", primary_key: "idphoto", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "path", null: false
     t.string "user_username"
-    t.integer "fragment_idfragment"
+    t.bigint "fragment_idfragment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["fragment_idfragment"], name: "fragment_idfragment"
     t.index ["user_username"], name: "user_username"
   end
 
@@ -77,25 +81,30 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
   end
 
   create_table "reaction_user_fragment", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.string "user_id", null: false
     t.bigint "fragment_id", null: false
     t.string "reaction", null: false
+    t.string "id_reaction", null: false
     t.index ["fragment_id"], name: "fragment_id"
+    t.index ["user_id"], name: "user_id"
   end
 
   create_table "rel_topic_subtopic", primary_key: "id_rel_topic_subtopic", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "topic_id", null: false
     t.bigint "subtopic_id", null: false
+    t.index ["subtopic_id"], name: "subtopic_id"
+    t.index ["topic_id"], name: "topic_id"
   end
 
   create_table "responses", primary_key: "idresponse", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "date", null: false
     t.text "message", null: false
     t.integer "comment_idcomment", null: false
-    t.text "user_username", null: false
+    t.string "user_username", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["comment_idcomment"], name: "comment_idcomment"
+    t.index ["user_username"], name: "user_username"
   end
 
   create_table "subtopics", primary_key: "id_subtopic", id: :bigint, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -104,7 +113,7 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "topics", primary_key: "idtopic", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "topics", primary_key: "idtopic", id: :bigint, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "name", null: false
     t.integer "score", default: 0
     t.datetime "created_at", null: false
@@ -128,12 +137,18 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
   add_foreign_key "city_has_country", "countries", primary_key: "id_country", name: "city_has_country_ibfk_2"
   add_foreign_key "comments", "fragments", column: "fragment_idfragment", primary_key: "idfragment", name: "comments_ibfk_2"
   add_foreign_key "comments", "users", column: "user_iduser", primary_key: "username", name: "comments_ibfk_1"
+  add_foreign_key "fragments", "users", column: "user_iduser", primary_key: "username", name: "fragments_ibfk_1"
   add_foreign_key "friend", "users", column: "followed", primary_key: "username", name: "friend_ibfk_2"
   add_foreign_key "friend", "users", column: "follower", primary_key: "username", name: "friend_ibfk_1"
+  add_foreign_key "photos", "fragments", column: "fragment_idfragment", primary_key: "idfragment", name: "photos_ibfk_2"
   add_foreign_key "photos", "users", column: "user_username", primary_key: "username", name: "photos_ibfk_1"
   add_foreign_key "preference", "subtopics", primary_key: "id_subtopic", name: "preference_ibfk_2"
   add_foreign_key "preference", "users", primary_key: "username", name: "preference_ibfk_1"
   add_foreign_key "reaction_user_fragment", "fragments", primary_key: "idfragment", name: "reaction_user_fragment_ibfk_1"
+  add_foreign_key "reaction_user_fragment", "users", primary_key: "username", name: "reaction_user_fragment_ibfk_2"
+  add_foreign_key "rel_topic_subtopic", "subtopics", primary_key: "id_subtopic", name: "rel_topic_subtopic_ibfk_2"
+  add_foreign_key "rel_topic_subtopic", "topics", primary_key: "idtopic", name: "rel_topic_subtopic_ibfk_1"
   add_foreign_key "responses", "comments", column: "comment_idcomment", primary_key: "idcomment", name: "responses_ibfk_1"
+  add_foreign_key "responses", "users", column: "user_username", primary_key: "username", name: "responses_ibfk_2"
   add_foreign_key "users", "city_has_country", column: "Id_rel_country_city", primary_key: "id_city_has_country", name: "users_ibfk_1"
 end

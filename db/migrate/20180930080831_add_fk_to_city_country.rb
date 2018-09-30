@@ -9,5 +9,12 @@ class AddFkToCityCountry < ActiveRecord::Migration[5.2]
     change_column :preference, :user_id, :string, :null => false
     change_column :subtopics, :id_subtopic, :bigint, :null => false
     change_column :comments, :fragment_idfragment, :bigint, :null => false
+    add_column :fragments, :user_iduser, :string, :null => false
+    change_column :photos, :fragment_idfragment, :bigint, :full => false
+    change_column :reaction_user_fragment, :user_id, :string, :null => false
+    change_column :topics, :idtopic, :bigint, :null => false
+    add_column :friend, :id_fiend, :string, :null => false
+    add_column :reaction_user_fragment, :id_reaction, :string, :null => false
+    change_column :responses, :user_username, :string, :null => false
   end
 end

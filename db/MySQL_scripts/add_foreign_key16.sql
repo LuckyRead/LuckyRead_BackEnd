@@ -1,1 +1,1 @@
-ALTER TABLE rel_topic_subtopic ADD FOREIGN KEY (topic_id) REFERENCES topics(idtopic);
+ALTER TABLE rel_topic_subtopic ADD FOREIGN KEY (subtopic_id) REFERENCES subtopics(id_subtopic);

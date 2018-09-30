@@ -1,1 +1,1 @@
-ALTER TABLE reaction_user_fragment ADD FOREIGN KEY (fragment_id) REFERENCES fragments(idfragments);
+ALTER TABLE reaction_user_fragment ADD FOREIGN KEY (user_id) REFERENCES users(username);
