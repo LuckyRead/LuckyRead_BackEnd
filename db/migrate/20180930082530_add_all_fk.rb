@@ -11,7 +11,7 @@ class AddAllFk < ActiveRecord::Migration[5.2]
     ActiveRecord::Base.connection.execute(IO.read("/home/daniel/LuckyRead_BackEnd/db/MySQL_scripts/add_foreign_key9.sql"))
     ActiveRecord::Base.connection.execute(IO.read("/home/daniel/LuckyRead_BackEnd/db/MySQL_scripts/add_foreign_key10.sql"))
     ActiveRecord::Base.connection.execute(IO.read("/home/daniel/LuckyRead_BackEnd/db/MySQL_scripts/add_foreign_key11.sql"))
-    #ActiveRecord::Base.connection.execute(IO.read("/home/daniel/LuckyRead_BackEnd/db/MySQL_scripts/add_foreign_key12.sql"))
+    ActiveRecord::Base.connection.execute(IO.read("/home/daniel/LuckyRead_BackEnd/db/MySQL_scripts/add_foreign_key12.sql"))
     #ActiveRecord::Base.connection.execute(IO.read("/home/daniel/LuckyRead_BackEnd/db/MySQL_scripts/add_foreign_key13.sql"))
     #ActiveRecord::Base.connection.execute(IO.read("/home/daniel/LuckyRead_BackEnd/db/MySQL_scripts/add_foreign_key14.sql"))
     #ActiveRecord::Base.connection.execute(IO.read("/home/daniel/LuckyRead_BackEnd/db/MySQL_scripts/add_foreign_key15.sql"))

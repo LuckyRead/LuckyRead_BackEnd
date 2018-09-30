@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
     t.datetime "updated_at", null: false
     t.datetime "date", null: false
     t.string "user_iduser", null: false
+    t.index ["fragment_idfragment"], name: "fragment_idfragment"
     t.index ["user_iduser"], name: "user_iduser"
   end
 
@@ -124,25 +125,15 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
   end
 
   add_foreign_key "city_has_country", "cities", primary_key: "id_city", name: "city_has_country_ibfk_1"
-  add_foreign_key "city_has_country", "cities", primary_key: "id_city", name: "city_has_country_ibfk_3"
   add_foreign_key "city_has_country", "countries", primary_key: "id_country", name: "city_has_country_ibfk_2"
-  add_foreign_key "city_has_country", "countries", primary_key: "id_country", name: "city_has_country_ibfk_4"
+  add_foreign_key "comments", "fragments", column: "fragment_idfragment", primary_key: "idfragment", name: "comments_ibfk_2"
   add_foreign_key "comments", "users", column: "user_iduser", primary_key: "username", name: "comments_ibfk_1"
-  add_foreign_key "comments", "users", column: "user_iduser", primary_key: "username", name: "comments_ibfk_2"
   add_foreign_key "friend", "users", column: "followed", primary_key: "username", name: "friend_ibfk_2"
-  add_foreign_key "friend", "users", column: "followed", primary_key: "username", name: "friend_ibfk_4"
   add_foreign_key "friend", "users", column: "follower", primary_key: "username", name: "friend_ibfk_1"
-  add_foreign_key "friend", "users", column: "follower", primary_key: "username", name: "friend_ibfk_3"
   add_foreign_key "photos", "users", column: "user_username", primary_key: "username", name: "photos_ibfk_1"
-  add_foreign_key "photos", "users", column: "user_username", primary_key: "username", name: "photos_ibfk_2"
   add_foreign_key "preference", "subtopics", primary_key: "id_subtopic", name: "preference_ibfk_2"
-  add_foreign_key "preference", "subtopics", primary_key: "id_subtopic", name: "preference_ibfk_4"
   add_foreign_key "preference", "users", primary_key: "username", name: "preference_ibfk_1"
-  add_foreign_key "preference", "users", primary_key: "username", name: "preference_ibfk_3"
   add_foreign_key "reaction_user_fragment", "fragments", primary_key: "idfragment", name: "reaction_user_fragment_ibfk_1"
-  add_foreign_key "reaction_user_fragment", "fragments", primary_key: "idfragment", name: "reaction_user_fragment_ibfk_2"
   add_foreign_key "responses", "comments", column: "comment_idcomment", primary_key: "idcomment", name: "responses_ibfk_1"
-  add_foreign_key "responses", "comments", column: "comment_idcomment", primary_key: "idcomment", name: "responses_ibfk_2"
   add_foreign_key "users", "city_has_country", column: "Id_rel_country_city", primary_key: "id_city_has_country", name: "users_ibfk_1"
-  add_foreign_key "users", "city_has_country", column: "Id_rel_country_city", primary_key: "id_city_has_country", name: "users_ibfk_2"
 end
