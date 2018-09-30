@@ -6,5 +6,8 @@ class AddFkToCityCountry < ActiveRecord::Migration[5.2]
     add_column :rel_topic_subtopic, :id_rel_topic_subtopic, :string, :null => false, primary_key: true
     change_column :cities, :id_city, :bigint
     change_column :countries, :id_country, :bigint
+    change_column :preference, :user_id, :string, :null => false
+    change_column :subtopics, :id_subtopic, :bigint, :null => false
+    change_column :comments, :fragment_idfragment, :bigint, :null => false
   end
 end

@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
 
   create_table "comments", primary_key: "idcomment", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "message", null: false
-    t.integer "fragment_idfragment", null: false
+    t.bigint "fragment_idfragment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "date", null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "fragments", primary_key: "idfragment", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "fragments", primary_key: "idfragment", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
     t.string "introduction"
     t.string "content", null: false
@@ -69,14 +69,17 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
 
   create_table "preference", primary_key: "id_preference", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "subtopic_id", null: false
-    t.bigint "user_id", null: false
+    t.string "user_id", null: false
     t.integer "score", default: 0
+    t.index ["subtopic_id"], name: "subtopic_id"
+    t.index ["user_id"], name: "user_id"
   end
 
   create_table "reaction_user_fragment", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "fragment_id", null: false
     t.string "reaction", null: false
+    t.index ["fragment_id"], name: "fragment_id"
   end
 
   create_table "rel_topic_subtopic", primary_key: "id_rel_topic_subtopic", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -94,7 +97,7 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
     t.index ["comment_idcomment"], name: "comment_idcomment"
   end
 
-  create_table "subtopics", primary_key: "id_subtopic", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "subtopics", primary_key: "id_subtopic", id: :bigint, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -132,6 +135,12 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
   add_foreign_key "friend", "users", column: "follower", primary_key: "username", name: "friend_ibfk_3"
   add_foreign_key "photos", "users", column: "user_username", primary_key: "username", name: "photos_ibfk_1"
   add_foreign_key "photos", "users", column: "user_username", primary_key: "username", name: "photos_ibfk_2"
+  add_foreign_key "preference", "subtopics", primary_key: "id_subtopic", name: "preference_ibfk_2"
+  add_foreign_key "preference", "subtopics", primary_key: "id_subtopic", name: "preference_ibfk_4"
+  add_foreign_key "preference", "users", primary_key: "username", name: "preference_ibfk_1"
+  add_foreign_key "preference", "users", primary_key: "username", name: "preference_ibfk_3"
+  add_foreign_key "reaction_user_fragment", "fragments", primary_key: "idfragment", name: "reaction_user_fragment_ibfk_1"
+  add_foreign_key "reaction_user_fragment", "fragments", primary_key: "idfragment", name: "reaction_user_fragment_ibfk_2"
   add_foreign_key "responses", "comments", column: "comment_idcomment", primary_key: "idcomment", name: "responses_ibfk_1"
   add_foreign_key "responses", "comments", column: "comment_idcomment", primary_key: "idcomment", name: "responses_ibfk_2"
   add_foreign_key "users", "city_has_country", column: "Id_rel_country_city", primary_key: "id_city_has_country", name: "users_ibfk_1"
