@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 =begin
-[SubTopic, Topic, User, Fragment, Comment, Response, UserFragment].each(&:delete_all)
+[SubTopic, Topic, User, Fragment, Comment, Response, UserFragment, Photo].each(&:delete_all)
 
 
 UserFragment.populate 10 do |userfragment|
@@ -120,4 +120,13 @@ end
             user_username: Faker::Name.unique.first_name
         )
     end
+end
+
+100.times do
+    Photo.create(
+        idphoto: Faker::Number.unique.number(5),
+        path: Faker::Internet.url,
+        user_username: Faker::Name.unique.first_name,
+        fragment_idfragment: Faker::Number.unique.number(5),
+    )
 end
