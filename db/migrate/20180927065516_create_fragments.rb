@@ -1,12 +1,12 @@
 class CreateFragments < ActiveRecord::Migration[5.2]
   def change
-    create_table :fragments do |t|
-      t.integer :idfragment
-      t.text :title
-      t.text :introduction
-      t.text :content
-      t.text :source
-      t.integer :score
+    create_table :fragments, id:false do |t|
+      t.integer :idfragment, primary_key: true, :null => false
+      t.string :title, :null => false
+      t.string :introduction
+      t.string :content, :null => false
+      t.string :source
+      t.integer :score, :default => 0
 
       t.timestamps
     end

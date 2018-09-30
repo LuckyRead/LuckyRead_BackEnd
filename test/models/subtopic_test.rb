@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserFragmentTest < ActiveSupport::TestCase
+class SubtopicTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

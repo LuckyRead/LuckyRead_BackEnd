@@ -1,2 +1,0 @@
-class SubTopic < ApplicationRecord
-end

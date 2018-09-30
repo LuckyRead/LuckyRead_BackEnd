@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  resources :sub_topics
+  resources :subtopics
+  resources :cities
+  resources :countries
   resources :photos
-  resources :user_fragments
   resources :responses
   resources :comments
   resources :topics

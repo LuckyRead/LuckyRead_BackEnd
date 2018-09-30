@@ -1,9 +1,9 @@
 class CreateComments < ActiveRecord::Migration[5.2]
   def change
-    create_table :comments do |t|
-      t.integer :idcomment
-      t.text :message
-      t.integer :fragment_idfragment
+    create_table :comments, id:false do |t|
+      t.integer :idcomment, primary_key: true, :null => false
+      t.string :message, :null => false
+      t.integer :fragment_idfragment, :null => false
 
       t.timestamps
     end
