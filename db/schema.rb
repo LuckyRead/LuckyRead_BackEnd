@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_30_011135) do
+ActiveRecord::Schema.define(version: 2018_09_30_030401) do
 
   create_table "cities", primary_key: "id_city", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "city_name", null: false
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2018_09_30_011135) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "date", null: false
+    t.string "user_iduser", null: false
   end
 
   create_table "countries", primary_key: "id_country", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
