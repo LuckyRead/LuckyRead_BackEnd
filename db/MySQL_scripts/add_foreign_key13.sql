@@ -1,0 +1,1 @@
+ALTER TABLE photos ADD FOREIGN KEY (comment_idcomment) REFERENCES fragments(idfragments);

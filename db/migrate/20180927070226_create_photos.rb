@@ -3,7 +3,7 @@ class CreatePhotos < ActiveRecord::Migration[5.2]
     create_table :photos, id:false do |t|
       t.integer :idphoto, primary_key: true, :null => false
       t.text :path, :null => false
-      t.text :user_username
+      t.string :user_username
       t.integer :fragment_idfragment
 
       t.timestamps
