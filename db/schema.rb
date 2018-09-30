@@ -14,12 +14,6 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
 
   create_table "cities", primary_key: "id_city", id: :bigint, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "city_name", null: false
-=======
-  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "idcomment"
-    t.text "message"
-    t.integer "fragment_idfragment"
->>>>>>> feature/8-poblar-la-bd
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,13 +48,6 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
     t.string "content", null: false
     t.string "source"
     t.integer "score", default: 0
-=======
-  create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "idphoto"
-    t.text "path"
-    t.text "user_username"
-    t.integer "fragment_idfragment"
->>>>>>> feature/8-poblar-la-bd
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_iduser", null: false
@@ -122,12 +109,6 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
 
   create_table "subtopics", primary_key: "id_subtopic", id: :bigint, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-=======
-  create_table "topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "idtopic"
-    t.text "name"
-    t.integer "score"
->>>>>>> feature/8-poblar-la-bd
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -135,16 +116,6 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
   create_table "topics", primary_key: "idtopic", id: :bigint, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "name", null: false
     t.integer "score", default: 0
-=======
-  create_table "user_fragments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "iduserfragment"
-    t.text "title"
-    t.text "introduction"
-    t.text "content"
-    t.text "source"
-    t.integer "score"
-    t.text "state"
->>>>>>> feature/8-poblar-la-bd
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -155,15 +126,6 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
     t.text "email", null: false
     t.text "password", null: false
     t.integer "score", default: 0
-=======
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.text "username"
-    t.string "name"
-    t.string "lastname"
-    t.text "email"
-    t.text "password"
-    t.integer "score"
->>>>>>> feature/8-poblar-la-bd
     t.text "talk_to_us"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
