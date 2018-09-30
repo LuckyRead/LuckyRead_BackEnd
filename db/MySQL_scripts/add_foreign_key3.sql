@@ -1,0 +1,1 @@
+ALTER TABLE city_has_country ADD FOREIGN KEY (country_id) REFERENCES countries(id_country);
