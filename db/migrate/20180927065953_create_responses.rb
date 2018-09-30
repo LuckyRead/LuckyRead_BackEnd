@@ -4,7 +4,7 @@ class CreateResponses < ActiveRecord::Migration[5.2]
       t.integer :idresponse, primary_key: true, :null => false
       t.datetime :date, :null => false
       t.text :message, :null => false
-      t.integer :comment_idcoment, :null => false
+      t.integer :comment_idcomment, :null => false
       t.text :user_username, :null => false
       
       t.timestamps
