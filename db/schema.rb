@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_29_230601) do
+ActiveRecord::Schema.define(version: 2018_09_30_011135) do
 
   create_table "cities", primary_key: "id_city", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "city_name", null: false
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2018_09_29_230601) do
   end
 
   create_table "comments", primary_key: "idcomment", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "message", null: false
+    t.string "message", null: false
     t.integer "fragment_idfragment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -38,11 +38,11 @@ ActiveRecord::Schema.define(version: 2018_09_29_230601) do
   end
 
   create_table "fragments", primary_key: "idfragment", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "title", null: false
-    t.text "introduction"
-    t.text "content", null: false
-    t.text "source"
-    t.integer "score"
+    t.string "title", null: false
+    t.string "introduction"
+    t.string "content", null: false
+    t.string "source"
+    t.integer "score", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2018_09_29_230601) do
   end
 
   create_table "preference", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.bigint "sub_topic_id", null: false
+    t.bigint "subtopic_id", null: false
     t.bigint "user_id", null: false
     t.integer "score", default: 0
   end
@@ -73,13 +73,13 @@ ActiveRecord::Schema.define(version: 2018_09_29_230601) do
   end
 
   create_table "rel_subtopic_userfragment", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.bigint "sub_topic_id", null: false
+    t.bigint "subtopic_id", null: false
     t.bigint "userfragment_id", null: false
   end
 
   create_table "rel_topic_subtopic", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "topic_id", null: false
-    t.bigint "sub_topic_id", null: false
+    t.bigint "subtopic_id", null: false
   end
 
   create_table "rel_userfragment_user", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(version: 2018_09_29_230601) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sub_topic", primary_key: "idsub_topic", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "name", null: false
+  create_table "subtopics", primary_key: "id_subtopic", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -105,17 +105,6 @@ ActiveRecord::Schema.define(version: 2018_09_29_230601) do
   create_table "topics", primary_key: "idtopic", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.text "name", null: false
     t.integer "score", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "user_fragments", primary_key: "iduserfragment", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "title", null: false
-    t.text "introduction"
-    t.text "content", null: false
-    t.text "source"
-    t.integer "score", default: 0
-    t.text "state", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

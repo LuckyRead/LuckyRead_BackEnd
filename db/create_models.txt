@@ -1,7 +1,7 @@
 rails generate scaffold User username:text name:string lastname:string email:text password:text score:integer talk_to_us:text
 rails generate scaffold Fragment idfragment:integer title:text introduction:text content:text source:text score:integer
 rails generate scaffold Topic idtopic:integer name:text score:integer
-rails generate scaffold SubTopic idsub_topic:integer name:text
+rails generate scaffold SubTopic idsubtopic:integer name:text
 rails generate scaffold Comment idcomment:integer message:text fragment_idfragment:integer
 rails generate scaffold Response idresponse:integer date:datetime message:text comment_idcoment:integer user_username:text
 rails generate scaffold UserFragment iduserfragment:integer title:text introduction:text content:text source:text score:integer state:text
