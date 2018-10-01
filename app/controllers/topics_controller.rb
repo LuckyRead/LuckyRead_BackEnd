@@ -5,7 +5,7 @@ class TopicsController < ApplicationController
   def index
     @topics = Topic.all
 
-    render json: @topics
+    render json: @topics, status: 200
   end
 
   # GET /topics/1
