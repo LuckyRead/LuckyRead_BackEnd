@@ -6,7 +6,7 @@ This is a little summary that exhibit the features and who worked on it:
     In this feature, they were created all models, controllers and migrations
 * feature/8-poblar-la-bd (Developer Crithian Contreras) </br>
     In this feature, it was seeded the data base using Faker gem
-* feature/6-make-associations-of-the-bd-in-the-models (Developers Daniel Escobar and Cristhian COntreras)  </br>
+* feature/6-make-associations-of-the-bd-in-the-models (Developers Daniel Escobar and Cristhian Contreras)  </br>
 In this feature, they were added all asociations to be performed in our database
 
 * feature/24-setup-controllers (Developer Daniel Escobar) </br>
