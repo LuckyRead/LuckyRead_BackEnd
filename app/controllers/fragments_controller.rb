@@ -36,6 +36,7 @@ class FragmentsController < ApplicationController
   # DELETE /fragments/1
   def destroy
     @fragment.destroy
+    render status: 200
   end
 
   private
@@ -46,6 +47,6 @@ class FragmentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def fragment_params
-      params.require(:fragment).permit(:idfragment, :title, :introduction, :content, :source, :score)
+      params.require(:fragment).permit(:idfragment, :title, :introduction, :content, :source, :user_:iduser)
     end
 end
