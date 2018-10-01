@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idcomment: 1
+  message: MyText
+  fragment_idfragment: 1
+
+two:
+  idcomment: 1
+  message: MyText
+  fragment_idfragment: 1

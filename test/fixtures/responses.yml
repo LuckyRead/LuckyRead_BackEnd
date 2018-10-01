@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idresponse: 1
+  date: 2018-09-27 01:59:53
+  message: MyText
+  comment_idcoment: 1
+  user_username: MyText
+
+two:
+  idresponse: 1
+  date: 2018-09-27 01:59:53
+  message: MyText
+  comment_idcoment: 1
+  user_username: MyText

@@ -1,0 +1,1 @@
+ALTER TABLE users ADD FOREIGN KEY (Id_rel_country_city) REFERENCES city_has_country(id_city_has_country);
