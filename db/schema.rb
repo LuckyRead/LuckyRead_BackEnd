@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 2018_09_30_082530) do
 
   create_table "fragments", primary_key: "idfragment", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
-    t.string "introduction"
-    t.string "content", null: false
+    t.text "introduction"
+    t.text "content", null: false
     t.string "source"
     t.integer "score", default: 0
     t.datetime "created_at", null: false

@@ -36,6 +36,7 @@ class SubtopicsController < ApplicationController
   # DELETE /subtopics/1
   def destroy
     @subtopic.destroy
+    reder status: 200
   end
 
   private
@@ -46,6 +47,6 @@ class SubtopicsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def subtopic_params
-      params.fetch(:subtopic, {})
+      params.require(:subtopic).permit(:id_subtopic, :name)
     end
 end

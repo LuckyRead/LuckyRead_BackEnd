@@ -5,7 +5,7 @@ class TopicsController < ApplicationController
   def index
     @topics = Topic.all
 
-    render json: @topics
+    render json: @topics, status: 200
   end
 
   # GET /topics/1
@@ -36,6 +36,7 @@ class TopicsController < ApplicationController
   # DELETE /topics/1
   def destroy
     @topic.destroy
+    render status: 200
   end
 
   private
@@ -46,6 +47,6 @@ class TopicsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def topic_params
-      params.require(:topic).permit(:idtopic, :name, :score)
+      params.require(:topic).permit(:idtopic, :name)
     end
 end

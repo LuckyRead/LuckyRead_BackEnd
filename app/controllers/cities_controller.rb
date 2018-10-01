@@ -36,6 +36,7 @@ class CitiesController < ApplicationController
   # DELETE /cities/1
   def destroy
     @city.destroy
+    render status:200
   end
 
   private
@@ -46,6 +47,6 @@ class CitiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def city_params
-      params.fetch(:city, {})
+      params.require(:city).permit(:id_city, :city_name)
     end
 end
