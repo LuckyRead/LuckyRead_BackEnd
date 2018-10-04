@@ -5,4 +5,5 @@ class User < ApplicationRecord
     validates :password, presence: true, length: {maximum: 250}
     validates :score, presence: false
     validates :talk_to_us, length: {maximum: 10000}
+    has_one :city
 end

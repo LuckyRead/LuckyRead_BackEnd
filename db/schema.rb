@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_04_202304) do
+ActiveRecord::Schema.define(version: 2018_10_04_212941) do
 
   create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "city_name", null: false
+    t.bigint "countries_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["countries_id"], name: "fk_rails_fc7d463229"
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -132,6 +134,7 @@ ActiveRecord::Schema.define(version: 2018_10_04_202304) do
     t.index ["cities_id"], name: "index_users_on_cities_id"
   end
 
+  add_foreign_key "cities", "countries", column: "countries_id"
   add_foreign_key "comments", "fragments", column: "fragments_id"
   add_foreign_key "comments", "users", column: "users_id"
   add_foreign_key "fragments", "users", column: "users_id"

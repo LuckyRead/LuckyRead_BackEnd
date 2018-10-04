@@ -4,4 +4,5 @@ class Fragment < ApplicationRecord
     validates :content, length: {maximum: 50000}
     validates :source, length: {maximum: 250}
     validates :users_id, presence: true    
+    has_one :user
 end
