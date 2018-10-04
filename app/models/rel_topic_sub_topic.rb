@@ -1,0 +1,2 @@
+class RelTopicSubTopic < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class SubTopic < ApplicationRecord
+end

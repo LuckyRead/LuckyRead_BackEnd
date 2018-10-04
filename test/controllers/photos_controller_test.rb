@@ -12,7 +12,7 @@ class PhotosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create photo" do
     assert_difference('Photo.count') do
-      post photos_url, params: { photo: { fragment_idfragment: @photo.fragment_idfragment, idphoto: @photo.idphoto, path: @photo.path, user_username: @photo.user_username } }, as: :json
+      post photos_url, params: { photo: {  } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class PhotosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update photo" do
-    patch photo_url(@photo), params: { photo: { fragment_idfragment: @photo.fragment_idfragment, idphoto: @photo.idphoto, path: @photo.path, user_username: @photo.user_username } }, as: :json
+    patch photo_url(@photo), params: { photo: {  } }, as: :json
     assert_response 200
   end
 
