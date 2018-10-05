@@ -1,0 +1,2 @@
+class RelFragmentSubTopic < ApplicationRecord
+end

@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.references :cities, foreign_key: true, :null => false
       t.string :score
       t.string :talk_to_us
+      t.bigint :photos_id
       
       t.timestamps
     end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :rel_fragment_sub_topics
   resources :preferences
   resources :rel_topic_sub_topics
   resources :sub_topics

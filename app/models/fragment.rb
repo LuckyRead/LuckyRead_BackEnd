@@ -4,5 +4,7 @@ class Fragment < ApplicationRecord
     validates :content, length: {maximum: 50000}
     validates :source, length: {maximum: 250}
     validates :users_id, presence: true    
-    has_one :user
+    has_many :users
+    has_many :comments
+    has_many :sub_topics through: :rel_fragment_sub_topic
 end

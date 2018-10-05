@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_04_212941) do
+ActiveRecord::Schema.define(version: 2018_10_05_214127) do
 
   create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "city_name", null: false
@@ -44,8 +44,10 @@ ActiveRecord::Schema.define(version: 2018_10_04_212941) do
     t.integer "score"
     t.string "source", null: false
     t.bigint "users_id", null: false
+    t.bigint "photos_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["photos_id"], name: "fk_rails_c155e003fa"
     t.index ["users_id"], name: "index_fragments_on_users_id"
   end
 
@@ -59,13 +61,9 @@ ActiveRecord::Schema.define(version: 2018_10_04_212941) do
   end
 
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "users_id"
-    t.bigint "fragments_id"
     t.string "path", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["fragments_id"], name: "index_photos_on_fragments_id"
-    t.index ["users_id"], name: "index_photos_on_users_id"
   end
 
   create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -86,6 +84,15 @@ ActiveRecord::Schema.define(version: 2018_10_04_212941) do
     t.datetime "updated_at", null: false
     t.index ["fragments_id"], name: "index_reactions_on_fragments_id"
     t.index ["users_id"], name: "index_reactions_on_users_id"
+  end
+
+  create_table "rel_fragment_sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "fragments_id", null: false
+    t.bigint "sub_topics_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fragments_id"], name: "index_rel_fragment_sub_topics_on_fragments_id"
+    t.index ["sub_topics_id"], name: "index_rel_fragment_sub_topics_on_sub_topics_id"
   end
 
   create_table "rel_topic_sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -129,26 +136,30 @@ ActiveRecord::Schema.define(version: 2018_10_04_212941) do
     t.bigint "cities_id", null: false
     t.string "score"
     t.string "talk_to_us"
+    t.bigint "photos_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cities_id"], name: "index_users_on_cities_id"
+    t.index ["photos_id"], name: "fk_rails_9fc6692384"
   end
 
   add_foreign_key "cities", "countries", column: "countries_id"
   add_foreign_key "comments", "fragments", column: "fragments_id"
   add_foreign_key "comments", "users", column: "users_id"
+  add_foreign_key "fragments", "photos", column: "photos_id"
   add_foreign_key "fragments", "users", column: "users_id"
   add_foreign_key "friends", "users", column: "followed"
   add_foreign_key "friends", "users", column: "follower"
-  add_foreign_key "photos", "fragments", column: "fragments_id"
-  add_foreign_key "photos", "users", column: "users_id"
   add_foreign_key "preferences", "rel_topic_sub_topics", column: "rel_topic_sub_topics_id"
   add_foreign_key "preferences", "users", column: "users_id"
   add_foreign_key "reactions", "fragments", column: "fragments_id"
   add_foreign_key "reactions", "users", column: "users_id"
+  add_foreign_key "rel_fragment_sub_topics", "fragments", column: "fragments_id"
+  add_foreign_key "rel_fragment_sub_topics", "sub_topics", column: "sub_topics_id"
   add_foreign_key "rel_topic_sub_topics", "sub_topics", column: "sub_topics_id"
   add_foreign_key "rel_topic_sub_topics", "topics", column: "topics_id"
   add_foreign_key "responses", "comments", column: "comments_id"
   add_foreign_key "responses", "users", column: "users_id"
   add_foreign_key "users", "cities", column: "cities_id"
+  add_foreign_key "users", "photos", column: "photos_id"
 end
