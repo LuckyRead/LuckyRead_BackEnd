@@ -7,6 +7,7 @@ class CreateFragments < ActiveRecord::Migration[5.2]
       t.integer :score
       t.string :source, :null => false
       t.references :users, foreign_key: true, :null => false
+      t.bigint :photos_id
 
       t.timestamps
     end
