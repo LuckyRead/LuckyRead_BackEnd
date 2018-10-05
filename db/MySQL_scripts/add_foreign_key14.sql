@@ -1,1 +1,0 @@
-ALTER TABLE reaction_user_fragment ADD FOREIGN KEY (user_id) REFERENCES users(username);
