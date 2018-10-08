@@ -1,1 +1,0 @@
-ALTER TABLE preference ADD FOREIGN KEY (subtopic_id) REFERENCES subtopics(id_subtopic);

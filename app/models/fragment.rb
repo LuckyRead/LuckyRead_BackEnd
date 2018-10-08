@@ -6,6 +6,6 @@ class Fragment < ApplicationRecord
     validates :users_id, presence: true    
     has_many :users
     has_many :comments
-    has_many :sub_topics through: :rel_fragment_sub_topic
+    has_many :sub_topics, through: :rel_fragment_sub_topic
     has_one :photo
 end

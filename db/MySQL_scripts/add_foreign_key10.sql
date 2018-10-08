@@ -1,1 +1,0 @@
-ALTER TABLE preference ADD FOREIGN KEY (user_id) REFERENCES users(username);
