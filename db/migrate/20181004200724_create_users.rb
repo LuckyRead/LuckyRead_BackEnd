@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :username, :null => false
       t.string :name, :null => false
       t.string :lastname, :null => false
+      t.string :email, :null => false
       t.string :password_digest, :null => false
       t.references :cities, foreign_key: true, :null => false
       t.string :score
