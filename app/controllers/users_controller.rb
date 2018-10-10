@@ -1,12 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-
-  # GET /users
-  def index
-    @users = User.all
-
-    render json: @users
-  end
+  # authenticate_user is now a resource you can use on any method to make sure the client is authorized
+  before_action :authenticate_user,  only: [:auth]
 
   # GET /users/1
   def show
@@ -14,13 +9,13 @@ class UsersController < ApplicationController
   end
 
   # POST /users
-  def create
+  def signin
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      render json: @user, status: :create, msg: 'User created'}
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {status: :unprocessable_entity, msg: 'User NOT created'}
     end
   end
 
@@ -46,6 +41,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.fetch(:user, {})
+      params.require(:user).permit(:username, :password)
     end
 end
