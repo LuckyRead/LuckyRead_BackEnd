@@ -22,7 +22,6 @@ end
 User.populate 20 do |user|
     user.name = Faker::Name.first_name
     user.lastname = Faker::Name.last_name
-    user.email = Faker::Internet.email
     user.password = Faker::Internet.password
     user.score = Faker::Number.between(1, 10)
     user.talk_to_us = Faker::String.random
@@ -67,104 +66,100 @@ end
 10.times do
     id_countryS = Faker::Number.unique.number(5)
     Country.create(
-        id_country: id_countryS,
         country_name: Faker::Nation.capital_city
     )
-    id_cityS = Faker::Number.unique.number(5)
+    id_cityS = Faker::Address.city
     City.create(
-        id_city: id_cityS,
-        city_name: Faker::Address.city
+        city_name: id_cityS,
+        countries_id: id_countryS
     )
-    id_city_has_country = id_cityS.to_s + "|" + id_countryS.to_s
-    SQL_Query = "INSERT INTO `LuckyRead_BackEnd_development`.`city_has_country` (`city_id`, `country_id`, `id_city_has_country`) VALUES ('" + id_cityS + "','" + id_countryS + "','" + id_city_has_country + "');"
-    ActiveRecord::Base.connection.execute(SQL_Query)
+    #id_city_has_country = id_cityS.to_s + "|" + id_countryS.to_s
+    #SQL_Query = "INSERT INTO `LuckyRead_BackEnd_development`.`city_has_country` (`city_id`, `country_id`, `id_city_has_country`) VALUES ('" + id_cityS + "','" + id_countryS + "','" + id_city_has_country + "');"
+    #ActiveRecord::Base.connection.execute(SQL_Query)
     5.times do
         idtopicS = Faker::Number.unique.number(5)
         Topic.create(
-            idtopic: idtopicS,
-            name: Faker::Simpsons.quote,
+            topic_name: Faker::Simpsons.quote,
             score: Faker::Number.between(1, 100)
         )
 
         id_subtopicS = Faker::Number.unique.number(5)
-        Subtopic.create(
-            id_subtopic: id_subtopicS,
-            name: Faker::Simpsons.quote
+        SubTopic.create(
+            sub_topic_name: Faker::Simpsons.quote
         )
 
-        id_rel_topic_subtopic = idtopicS.to_s + "|" + id_subtopicS.to_s
-        SQL_Query = "INSERT INTO `LuckyRead_BackEnd_development`.`rel_topic_subtopic` (`topic_id`, `subtopic_id`,`id_rel_topic_subtopic`) VALUES ('" + idtopicS + "','" + id_subtopicS + "','" + id_rel_topic_subtopic + "');"
-        ActiveRecord::Base.connection.execute(SQL_Query)
-        usernameS = Faker::Name.unique.first_name
-        User.create(
-            username: usernameS,
-            name: Faker::Name.first_name,
-            lastname: Faker::Name.last_name,
-            email: Faker::Internet.email,
-            password: Faker::Internet.password,
-            score: Faker::Number.between(1, 10),
-            talk_to_us: Faker::HarryPotter.quote,
-            Id_rel_country_city: id_city_has_country
-        )
-
-        usernameSTWO = Faker::Name.unique.first_name
-        User.create(
-            username: usernameSTWO,
-            name: Faker::Name.first_name,
-            lastname: Faker::Name.last_name,
-            email: Faker::Internet.email,
-            password: Faker::Internet.password,
-            score: Faker::Number.between(1, 10),
-            talk_to_us: Faker::HarryPotter.quote,
-            Id_rel_country_city: id_city_has_country
-        )
-        followed= usernameS
-        follower= usernameSTWO
-        id_fiend = followed.to_s + "|" + follower.to_s
-        SQL_Query = "INSERT INTO `LuckyRead_BackEnd_development`.`friend` (`followed`, `follower`,`id_fiend`) VALUES ('" + followed + "','" + follower + "','" + id_fiend + "');"
-        ActiveRecord::Base.connection.execute(SQL_Query)
-
-        id_preference = id_subtopicS.to_s + "|" + usernameS
-        SQL_Query = "INSERT INTO `LuckyRead_BackEnd_development`.`preference` (`subtopic_id`, `user_id`,`score`,`id_preference`) VALUES ('" + id_subtopicS + "','" + usernameS + "','" + (Faker::Number.between(1, 10)).to_s + "','" + id_preference + "');"
-        ActiveRecord::Base.connection.execute(SQL_Query)
-
-        idfragmentS = Faker::Number.unique.number(5)
         Fragment.create(
-            idfragment: idfragmentS,
+            #idfragment: idfragmentS,
             title: Faker::Food.ingredient,
             introduction: Faker::Food.description,
             content: Faker::Food.description,
             source: Faker::Internet.url,
-            score: Faker::Number.between(1, 10),
-            user_iduser: usernameS
+            score: Faker::Number.between(1, 10)
+            #user_iduser: usernameS
         )
 
-        id_reaction = usernameS + "|" + idfragmentS.to_s
-        SQL_Query = "INSERT INTO `LuckyRead_BackEnd_development`.`reaction_user_fragment` (`user_id`, `fragment_id`,`reaction`,`id_reaction`) VALUES ('" + usernameS + "','" + idfragmentS + "','" + (Faker::Food.ingredient).to_s + "','" + id_reaction + "');"
-        ActiveRecord::Base.connection.execute(SQL_Query)
-
-        idcommentS = Faker::Number.unique.number(5)
         Comment.create(
-            idcomment: idcommentS,
-            message: Faker::HarryPotter.quote,
-            fragment_idfragment: idfragmentS,
-            date: Faker::Date.backward(14),
-            user_iduser: usernameS
+            message: Faker::HarryPotter.quote
         )
 
         Response.create(
-            idresponse: Faker::Number.unique.number(5),
-            date: Faker::Date.backward(14),
             message: Faker::HarryPotter.quote,
-            comment_idcomment: idcommentS,
-            user_username: usernameS
+            datetime: Faker::Date.backward(14)
         )
             
         Photo.create(
-            idphoto: Faker::Number.unique.number(5),
-            path: Faker::Internet.url,
-            user_username: usernameS,
-            fragment_idfragment: idfragmentS,
+            path: Faker::Internet.url
         )
+
+        #id_rel_topic_subtopic = idtopicS.to_s + "|" + id_subtopicS.to_s
+        #SQL_Query = "INSERT INTO `LuckyRead_BackEnd_development`.`rel_topic_subtopic` (`topic_id`, `subtopic_id`,`id_rel_topic_subtopic`) VALUES ('" + idtopicS + "','" + id_subtopicS + "','" + id_rel_topic_subtopic + "');"
+        #ActiveRecord::Base.connection.execute(SQL_Query)
+        usernameS = Faker::Name.unique.first_name
+        User.new(
+            username: usernameS,
+            name: Faker::Name.first_name,
+            lastname: Faker::Name.last_name,
+            #email: Faker::Internet.email,
+            password_digest: Faker::Internet.password,
+            score: Faker::Number.between(1, 10),
+            talk_to_us: Faker::HarryPotter.quote
+            #Id_rel_country_city: id_city_has_country
+        )
+=begin
+        usernameSTWO = Faker::Name.unique.first_name            
+        Photo.new(
+            path: Faker::Internet.url
+        ).save
+
+        User.new(
+            username: usernameSTWO,
+            name: Faker::Name.first_name,
+            lastname: Faker::Name.last_name,
+            email: Faker::Internet.email,
+            password_digest: Faker::Internet.password,
+            score: Faker::Number.between(1, 10),
+            talk_to_us: Faker::HarryPotter.quote
+            #Id_rel_country_city: id_city_has_country
+        ).save
+        
+=end
+        #followed= usernameS
+        #follower= usernameSTWO
+        #id_fiend = followed.to_s + "|" + follower.to_s
+        #SQL_Query = "INSERT INTO `LuckyRead_BackEnd_development`.`friend` (`followed`, `follower`,`id_fiend`) VALUES ('" + followed + "','" + follower + "','" + id_fiend + "');"
+        #ActiveRecord::Base.connection.execute(SQL_Query)
+
+        #id_preference = id_subtopicS.to_s + "|" + usernameS
+        #SQL_Query = "INSERT INTO `LuckyRead_BackEnd_development`.`preference` (`subtopic_id`, `user_id`,`score`,`id_preference`) VALUES ('" + id_subtopicS + "','" + usernameS + "','" + (Faker::Number.between(1, 10)).to_s + "','" + id_preference + "');"
+        #ActiveRecord::Base.connection.execute(SQL_Query)
+
+        #idfragmentS = Faker::Number.unique.number(5)
+        
+
+        #id_reaction = usernameS + "|" + idfragmentS.to_s
+        #SQL_Query = "INSERT INTO `LuckyRead_BackEnd_development`.`reaction_user_fragment` (`user_id`, `fragment_id`,`reaction`,`id_reaction`) VALUES ('" + usernameS + "','" + idfragmentS + "','" + (Faker::Food.ingredient).to_s + "','" + id_reaction + "');"
+        #ActiveRecord::Base.connection.execute(SQL_Query)
+
+        #idcommentS = Faker::Number.unique.number(5)
     end
 end

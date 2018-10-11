@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
     t.string "username", null: false
     t.string "name", null: false
     t.string "lastname", null: false
-    t.string "password", null: false
+    t.string "password_digest", null: false
     t.bigint "cities_id", null: false
     t.string "score"
     t.string "talk_to_us"
