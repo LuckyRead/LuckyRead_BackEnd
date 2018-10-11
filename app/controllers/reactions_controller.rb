@@ -3,7 +3,7 @@ class ReactionsController < ApplicationController
 
   # GET /reactions
   def index
-    @reactions = Reaction.all
+    @reactions = Reaction.all.paginate(page: params[:page], per_page: 10)
 
     render json: @reactions
   end

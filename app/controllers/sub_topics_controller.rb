@@ -3,7 +3,7 @@ class SubTopicsController < ApplicationController
 
   # GET /sub_topics
   def index
-    @sub_topics = SubTopic.all
+    @sub_topics = SubTopic.all.paginate(page: params[:page], per_page: 10)
 
     render json: @sub_topics
   end

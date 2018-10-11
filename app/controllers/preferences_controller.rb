@@ -3,7 +3,7 @@ class PreferencesController < ApplicationController
 
   # GET /preferences
   def index
-    @preferences = Preference.all
+    @preferences = Preference.all.paginate(page: params[:page], per_page: 10)
 
     render json: @preferences
   end
