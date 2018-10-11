@@ -1,14 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  # authenticate_user is now a resource you can use on any method to make sure the client is authorized
-  before_action :authenticate_user,  only: [:auth]
+  before_action :authenticate_user,  only: [:current, :email]
 
   # GET /users/1
   def show
     render json: @user
   end
-
-  # POST /users
+  
   def signin
     user = User.new(user_params)
     if user.save
@@ -16,6 +14,14 @@ class UsersController < ApplicationController
     else
       render json: {status: :unprocessable_entity, error: user.errors}
     end
+  end
+
+  def current
+    render json: {current_user: current_user.username}, status: 200
+  end
+
+  def email
+    render json: {email: User.find_by(username: params[:username]).email}, status: 200
   end
 
   # PATCH/PUT /users/1

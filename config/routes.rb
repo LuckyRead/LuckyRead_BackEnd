@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  post 'user_token' => 'user_token#create'
-  post 'login' => 'users#login'
+  post 'login' => 'user_token#create'
   post 'signin' => 'users#signin'
+  get 'users/current' => 'users#current'
+  post 'users/email' => 'users#email'
   resources :rel_fragment_sub_topics
   resources :preferences
   resources :rel_topic_sub_topics
@@ -16,5 +17,4 @@ Rails.application.routes.draw do
   resources :users
   resources :countries
   resources :cities
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
