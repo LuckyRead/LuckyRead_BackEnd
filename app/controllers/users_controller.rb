@@ -1,12 +1,20 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_action :authenticate_user,  only: [:current, :email]
+  before_action :authenticate_user,  only: [:auth]
+
+  # GET /users
+  def index
+    @users = User.all.paginate(page: params[:page], per_page: 10)
+
+    render json: @users
+  end
 
   # GET /users/1
   def show
     render json: @user
   end
-  
+
   def signin
     user = User.new(user_params)
     if user.save

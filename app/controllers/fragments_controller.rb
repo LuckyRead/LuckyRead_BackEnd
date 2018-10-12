@@ -3,7 +3,7 @@ class FragmentsController < ApplicationController
 
   # GET /fragments
   def index
-    @fragments = Fragment.all
+    @fragments = Fragment.all.paginate(page: params[:page], per_page: 10)
 
     render json: @fragments
   end

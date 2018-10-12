@@ -3,7 +3,7 @@ class ResponsesController < ApplicationController
 
   # GET /responses
   def index
-    @responses = Response.all
+    @responses = Response.all.paginate(page: params[:page], per_page: 10)
 
     render json: @responses
   end

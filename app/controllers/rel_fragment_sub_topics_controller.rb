@@ -3,7 +3,7 @@ class RelFragmentSubTopicsController < ApplicationController
 
   # GET /rel_fragment_sub_topics
   def index
-    @rel_fragment_sub_topics = RelFragmentSubTopic.all
+    @rel_fragment_sub_topics = RelFragmentSubTopic.all.paginate(page: params[:page], per_page: 10)
 
     render json: @rel_fragment_sub_topics
   end

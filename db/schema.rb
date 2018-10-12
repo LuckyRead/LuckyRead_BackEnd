@@ -134,7 +134,10 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
     t.string "lastname", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
+<<<<<<< HEAD
     t.string "user_token"
+=======
+>>>>>>> feature/8-populate-database
     t.bigint "cities_id", null: false
     t.string "score"
     t.string "talk_to_us"
