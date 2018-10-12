@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   post 'login' => 'user_token#create'
   post 'signin' => 'users#signin'
   get 'users/current' => 'users#current'
-  post 'users/email' => 'users#email'
   resources :rel_fragment_sub_topics
   resources :preferences
   resources :rel_topic_sub_topics

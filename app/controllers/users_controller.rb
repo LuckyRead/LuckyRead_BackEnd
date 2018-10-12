@@ -28,10 +28,6 @@ class UsersController < ApplicationController
     render json: {current_user: current_user.username}, status: 200
   end
 
-  def email
-    render json: {email: User.find_by(username: params[:username]).email}, status: 200
-  end
-
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
