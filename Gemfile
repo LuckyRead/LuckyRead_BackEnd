@@ -1,24 +1,17 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-<<<<<<< HEAD
-#ruby '2.3.5'
-=======
-ruby '2.3.3'
->>>>>>> feature/8-populate-database
+ruby '2.3.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
-gem 'wdm', '>= 0.1.0'
+#gem 'wdm', '>= 0.1.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
-<<<<<<< HEAD
 gem 'jwt'
-=======
 gem 'will_paginate', '~> 3.1.0'
->>>>>>> feature/8-populate-database
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
