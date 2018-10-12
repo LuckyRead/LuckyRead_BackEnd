@@ -13,7 +13,7 @@
 
 class Comment < ApplicationRecord
     validates :message, presence: true, length: {maximum: 25000}
-    belongs_to :user
-    belongs_to :fragment
+    belongs_to :user, optional: true
+    belongs_to :fragment, optional: true
     has_many :responses
 end

@@ -22,7 +22,7 @@ class User < ApplicationRecord
     validates :password_digest, presence: true, length: {maximum: 250}
     validates :score, presence: false
     validates :talk_to_us, length: {maximum: 10000}
-    belongs_to :city
+    belongs_to :city, optional: true
     has_many :fragments, through: :reaction
     has_many :sub_topics, through: :preference
     has_many :comments

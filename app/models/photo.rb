@@ -10,6 +10,6 @@
 
 class Photo < ApplicationRecord
     validates :path, presence: true
-    belongs_to :user
-    belongs_to :fragment
+    belongs_to :user, optional: true
+    belongs_to :fragment, optional: true
 end

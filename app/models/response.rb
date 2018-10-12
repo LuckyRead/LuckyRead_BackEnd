@@ -14,5 +14,5 @@
 class Response < ApplicationRecord
     validates :datetime, presence: true
     validates :message, presence: true, length: {maximum: 1000}
-    belongs_to :comment
+    belongs_to :comment, optional: true
 end
