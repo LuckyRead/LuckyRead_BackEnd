@@ -3,7 +3,7 @@ class CountriesController < ApplicationController
 
   # GET /countries
   def index
-    @countries = Country.all
+    @countries = Country.all.paginate(page: params[:page], per_page: 10)
 
     render json: @countries
   end

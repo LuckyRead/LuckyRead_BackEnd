@@ -1,7 +1,17 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+<<<<<<< HEAD
   # authenticate_user is now a resource you can use on any method to make sure the client is authorized
   before_action :authenticate_user,  only: [:auth]
+=======
+
+  # GET /users
+  def index
+    @users = User.all.paginate(page: params[:page], per_page: 10)
+
+    render json: @users
+  end
+>>>>>>> feature/8-populate-database
 
   # GET /users/1
   def show
