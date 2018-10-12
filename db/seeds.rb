@@ -37,7 +37,7 @@
                     name: Faker::Name.first_name,
                     lastname: Faker::Name.last_name,
                     email: Faker::Internet.email,
-                    password_digest: Faker::Internet.password,
+                    password: Faker::Internet.password,
                     cities_id: @city.id,
                     score: Faker::Number.between(1, 10),
                     talk_to_us: Faker::HarryPotter.quote,
@@ -48,7 +48,7 @@
                     name: Faker::Name.first_name,
                     lastname: Faker::Name.last_name,
                     email: Faker::Internet.email,
-                    password_digest: Faker::Internet.password,
+                    password: Faker::Internet.password,
                     cities_id: @city.id,
                     score: Faker::Number.between(1, 10),
                     talk_to_us: Faker::HarryPotter.quote
