@@ -14,6 +14,24 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  def email_exist
+    @user = User.find_by(email: params[:email])
+    if @user.nil?
+      render json: {msj: "Email not taken"}, status: :ok
+    else
+      render json: {msj: "Email taken"}, status: :conflict
+    end
+  end
+
+  def user_exist
+    @user = User.find_by(username: params[:username])
+    if @user.nil?
+      render json: {msj: "User not taken"}, status: :ok
+    else
+      render json: {msj: "User taken"}, status: :conflict
+    end
+  end
+
   def signup
     user = User.new(user_params)
     if user.save

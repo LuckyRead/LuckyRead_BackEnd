@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   post 'signup' => 'users#signup'
   get 'users/current' => 'users#current'
   post 'myfriend' => 'friends#myfriend'
+  post 'users/email_exist' => 'users#email_exist'
+  post 'users/user_exist' => 'users#user_exist'
   #resources :rel_fragment_sub_topics
   #resources :preferences
   #resources :rel_topic_sub_topics
