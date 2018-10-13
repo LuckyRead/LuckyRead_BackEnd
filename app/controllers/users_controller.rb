@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:current, :email]
-  before_action :authenticate_user,  only: [:auth]
+  before_action :authenticate_user,  only: [:current, :update, :destroy]
 
   # GET /users
   def index
@@ -15,12 +14,12 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-  def signin
+  def signup
     user = User.new(user_params)
     if user.save
       render json: user, status: :created, msg: 'User created'
     else
-      render json: {status: :unprocessable_entity, error: user.errors}
+      render json: {status: :unprocessable_entity, error: user.errors}, status: :unprocessable_entity
     end
   end
 
