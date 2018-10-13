@@ -1,16 +1,17 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :update, :destroy]
-
-  # GET /friends
-  def index
-    @friends = Friend.all.paginate(page: params[:page], per_page: 10)
-
-    render json: @friends
-  end
+  before_action :authenticate_user,  only: [:myfriend, :create, :update, :destroy]
 
   # GET /friends/1
   def show
     render json: @friend
+  end
+
+  def myfriend
+    @user = User.find_by(username: params[:username])
+    @friends = Friend.where(:follower => @user.id)
+    @myFriend = User.where(:id => @friends)
+    render json: @myFriend, status: :ok
   end
 
   # POST /friends

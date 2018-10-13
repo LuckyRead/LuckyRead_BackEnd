@@ -1,5 +1,6 @@
 class FragmentsController < ApplicationController
   before_action :set_fragment, only: [:show, :update, :destroy]
+  before_action :authenticate_user,  only: [:create, :update, :destroy]
 
   # GET /fragments
   def index
@@ -46,6 +47,6 @@ class FragmentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def fragment_params
-      params.fetch(:fragment, {})
+      params[:fragment].permit(:title, :introduction, :content, :source, :users_id)
     end
 end
