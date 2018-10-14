@@ -61,11 +61,18 @@
                         sub_topics_id: subtopic.id
                     )
 
+                    SubTopicsUser.create!(
+                        user_id: user.id,
+                        sub_topic_id: subtopic.id,
+                        score: Faker::Number.between(1, 10)
+                    )
+
                     Preference.create!(
                         user_id: user.id,
                         sub_topic_id: subtopic.id,
                         score: Faker::Number.between(1, 10)
                     )
+
                     fragment = Fragment.create!(
                         title: Faker::Food.ingredient,
                         introduction: Faker::Food.description,
