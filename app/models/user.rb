@@ -38,6 +38,22 @@ class User < ApplicationRecord
         return User.order(score: :desc).take(5)
     end
     
+    def self.changepreferencesadd(id, preferences[])
+        preferences.length.times do
+            SubTopicsUser.create!(
+                        user_id: id,
+                        sub_topic_id: preferences[i].id,
+                        score: 0
+                    )
+        end
+    end
+
+    def self.changepreferencesremove(id, preferences[])
+        preferences.length.times do
+            SubTopicsUser.where("SubTopicsUser.user_id = ? and SubTopicsUser.sub_topic_id = ? ", id, preferences[i].id)
+        end
+    end
+
 end
 
 
