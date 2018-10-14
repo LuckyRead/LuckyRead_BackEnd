@@ -17,6 +17,10 @@ class User < ApplicationRecord
     def self.preferencessub_topic_name (id)
         return User.joins(:sub_topics).where("users.id = ?",id).pluck(:username, :sub_topic_name)
     end
+    
+    def self.preferencestopic_name (id)
+        return User.joins(sub_topics: :topics).where("users.id = ?",id).pluck(:username, :topic_name)
+    end
 
     def self.fiends (id)
         return User.joins(:users).where("user.id = ?",id)
@@ -37,7 +41,7 @@ class User < ApplicationRecord
     def self.bestuser
         return User.order(score: :desc).take(5)
     end
-    
+=begin    
     def self.changepreferencesadd(id, preferences[])
         @i = 0
         preferences.length.times do
@@ -54,10 +58,10 @@ class User < ApplicationRecord
         @i = 0
         preferences.length.times do
             SubTopicsUser.where("SubTopicsUser.user_id = ? and SubTopicsUser.sub_topic_id = ? ", id, preferences[i].id)
+            i += 1
         end
-        i += 0
     end
-
+=end
 end
 
 

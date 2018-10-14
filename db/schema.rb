@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_14_152130) do
+ActiveRecord::Schema.define(version: 2018_10_14_211843) do
 
   create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "city_name", null: false
@@ -121,10 +121,21 @@ ActiveRecord::Schema.define(version: 2018_10_14_152130) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sub_topics_topics", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "topic_id"
+    t.bigint "sub_topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sub_topic_id"], name: "index_sub_topics_topics_on_sub_topic_id"
+    t.index ["topic_id"], name: "index_sub_topics_topics_on_topic_id"
+  end
+
   create_table "sub_topics_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "sub_topic_id"
     t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["sub_topic_id"], name: "index_sub_topics_users_on_sub_topic_id"
     t.index ["user_id"], name: "index_sub_topics_users_on_user_id"
   end

@@ -60,6 +60,11 @@
                         topics_id: topic.id,
                         sub_topics_id: subtopic.id
                     )
+                    
+                    SubTopicsTopic.create!(
+                        topic_id: topic.id,
+                        sub_topic_id: subtopic.id
+                    )
 
                     SubTopicsUser.create!(
                         user_id: user.id,
@@ -99,7 +104,7 @@
                     fragments_id: fragment.id,
                     sub_topics_id: subtopic.id
                     )
-
+                    
                     response = Response.create!(
                         message: Faker::HarryPotter.quote,
                         datetime: Faker::Date.backward(14),
