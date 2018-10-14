@@ -21,6 +21,10 @@ class User < ApplicationRecord
     def self.fiends (id)
         return User.joins(users).where("user.id = ?",id)
     end
+
+    def self.comments (id)
+        return User.joins(:comments).where("users.id = ?",id)
+    end
 end
 
 
