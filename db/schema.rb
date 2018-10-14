@@ -68,11 +68,11 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
 
   create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "users_id", null: false
-    t.bigint "rel_topic_sub_topics_id", null: false
+    t.bigint "sub_topics_id", null: false
     t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["rel_topic_sub_topics_id"], name: "index_preferences_on_rel_topic_sub_topics_id"
+    t.index ["sub_topics_id"], name: "index_preferences_on_sub_topics_id"
     t.index ["users_id"], name: "index_preferences_on_users_id"
   end
 
@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
   add_foreign_key "fragments", "users", column: "users_id"
   add_foreign_key "friends", "users", column: "followed"
   add_foreign_key "friends", "users", column: "follower"
-  add_foreign_key "preferences", "rel_topic_sub_topics", column: "rel_topic_sub_topics_id"
+  add_foreign_key "preferences", "sub_topics", column: "sub_topics_id"
   add_foreign_key "preferences", "users", column: "users_id"
   add_foreign_key "reactions", "fragments", column: "fragments_id"
   add_foreign_key "reactions", "users", column: "users_id"

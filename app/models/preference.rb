@@ -11,4 +11,10 @@
 #
 
 class Preference < ApplicationRecord
+    belongs_to :sub_topics
+    bbelongs_to :users
+
+    def self.prefencejoinrel_topic
+        return Preference.joins(:sub_topics)
+    end
 end
