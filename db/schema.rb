@@ -23,12 +23,12 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "message", null: false
     t.datetime "datetime", null: false
-    t.bigint "users_id", null: false
-    t.bigint "fragments_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "fragment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["fragments_id"], name: "index_comments_on_fragments_id"
-    t.index ["users_id"], name: "index_comments_on_users_id"
+    t.index ["fragment_id"], name: "index_comments_on_fragment_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -146,8 +146,8 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
   end
 
   add_foreign_key "cities", "countries", column: "countries_id"
-  add_foreign_key "comments", "fragments", column: "fragments_id"
-  add_foreign_key "comments", "users", column: "users_id"
+  add_foreign_key "comments", "fragments"
+  add_foreign_key "comments", "users"
   add_foreign_key "fragments", "photos", column: "photos_id"
   add_foreign_key "fragments", "users", column: "users_id"
   add_foreign_key "friends", "users", column: "followed"

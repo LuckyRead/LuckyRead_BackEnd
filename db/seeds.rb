@@ -85,8 +85,8 @@
                     comment = Comment.create!(
                         message: Faker::HarryPotter.quote,
                         datetime: Faker::Date.backward(14),
-                        users_id: user.id,
-                        fragments_id: fragment.id
+                        user_id: user.id,
+                        fragment_id: fragment.id
                     )
                     RelFragmentSubTopic.create!(
                     fragments_id: fragment.id,
