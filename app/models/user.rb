@@ -22,9 +22,11 @@ class User < ApplicationRecord
         return User.joins(users).where("user.id = ?",id)
     end
 
-    def self.comments (id) #User's comments in a fragment specific
+    def self.comments (id) #User's comments in a fragment specific, return username, message and fragment's title
         return User.joins(comments: :fragment).where("users.id = ?",id).pluck(:username, :message, :title)
     end
+
+    
 end
 
 

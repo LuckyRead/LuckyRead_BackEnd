@@ -135,13 +135,13 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "user_token"
-    t.bigint "cities_id", null: false
+    t.bigint "city_id", null: false
     t.string "score"
     t.string "talk_to_us"
     t.bigint "photos_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cities_id"], name: "index_users_on_cities_id"
+    t.index ["city_id"], name: "index_users_on_city_id"
     t.index ["photos_id"], name: "fk_rails_9fc6692384"
   end
 
@@ -162,6 +162,6 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
   add_foreign_key "rel_topic_sub_topics", "topics", column: "topics_id"
   add_foreign_key "responses", "comments", column: "comments_id"
   add_foreign_key "responses", "users", column: "users_id"
-  add_foreign_key "users", "cities", column: "cities_id"
+  add_foreign_key "users", "cities"
   add_foreign_key "users", "photos", column: "photos_id"
 end
