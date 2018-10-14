@@ -30,7 +30,7 @@
                     lastname: Faker::Name.last_name,
                     email: Faker::Internet.email,
                     password: Faker::Internet.password,
-                    cities_id: @city.id,
+                    city_id: @city.id,
                     score: Faker::Number.between(1, 10),
                     talk_to_us: Faker::HarryPotter.quote,
                     photos_id: @photouser
@@ -41,7 +41,7 @@
                     lastname: Faker::Name.last_name,
                     email: Faker::Internet.email,
                     password: Faker::Internet.password,
-                    cities_id: @city.id,
+                    city_id: @city.id,
                     score: Faker::Number.between(1, 10),
                     talk_to_us: Faker::HarryPotter.quote
                 )
@@ -62,8 +62,8 @@
                     )
 
                     Preference.create!(
-                        users_id: user.id,
-                        sub_topics_id: subtopic.id,
+                        user_id: user.id,
+                        sub_topic_id: subtopic.id,
                         score: Faker::Number.between(1, 10)
                     )
                     fragment = Fragment.create!(

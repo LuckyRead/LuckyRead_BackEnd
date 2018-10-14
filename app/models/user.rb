@@ -7,7 +7,7 @@ class User < ApplicationRecord
     validates :score, presence: false
     validates :talk_to_us, length: {maximum: 10000}
     has_many :fragments, through: :reaction
-    has_many :sub_topics, :through => :preference
+    has_many :sub_topics, :through => :preferences
     has_many :comments
     has_many :responses
     has_one :photo
@@ -15,17 +15,28 @@ class User < ApplicationRecord
     has_many :users
 
     def self.preferencessub_topic_name (id)
-        return User.joins(:sub_topics).where("user.id = ?",id)
+        return User.joins(sub_topics: :preferences).where("user.id = ?",id)
     end
 
     def self.fiends (id)
-        return User.joins(users).where("user.id = ?",id)
+        return User.joins(:users).where("user.id = ?",id)
     end
 
     def self.comments (id) #User's comments in a fragment specific, return username, message and fragment's title
         return User.joins(comments: :fragment).where("users.id = ?",id).pluck(:username, :message, :title)
     end
 
+    def self.checkusername (username)
+        return User.where("users.username = ?", username)
+    end
+
+    def self.checkemail (email)
+        return User.where("users.email = ?", email)
+    end
+
+    def self.bestuser
+        return User.order(score: :desc).take(5)
+    end
     
 end
 

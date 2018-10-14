@@ -14,7 +14,7 @@ class City < ApplicationRecord
     belongs_to :country, optional: true
     has_many :users
 
-    def self.Userlives (id)
+    def self.Userlives (id)# Return City where lives user
         return City.joins(:users).where("users.id = ?",id).pluck(:username, :city_name)
     end
 end
