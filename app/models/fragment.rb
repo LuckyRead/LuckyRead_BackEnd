@@ -29,8 +29,8 @@ class Fragment < ApplicationRecord
         return Fragment.order(score: :desc).take(5)
     end
 
-    def self.Fragment (id)
-        return User.where("fragments.id = ?", id)
+    def self.Fragment (id) #Get 1
+        return Fragment.joins("INNER JOIN `photos` ON `photos`.`fragment_id` = `fragments`.`photos_id`").where("fragments.id = ?", id).pluck(:id, :title, :introduction, :content, :score, :source, :created_at, :updated_at, :path)
     end
 
     def self.Fragmentsubtopic (id)

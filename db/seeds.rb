@@ -20,8 +20,12 @@
                 @photouser
                 @photofragmen
                 if photo.id%2==0
+                    photo.user_id = photo.id
+                    photo.save
                     @photouser = photo.id
                 else
+                    photo.fragment_id = photo.id
+                    photo.save
                     @photofragmen = photo.id
                 end
                 user = User.create!(

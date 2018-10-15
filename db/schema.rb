@@ -71,8 +71,12 @@ ActiveRecord::Schema.define(version: 2018_10_15_035040) do
 
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "path", null: false
+    t.bigint "fragment_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["fragment_id"], name: "index_photos_on_fragment_id"
+    t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
   create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
