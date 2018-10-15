@@ -1,0 +1,2 @@
+class FragmentsSubTopic < ApplicationRecord
+end

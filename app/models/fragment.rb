@@ -22,6 +22,20 @@ class Fragment < ApplicationRecord
     validates :users_id, presence: true    
     has_many :users
     has_many :comments
-    has_many :sub_topics, through: :rel_fragment_sub_topic
+    has_and_belongs_to_many :sub_topics#, through: :rel_fragment_sub_topic
     has_one :photo
+
+    def self.bestfragment
+        return Fragment.order(score: :desc).take(5)
+    end
+
+    def self.Fragment (id)
+        return User.where("fragments.id = ?", id)
+    end
+
+    def self.Fragmentsubtopic (id)
+        return Fragment.joins(sub_topics: :users).where("fragments.id = ?",id)
+    end
+
+
 end

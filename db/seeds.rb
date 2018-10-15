@@ -101,8 +101,13 @@
                         fragment_id: fragment.id
                     )
                     RelFragmentSubTopic.create!(
-                    fragments_id: fragment.id,
-                    sub_topics_id: subtopic.id
+                        fragments_id: fragment.id,
+                        sub_topics_id: subtopic.id
+                    )
+
+                    FragmentsSubTopic.create!(
+                        fragment_id: fragment.id,
+                        sub_topic_id: subtopic.id
                     )
                     
                     response = Response.create!(
