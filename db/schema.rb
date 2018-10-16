@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_035040) do
     t.index ["users_id"], name: "index_fragments_on_users_id"
   end
 
-  create_table "fragments_sub_topics", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "fragments_sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "fragment_id"
     t.bigint "sub_topic_id"
     t.datetime "created_at", null: false
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_035040) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sub_topics_topics", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sub_topics_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "topic_id"
     t.bigint "sub_topic_id"
     t.datetime "created_at", null: false

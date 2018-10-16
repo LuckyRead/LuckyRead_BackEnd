@@ -25,12 +25,24 @@ class UsersController < ApplicationController
 
   def preferences_sub_topic
     @user1 = User.find_by(username: params[:username])
-    render json: {topic_name: User.preferencessub_topic_name(@user1.id)}, status: :ok
+    @sub_topics = User.preferencessub_topic_name(@user1.id)
+    array = []
+    @sub_topics.each do |user, sub_topic_name|
+      hash1 = {:sub_topic_id => SubTopic.find_by(sub_topic_name: sub_topic_name).id, :sub_topic_name => sub_topic_name}
+      array.push(hash1)
+    end
+    render json: {sub_topics: array}, status: :ok
   end
 
   def preferences_topic
     @user1 = User.find_by(username: params[:username])
-    render json: {topic_name: User.preferencestopic_name(@user1.id)}, status: :ok
+    @topics = User.preferencestopic_name(@user1.id)
+    array = []
+    @topics.each do |user, topic_name|
+      hash1 = {:topic_id => Topic.find_by(topic_name: topic_name).id, :topic_name => topic_name}
+      array.push(hash1)
+    end
+    render json: {topics: array}, status: :ok
   end
 
   def user_exist
