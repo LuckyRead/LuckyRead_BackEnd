@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:current, :update, :destroy]
+  before_action :authenticate_user,  only: [:current, :update, :destroy, :preferences]
 
   # GET /users
   def index
@@ -21,6 +21,11 @@ class UsersController < ApplicationController
     else
       render json: {msj: "Email taken"}, status: :conflict
     end
+  end
+
+  def preferences
+    @user1 = User.find_by(username: params[:username])
+    render json: {topic_name: User.preferencestopic_name(@user1.id)}, status: :ok
   end
 
   def user_exist
@@ -67,6 +72,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params[:user].permit(:username, :password, :name, :lastname, :email, :password, :cities_id)
+      params[:user].permit(:username, :password, :name, :lastname, :email, :password, :city_id)
     end
 end

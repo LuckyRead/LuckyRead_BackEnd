@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  post 'login' => 'user_token#create'
-  post 'signup' => 'users#signup'
-  get 'users/current' => 'users#current'
-  post 'myfriend' => 'friends#myfriend'
-  post 'users/email_exist' => 'users#email_exist'
-  post 'users/user_exist' => 'users#user_exist'
+  post 'api/login' => 'user_token#create'
+  post 'api/signup' => 'users#signup'
+  get  'api/users/current' => 'users#current'
+  get  'api/myfriend/:username' => 'friends#myfriend'
+  post 'api/users/email_exist' => 'users#email_exist'
+  post 'api/users/user_exist' => 'users#user_exist'
+  post 'api/users/preferences' => 'users#preferences'
   #resources :rel_fragment_sub_topics
   #resources :preferences
   #resources :rel_topic_sub_topics
