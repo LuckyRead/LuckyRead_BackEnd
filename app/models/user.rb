@@ -19,7 +19,7 @@ class User < ApplicationRecord
     end
     
     def self.preferencestopic_name (id)
-        return User.joins(sub_topics: :topics).where("users.id = ?",id).pluck(:username, :topic_name)
+        return User.joins(sub_topics: :topics).where("users.id = ?",id).pluck(:username, :topic_name).uniq
     end
 
     def self.fiends (id)
