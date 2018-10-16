@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_035040) do
     t.index ["topic_id"], name: "index_sub_topics_topics_on_topic_id"
   end
 
-  create_table "sub_topics_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sub_topics_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "sub_topic_id"
     t.integer "score"
