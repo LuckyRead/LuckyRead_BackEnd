@@ -1,4 +1,4 @@
-10.times do
+5.times do
     country = Country.create!(
         country_name: Faker::Nation.capital_city
     )
@@ -13,23 +13,19 @@
                 topic_name: Faker::Simpsons.quote,
                 score: Faker::Number.between(1, 100)
             )
-            3.times do
-                subtopic = SubTopic.create!(
-                    sub_topic_name: Faker::Simpsons.quote
-                )
-                reltopic = RelTopicSubTopic.create!(
-                    topics_id: topic.id,
-                    sub_topics_id: subtopic.id
-                )
-                
+            3.times do                
                 photo = Photo.create!(
                     path: Faker::Internet.url
                 )
                 @photouser
                 @photofragmen
                 if photo.id%2==0
+                    photo.user_id = photo.id
+                    photo.save
                     @photouser = photo.id
                 else
+                    photo.fragment_id = photo.id
+                    photo.save
                     @photofragmen = photo.id
                 end
                 user = User.create!(
@@ -38,7 +34,7 @@
                     lastname: Faker::Name.last_name,
                     email: Faker::Internet.email,
                     password: Faker::Internet.password,
-                    cities_id: @city.id,
+                    city_id: @city.id,
                     score: Faker::Number.between(1, 10),
                     talk_to_us: Faker::HarryPotter.quote,
                     photos_id: @photouser
@@ -49,7 +45,7 @@
                     lastname: Faker::Name.last_name,
                     email: Faker::Internet.email,
                     password: Faker::Internet.password,
-                    cities_id: @city.id,
+                    city_id: @city.id,
                     score: Faker::Number.between(1, 10),
                     talk_to_us: Faker::HarryPotter.quote
                 )
@@ -59,44 +55,72 @@
                     followed: user2.id
                 )
 
-                Preference.create!(
-                    users_id: user.id,
-                    rel_topic_sub_topics_id: reltopic.id,
-                    score: Faker::Number.between(1, 10)
-                )
+                3.times do
+                    subtopic = SubTopic.create!(
+                        sub_topic_name: Faker::Simpsons.quote
+                    )
 
-                fragment = Fragment.create!(
-                    title: Faker::Food.ingredient,
-                    introduction: Faker::Food.description,
-                    content: Faker::Food.description,
-                    source: Faker::Internet.url,
-                    score: Faker::Number.between(1, 10),
-                    users_id: user.id,
-                    photos_id: @photofragmen
-                )
+                    reltopic = RelTopicSubTopic.create!(
+                        topics_id: topic.id,
+                        sub_topics_id: subtopic.id
+                    )
+                    
+                    SubTopicsTopic.create!(
+                        topic_id: topic.id,
+                        sub_topic_id: subtopic.id
+                    )
+
+                    SubTopicsUser.create!(
+                        user_id: user.id,
+                        sub_topic_id: subtopic.id,
+                        score: Faker::Number.between(1, 10)
+                    )
+
+                    Preference.create!(
+                        user_id: user.id,
+                        sub_topic_id: subtopic.id,
+                        score: Faker::Number.between(1, 10)
+                    )
+
+                    fragment = Fragment.create!(
+                        title: Faker::Food.ingredient,
+                        introduction: Faker::Food.description,
+                        content: Faker::Food.description,
+                        source: Faker::Internet.url,
+                        score: Faker::Number.between(1, 10),
+                        users_id: user.id,
+                        photos_id: @photofragmen
+                    )
                 
-                Reaction.create!(
-                    users_id: user.id,
-                    fragments_id: fragment.id,
-                    reaction: Faker::Zelda.character
-                )
+                    Reaction.create!(
+                        users_id: user.id,
+                        fragments_id: fragment.id,
+                        reaction: Faker::Zelda.character
+                    )
 
-                RelFragmentSubTopic.create!(
-                    fragments_id: fragment.id,
-                    sub_topics_id: subtopic.id
-                )
-                comment = Comment.create!(
-                    message: Faker::HarryPotter.quote,
-                    datetime: Faker::Date.backward(14),
-                    users_id: user.id,
-                    fragments_id: fragment.id
-                )
-                response = Response.create!(
-                    message: Faker::HarryPotter.quote,
-                    datetime: Faker::Date.backward(14),
-                    comments_id: comment.id,
-                    users_id: user.id
-                )
+                    comment = Comment.create!(
+                        message: Faker::HarryPotter.quote,
+                        datetime: Faker::Date.backward(14),
+                        user_id: user.id,
+                        fragment_id: fragment.id
+                    )
+                    RelFragmentSubTopic.create!(
+                        fragments_id: fragment.id,
+                        sub_topics_id: subtopic.id
+                    )
+
+                    FragmentsSubTopic.create!(
+                        fragment_id: fragment.id,
+                        sub_topic_id: subtopic.id
+                    )
+                    
+                    response = Response.create!(
+                        message: Faker::HarryPotter.quote,
+                        datetime: Faker::Date.backward(14),
+                        comments_id: comment.id,
+                        users_id: user.id
+                    )
+                end                
             end         
         end
     end

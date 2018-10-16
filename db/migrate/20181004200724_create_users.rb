@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :email, :null => false
       t.string :password_digest, :null => false
       t.string :user_token
-      t.references :cities, foreign_key: true, :null => false
+      t.references :city, foreign_key: true, :null => false
       t.string :score
       t.string :talk_to_us
       t.bigint :photos_id

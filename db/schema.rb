@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_214127) do
+ActiveRecord::Schema.define(version: 2018_10_15_035040) do
 
   create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "city_name", null: false
@@ -23,12 +23,12 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "message", null: false
     t.datetime "datetime", null: false
-    t.bigint "users_id", null: false
-    t.bigint "fragments_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "fragment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["fragments_id"], name: "index_comments_on_fragments_id"
-    t.index ["users_id"], name: "index_comments_on_users_id"
+    t.index ["fragment_id"], name: "index_comments_on_fragment_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -51,6 +51,15 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
     t.index ["users_id"], name: "index_fragments_on_users_id"
   end
 
+  create_table "fragments_sub_topics", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "fragment_id"
+    t.bigint "sub_topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fragment_id"], name: "index_fragments_sub_topics_on_fragment_id"
+    t.index ["sub_topic_id"], name: "index_fragments_sub_topics_on_sub_topic_id"
+  end
+
   create_table "friends", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "follower", null: false
     t.bigint "followed", null: false
@@ -62,18 +71,22 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
 
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "path", null: false
+    t.bigint "fragment_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["fragment_id"], name: "index_photos_on_fragment_id"
+    t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
   create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "users_id", null: false
-    t.bigint "rel_topic_sub_topics_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "sub_topic_id", null: false
     t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["rel_topic_sub_topics_id"], name: "index_preferences_on_rel_topic_sub_topics_id"
-    t.index ["users_id"], name: "index_preferences_on_users_id"
+    t.index ["sub_topic_id"], name: "index_preferences_on_sub_topic_id"
+    t.index ["user_id"], name: "index_preferences_on_user_id"
   end
 
   create_table "reactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -121,6 +134,25 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sub_topics_topics", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "topic_id"
+    t.bigint "sub_topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sub_topic_id"], name: "index_sub_topics_topics_on_sub_topic_id"
+    t.index ["topic_id"], name: "index_sub_topics_topics_on_topic_id"
+  end
+
+  create_table "sub_topics_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "sub_topic_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sub_topic_id"], name: "index_sub_topics_users_on_sub_topic_id"
+    t.index ["user_id"], name: "index_sub_topics_users_on_user_id"
+  end
+
   create_table "topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "topic_name", null: false
     t.integer "score"
@@ -135,25 +167,25 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "user_token"
-    t.bigint "cities_id", null: false
+    t.bigint "city_id", null: false
     t.string "score"
     t.string "talk_to_us"
     t.bigint "photos_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cities_id"], name: "index_users_on_cities_id"
+    t.index ["city_id"], name: "index_users_on_city_id"
     t.index ["photos_id"], name: "fk_rails_9fc6692384"
   end
 
   add_foreign_key "cities", "countries", column: "countries_id"
-  add_foreign_key "comments", "fragments", column: "fragments_id"
-  add_foreign_key "comments", "users", column: "users_id"
+  add_foreign_key "comments", "fragments"
+  add_foreign_key "comments", "users"
   add_foreign_key "fragments", "photos", column: "photos_id"
   add_foreign_key "fragments", "users", column: "users_id"
   add_foreign_key "friends", "users", column: "followed"
   add_foreign_key "friends", "users", column: "follower"
-  add_foreign_key "preferences", "rel_topic_sub_topics", column: "rel_topic_sub_topics_id"
-  add_foreign_key "preferences", "users", column: "users_id"
+  add_foreign_key "preferences", "sub_topics"
+  add_foreign_key "preferences", "users"
   add_foreign_key "reactions", "fragments", column: "fragments_id"
   add_foreign_key "reactions", "users", column: "users_id"
   add_foreign_key "rel_fragment_sub_topics", "fragments", column: "fragments_id"
@@ -162,6 +194,6 @@ ActiveRecord::Schema.define(version: 2018_10_05_214127) do
   add_foreign_key "rel_topic_sub_topics", "topics", column: "topics_id"
   add_foreign_key "responses", "comments", column: "comments_id"
   add_foreign_key "responses", "users", column: "users_id"
-  add_foreign_key "users", "cities", column: "cities_id"
+  add_foreign_key "users", "cities"
   add_foreign_key "users", "photos", column: "photos_id"
 end

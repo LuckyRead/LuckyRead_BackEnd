@@ -12,5 +12,9 @@
 class Topic < ApplicationRecord
     validates :topic_name, presence: true, length: {maximum: 250}, format: { with: /\A[^0-9]+\z/}  
     validates :score, presence: true, inclusion: {in: 0..999999}
-    has_many :sub_topics
+    has_and_belongs_to_many :sub_topics#, through => :rel_topic_sub_topic
+
+    def self.besttopic
+        return Topic.order(score: :desc).take(10).pluck(:id, :topic_name)
+    end
 end

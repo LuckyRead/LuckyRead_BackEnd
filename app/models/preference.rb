@@ -11,4 +11,10 @@
 #
 
 class Preference < ApplicationRecord
+    belongs_to :sub_topic, optional: true
+    belongs_to :user, optional: true
+
+    def self.prefencejoinrel_topic
+        return Preference.joins(:sub_topic)
+    end
 end

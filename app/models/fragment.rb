@@ -22,6 +22,21 @@ class Fragment < ApplicationRecord
     validates :users_id, presence: true    
     has_many :users
     has_many :comments
-    has_many :sub_topics, through: :rel_fragment_sub_topic
+    has_and_belongs_to_many :sub_topics#, through: :rel_fragment_sub_topic
     has_one :photo
+
+    def self.bestfragment
+        return Fragment.order(score: :desc).take(5)
+    end
+
+    def self.Fragment (id) #Get 1
+        return Fragment.joins("INNER JOIN `photos` ON `photos`.`fragment_id` = `fragments`.`photos_id`").where("fragments.id = ?", id).pluck(:id, :title, :introduction, :content, :score, :source, :created_at, :updated_at, :path)
+    end
+
+    def self.Fragmentsubtopic (id)#Post 3 ID user
+        return Fragment.joins("inner join `rel_fragment_sub_topics` on `fragments`.`id` = `rel_fragment_sub_topics`.`fragments_id` inner join `preferences` on `preferences`.`sub_topic_id` = `rel_fragment_sub_topics`.`sub_topics_id` inner join `photos` on `fragments`.`photos_id` = `photos`.`fragment_id`").where("preferences.user_id = ?",id).order("RAND()").pluck(:id, :title, :introduction, :content, :score, :source, :created_at, :updated_at, :path).first
+        #return Fragment.joins(sub_topics: :users).where("users.id = ?",id)
+    end
+
+
 end
