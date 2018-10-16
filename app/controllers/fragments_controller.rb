@@ -5,7 +5,8 @@ class FragmentsController < ApplicationController
   def something
     @user = User.find_by(username: params[:username])
     array = Fragment.Fragmentsubtopicwithprefecensuser(@user.id)
-    render json: {Fragment: {:id => array[0], :title => array[1], :introduction => array[2], :content => array[3], :score => array[4], :source => array[5], :image_path => array[6]}}, status: :ok
+    h1 = {:id => array[0], :title => array[1], :introduction => array[2], :content => array[3], :score => array[4], :source => array[5], :image_path => array[6]}
+    render json: h1, status: :ok
   end
 
   # GET /fragments
