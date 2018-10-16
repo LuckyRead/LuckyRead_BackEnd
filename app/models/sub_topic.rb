@@ -14,8 +14,8 @@ class SubTopic < ApplicationRecord
     has_and_belongs_to_many :topics#,    :through => :rel_topic_sub_topic
     has_and_belongs_to_many :fragments
 
-    def self.join(id)
-        return SubTopic.joins(:users).where("user.id = ?",id)
+    def self.SubTopicUser(username)
+        return SubTopic.joins(:users).where("users.username = ?",username).pluck(:id, :sub_topic_name)
     end
     
 end
