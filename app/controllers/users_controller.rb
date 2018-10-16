@@ -45,7 +45,7 @@ class UsersController < ApplicationController
       hash1 = {:sub_topic_id => SubTopic.find_by(sub_topic_name: sub_topic_name).id, :sub_topic_name => sub_topic_name}
       array.push(hash1)
     end
-    render json: {sub_topics: array}, status: :ok
+    render json: array, status: :ok
   end
 
   def preferences_topic
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
       hash1 = {:topic_id => Topic.find_by(topic_name: topic_name).id, :topic_name => topic_name}
       array.push(hash1)
     end
-    render json: {topics: array}, status: :ok
+    render json: array, status: :ok
   end
 
   def user_exist
