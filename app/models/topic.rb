@@ -14,7 +14,7 @@ class Topic < ApplicationRecord
     validates :score, presence: true, inclusion: {in: 0..999999}
     has_and_belongs_to_many :sub_topics#, through => :rel_topic_sub_topic
 
-    def self.besttopic
+    def self.besttopic #2 Get
         return Topic.order(score: :desc).take(10).pluck(:id, :topic_name)
     end
 end

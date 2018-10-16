@@ -23,7 +23,7 @@ class User < ApplicationRecord
     end
 
     def self.fiends (id)
-        return User.joins(:users).where("user.id = ?",id)
+        return User.joins(:users).where("users.id = ?",id)
     end
 
     def self.comments (id) #User's comments in a fragment specific, return username, message and fragment's title
@@ -39,7 +39,7 @@ class User < ApplicationRecord
     end
 
     def self.bestuser
-        return User.order(score: :desc).take(5)
+        return User.order(score: :desc).take(5).pluck(:username, :talk_to_us)
     end
 =begin    
     def self.changepreferencesadd(id, preferences[])
