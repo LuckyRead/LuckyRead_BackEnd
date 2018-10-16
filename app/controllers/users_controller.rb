@@ -14,6 +14,20 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  def best
+    array = []
+    User.bestuser.each do |tUser|
+      tUser.each do |usern, talk|
+        if User.find_by(username: usern).nil?
+          break
+        end
+        hash1 = {:id => User.find_by(username: usern).id, :username => usern, :talk_to_us => User.find_by(username: usern).talk_to_us} 
+        array.push(hash1) 
+      end
+    end
+    render json: array, status: :ok
+  end
+
   def email_exist
     @user = User.find_by(email: params[:email])
     if @user.nil?
