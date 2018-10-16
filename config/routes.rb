@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'api/users/preferences_sub_topic' => 'users#preferences_sub_topic'
   post 'api/users/preferences_topic' => 'users#preferences_topic'
   post 'api/fragments/something' => 'fragments#something'
+  get 'api/users/best' => 'users#best'
   #resources :rel_fragment_sub_topics
   #resources :preferences
   #resources :rel_topic_sub_topics
