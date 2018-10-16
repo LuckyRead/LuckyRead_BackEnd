@@ -23,7 +23,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def preferences
+  def preferences_sub_topic
+    @user1 = User.find_by(username: params[:username])
+    render json: {topic_name: User.preferencessub_topic_name(@user1.id)}, status: :ok
+  end
+
+  def preferences_topic
     @user1 = User.find_by(username: params[:username])
     render json: {topic_name: User.preferencestopic_name(@user1.id)}, status: :ok
   end

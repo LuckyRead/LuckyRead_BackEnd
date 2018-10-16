@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   get  'api/myfriend/:username' => 'friends#myfriend'
   post 'api/users/email_exist' => 'users#email_exist'
   post 'api/users/user_exist' => 'users#user_exist'
-  post 'api/users/preferences' => 'users#preferences'
+  post 'api/users/preferences_sub_topic' => 'users#preferences_sub_topic'
+  post 'api/users/preferences_topic' => 'users#preferences_topic'
   #resources :rel_fragment_sub_topics
   #resources :preferences
   #resources :rel_topic_sub_topics
