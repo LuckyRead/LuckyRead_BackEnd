@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'api/fragments/something' => 'fragments#something'
   get 'api/users/best' => 'users#best'
   get 'api/fragments/:id' => 'fragments#show'
+  root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
   #resources :rel_topic_sub_topics

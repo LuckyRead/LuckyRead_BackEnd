@@ -1,6 +1,12 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: [:show, :update, :destroy]
 
+  def api_test
+    render json: {
+      API: "Deployed"
+    }, status: :ok
+  end
+
   # GET /responses
   def index
     @responses = Response.all.paginate(page: params[:page], per_page: 10)
