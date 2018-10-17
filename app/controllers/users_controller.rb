@@ -70,11 +70,16 @@ class UsersController < ApplicationController
 
   def signup
     user = User.new(user_params)
-    if user.save
-      render json: user, status: :created, msg: 'User created'
+    if User.find_by(email: user.email).nil?
+      if user.save
+        render json: user, status: :created, msg: 'User created'
+      else
+        render json: {status: :unprocessable_entity, error: user.errors}, status: :unprocessable_entity
+      end
     else
-      render json: {status: :unprocessable_entity, error: user.errors}, status: :unprocessable_entity
+      render json: {msj: "Email taken"}, status: :conflict
     end
+    
   end
 
   def current
