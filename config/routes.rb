@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'api/fragments/something' => 'fragments#something'
   get 'api/users/best' => 'users#best'
   get 'api/fragments/:id' => 'fragments#show'
+  get 'api/fragments' => 'fragments#index'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
   #resources :photos
   #resources :responses
   #resources :comments
-  resources :fragments
+  #resources :fragments
   #resources :friends
   resources :users
   #resources :countries
