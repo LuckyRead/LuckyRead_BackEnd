@@ -1,15 +1,24 @@
+# == Schema Information
+#
+# Table name: responses
+#
+#  id          :bigint(8)        not null, primary key
+#  message     :text(65535)      not null
+#  datetime    :datetime         not null
+#  comments_id :bigint(8)        not null
+#  users_id    :bigint(8)        not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  idresponse: 1
-  date: 2018-09-27 01:59:53
-  message: MyText
-  comment_idcoment: 1
-  user_username: MyText
-
-two:
-  idresponse: 1
-  date: 2018-09-27 01:59:53
-  message: MyText
-  comment_idcoment: 1
-  user_username: MyText
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: {}
+# column: value
+#
+two: {}
+# column: value

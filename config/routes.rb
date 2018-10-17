@@ -1,12 +1,29 @@
 Rails.application.routes.draw do
-  resources :subtopics
-  resources :cities
-  resources :countries
-  resources :photos
-  resources :responses
-  resources :comments
-  resources :topics
-  resources :fragments
+  post 'api/login' => 'user_token#create'
+  post 'api/signup' => 'users#signup'
+  get  'api/users/current' => 'users#current'
+  get  'api/myfriend/:username' => 'friends#myfriend'
+  post 'api/users/email_exist' => 'users#email_exist'
+  post 'api/users/user_exist' => 'users#user_exist'
+  post 'api/users/preferences_sub_topic' => 'users#preferences_sub_topic'
+  post 'api/users/preferences_topic' => 'users#preferences_topic'
+  post 'api/fragments/something' => 'fragments#something'
+  get 'api/users/best' => 'users#best'
+  get 'api/fragments/:id' => 'fragments#show'
+  get 'api/fragments' => 'fragments#index'
+  root :to => 'responses#api_test'
+  #resources :rel_fragment_sub_topics
+  #resources :preferences
+  #resources :rel_topic_sub_topics
+  #resources :sub_topics
+  #resources :topics
+  #resources :reactions
+  #resources :photos
+  #resources :responses
+  #resources :comments
+  #resources :fragments
+  #resources :friends
   resources :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  #resources :countries
+  #resources :cities
 end

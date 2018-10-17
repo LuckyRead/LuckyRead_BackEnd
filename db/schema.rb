@@ -10,145 +10,190 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_30_082530) do
+ActiveRecord::Schema.define(version: 2018_10_15_035040) do
 
-  create_table "cities", primary_key: "id_city", id: :bigint, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "city_name", null: false
+    t.bigint "countries_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["countries_id"], name: "fk_rails_fc7d463229"
   end
 
-  create_table "city_has_country", primary_key: "id_city_has_country", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.bigint "city_id", null: false
-    t.bigint "country_id", null: false
-    t.index ["city_id"], name: "city_id"
-    t.index ["country_id"], name: "country_id"
-  end
-
-  create_table "comments", primary_key: "idcomment", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "message", null: false
-    t.bigint "fragment_idfragment", null: false
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "message", null: false
+    t.datetime "datetime", null: false
+    t.bigint "user_id", null: false
+    t.bigint "fragment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "date", null: false
-    t.string "user_iduser", null: false
-    t.index ["fragment_idfragment"], name: "fragment_idfragment"
-    t.index ["user_iduser"], name: "user_iduser"
+    t.index ["fragment_id"], name: "index_comments_on_fragment_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "countries", primary_key: "id_country", id: :bigint, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "country_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "fragments", primary_key: "idfragment", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "fragments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
-    t.text "introduction"
+    t.text "introduction", null: false
     t.text "content", null: false
-    t.string "source"
-    t.integer "score", default: 0
+    t.integer "score"
+    t.string "source", null: false
+    t.bigint "users_id", null: false
+    t.bigint "photos_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "user_iduser", null: false
-    t.index ["user_iduser"], name: "user_iduser"
+    t.index ["photos_id"], name: "fk_rails_c155e003fa"
+    t.index ["users_id"], name: "index_fragments_on_users_id"
   end
 
-  create_table "friend", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "followed", null: false
-    t.string "follower", null: false
-    t.string "id_fiend", null: false
-    t.index ["followed"], name: "followed"
-    t.index ["follower"], name: "follower"
-  end
-
-  create_table "photos", primary_key: "idphoto", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "path", null: false
-    t.string "user_username"
-    t.bigint "fragment_idfragment"
+  create_table "fragments_sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "fragment_id"
+    t.bigint "sub_topic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["fragment_idfragment"], name: "fragment_idfragment"
-    t.index ["user_username"], name: "user_username"
+    t.index ["fragment_id"], name: "index_fragments_sub_topics_on_fragment_id"
+    t.index ["sub_topic_id"], name: "index_fragments_sub_topics_on_sub_topic_id"
   end
 
-  create_table "preference", primary_key: "id_preference", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.bigint "subtopic_id", null: false
-    t.string "user_id", null: false
-    t.integer "score", default: 0
-    t.index ["subtopic_id"], name: "subtopic_id"
-    t.index ["user_id"], name: "user_id"
+  create_table "friends", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "follower", null: false
+    t.bigint "followed", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed"], name: "fk_rails_bf0506dcdb"
+    t.index ["follower"], name: "fk_rails_70299d7edb"
   end
 
-  create_table "reaction_user_fragment", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "user_id", null: false
-    t.bigint "fragment_id", null: false
-    t.string "reaction", null: false
-    t.string "id_reaction", null: false
-    t.index ["fragment_id"], name: "fragment_id"
-    t.index ["user_id"], name: "user_id"
+  create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "path", null: false
+    t.bigint "fragment_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fragment_id"], name: "index_photos_on_fragment_id"
+    t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
-  create_table "rel_topic_subtopic", primary_key: "id_rel_topic_subtopic", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.bigint "topic_id", null: false
-    t.bigint "subtopic_id", null: false
-    t.index ["subtopic_id"], name: "subtopic_id"
-    t.index ["topic_id"], name: "topic_id"
+  create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "sub_topic_id", null: false
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sub_topic_id"], name: "index_preferences_on_sub_topic_id"
+    t.index ["user_id"], name: "index_preferences_on_user_id"
   end
 
-  create_table "responses", primary_key: "idresponse", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.datetime "date", null: false
+  create_table "reactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "users_id", null: false
+    t.bigint "fragments_id", null: false
+    t.string "reaction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fragments_id"], name: "index_reactions_on_fragments_id"
+    t.index ["users_id"], name: "index_reactions_on_users_id"
+  end
+
+  create_table "rel_fragment_sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "fragments_id", null: false
+    t.bigint "sub_topics_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fragments_id"], name: "index_rel_fragment_sub_topics_on_fragments_id"
+    t.index ["sub_topics_id"], name: "index_rel_fragment_sub_topics_on_sub_topics_id"
+  end
+
+  create_table "rel_topic_sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "topics_id", null: false
+    t.bigint "sub_topics_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sub_topics_id"], name: "index_rel_topic_sub_topics_on_sub_topics_id"
+    t.index ["topics_id"], name: "index_rel_topic_sub_topics_on_topics_id"
+  end
+
+  create_table "responses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "message", null: false
-    t.integer "comment_idcomment", null: false
-    t.string "user_username", null: false
+    t.datetime "datetime", null: false
+    t.bigint "comments_id", null: false
+    t.bigint "users_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["comment_idcomment"], name: "comment_idcomment"
-    t.index ["user_username"], name: "user_username"
+    t.index ["comments_id"], name: "index_responses_on_comments_id"
+    t.index ["users_id"], name: "index_responses_on_users_id"
   end
 
-  create_table "subtopics", primary_key: "id_subtopic", id: :bigint, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "topics", primary_key: "idtopic", id: :bigint, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "name", null: false
-    t.integer "score", default: 0
+  create_table "sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "sub_topic_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", primary_key: "username", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "sub_topics_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "topic_id"
+    t.bigint "sub_topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sub_topic_id"], name: "index_sub_topics_topics_on_sub_topic_id"
+    t.index ["topic_id"], name: "index_sub_topics_topics_on_topic_id"
+  end
+
+  create_table "sub_topics_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "sub_topic_id"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sub_topic_id"], name: "index_sub_topics_users_on_sub_topic_id"
+    t.index ["user_id"], name: "index_sub_topics_users_on_user_id"
+  end
+
+  create_table "topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "topic_name", null: false
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "username", null: false
     t.string "name", null: false
     t.string "lastname", null: false
-    t.text "email", null: false
-    t.text "password", null: false
-    t.integer "score", default: 0
-    t.text "talk_to_us"
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.string "user_token"
+    t.bigint "city_id", null: false
+    t.string "score"
+    t.string "talk_to_us"
+    t.bigint "photos_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "Id_rel_country_city", null: false
-    t.index ["Id_rel_country_city"], name: "Id_rel_country_city"
+    t.index ["city_id"], name: "index_users_on_city_id"
+    t.index ["photos_id"], name: "fk_rails_9fc6692384"
   end
 
-  add_foreign_key "city_has_country", "cities", primary_key: "id_city", name: "city_has_country_ibfk_1"
-  add_foreign_key "city_has_country", "countries", primary_key: "id_country", name: "city_has_country_ibfk_2"
-  add_foreign_key "comments", "fragments", column: "fragment_idfragment", primary_key: "idfragment", name: "comments_ibfk_2"
-  add_foreign_key "comments", "users", column: "user_iduser", primary_key: "username", name: "comments_ibfk_1"
-  add_foreign_key "fragments", "users", column: "user_iduser", primary_key: "username", name: "fragments_ibfk_1"
-  add_foreign_key "friend", "users", column: "followed", primary_key: "username", name: "friend_ibfk_2"
-  add_foreign_key "friend", "users", column: "follower", primary_key: "username", name: "friend_ibfk_1"
-  add_foreign_key "photos", "fragments", column: "fragment_idfragment", primary_key: "idfragment", name: "photos_ibfk_2"
-  add_foreign_key "photos", "users", column: "user_username", primary_key: "username", name: "photos_ibfk_1"
-  add_foreign_key "preference", "subtopics", primary_key: "id_subtopic", name: "preference_ibfk_2"
-  add_foreign_key "preference", "users", primary_key: "username", name: "preference_ibfk_1"
-  add_foreign_key "reaction_user_fragment", "fragments", primary_key: "idfragment", name: "reaction_user_fragment_ibfk_1"
-  add_foreign_key "reaction_user_fragment", "users", primary_key: "username", name: "reaction_user_fragment_ibfk_2"
-  add_foreign_key "rel_topic_subtopic", "subtopics", primary_key: "id_subtopic", name: "rel_topic_subtopic_ibfk_2"
-  add_foreign_key "rel_topic_subtopic", "topics", primary_key: "idtopic", name: "rel_topic_subtopic_ibfk_1"
-  add_foreign_key "responses", "comments", column: "comment_idcomment", primary_key: "idcomment", name: "responses_ibfk_1"
-  add_foreign_key "responses", "users", column: "user_username", primary_key: "username", name: "responses_ibfk_2"
-  add_foreign_key "users", "city_has_country", column: "Id_rel_country_city", primary_key: "id_city_has_country", name: "users_ibfk_1"
+  add_foreign_key "cities", "countries", column: "countries_id"
+  add_foreign_key "comments", "fragments"
+  add_foreign_key "comments", "users"
+  add_foreign_key "fragments", "photos", column: "photos_id"
+  add_foreign_key "fragments", "users", column: "users_id"
+  add_foreign_key "friends", "users", column: "followed"
+  add_foreign_key "friends", "users", column: "follower"
+  add_foreign_key "preferences", "sub_topics"
+  add_foreign_key "preferences", "users"
+  add_foreign_key "reactions", "fragments", column: "fragments_id"
+  add_foreign_key "reactions", "users", column: "users_id"
+  add_foreign_key "rel_fragment_sub_topics", "fragments", column: "fragments_id"
+  add_foreign_key "rel_fragment_sub_topics", "sub_topics", column: "sub_topics_id"
+  add_foreign_key "rel_topic_sub_topics", "sub_topics", column: "sub_topics_id"
+  add_foreign_key "rel_topic_sub_topics", "topics", column: "topics_id"
+  add_foreign_key "responses", "comments", column: "comments_id"
+  add_foreign_key "responses", "users", column: "users_id"
+  add_foreign_key "users", "cities"
+  add_foreign_key "users", "photos", column: "photos_id"
 end

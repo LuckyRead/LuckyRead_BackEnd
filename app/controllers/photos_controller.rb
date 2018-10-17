@@ -3,7 +3,7 @@ class PhotosController < ApplicationController
 
   # GET /photos
   def index
-    @photos = Photo.all
+    @photos = Photo.all.paginate(page: params[:page], per_page: 10)
 
     render json: @photos
   end
@@ -46,6 +46,6 @@ class PhotosController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def photo_params
-      params.require(:photo).permit(:idphoto, :path, :user_username, :fragment_idfragment)
+      params.fetch(:photo, {})
     end
 end

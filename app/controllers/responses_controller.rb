@@ -1,9 +1,15 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: [:show, :update, :destroy]
 
+  def api_test
+    render json: {
+      API: "Deployed"
+    }, status: :ok
+  end
+
   # GET /responses
   def index
-    @responses = Response.all
+    @responses = Response.all.paginate(page: params[:page], per_page: 10)
 
     render json: @responses
   end
@@ -46,6 +52,6 @@ class ResponsesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def response_params
-      params.require(:response).permit(:idresponse, :date, :message, :comment_idcoment, :user_username)
+      params.fetch(:response, {})
     end
 end

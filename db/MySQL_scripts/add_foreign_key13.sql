@@ -1,1 +1,0 @@
-ALTER TABLE `photos` ADD FOREIGN KEY (`fragment_idfragment`) REFERENCES `fragments` (`idfragment`);

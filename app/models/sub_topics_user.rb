@@ -1,0 +1,2 @@
+class SubTopicsUser < ApplicationRecord
+end

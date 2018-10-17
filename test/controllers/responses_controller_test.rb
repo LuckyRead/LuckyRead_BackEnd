@@ -12,7 +12,7 @@ class ResponsesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create response" do
     assert_difference('Response.count') do
-      post responses_url, params: { response: { comment_idcoment: @response.comment_idcoment, date: @response.date, idresponse: @response.idresponse, message: @response.message, user_username: @response.user_username } }, as: :json
+      post responses_url, params: { response: {  } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class ResponsesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update response" do
-    patch response_url(@response), params: { response: { comment_idcoment: @response.comment_idcoment, date: @response.date, idresponse: @response.idresponse, message: @response.message, user_username: @response.user_username } }, as: :json
+    patch response_url(@response), params: { response: {  } }, as: :json
     assert_response 200
   end
 

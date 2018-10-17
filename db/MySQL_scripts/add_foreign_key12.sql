@@ -1,1 +1,0 @@
-ALTER TABLE `comments` ADD FOREIGN KEY (`fragment_idfragment`) REFERENCES `fragments` (`idfragment`);

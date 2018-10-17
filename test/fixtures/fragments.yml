@@ -1,17 +1,27 @@
+# == Schema Information
+#
+# Table name: fragments
+#
+#  id           :bigint(8)        not null, primary key
+#  title        :string(255)      not null
+#  introduction :text(65535)      not null
+#  content      :text(65535)      not null
+#  score        :integer
+#  source       :string(255)      not null
+#  users_id     :bigint(8)        not null
+#  photos_id    :bigint(8)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  idfragment: 1
-  title: MyText
-  introduction: MyText
-  content: MyText
-  source: MyText
-  score: 1
-
-two:
-  idfragment: 1
-  title: MyText
-  introduction: MyText
-  content: MyText
-  source: MyText
-  score: 1
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: {}
+# column: value
+#
+two: {}
+# column: value

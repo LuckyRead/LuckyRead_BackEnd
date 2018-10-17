@@ -1,1 +1,0 @@
-ALTER TABLE friend ADD FOREIGN KEY (followed) REFERENCES users(username);

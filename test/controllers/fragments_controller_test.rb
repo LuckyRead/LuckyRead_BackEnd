@@ -12,7 +12,7 @@ class FragmentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create fragment" do
     assert_difference('Fragment.count') do
-      post fragments_url, params: { fragment: { content: @fragment.content, idfragment: @fragment.idfragment, introduction: @fragment.introduction, score: @fragment.score, source: @fragment.source, title: @fragment.title } }, as: :json
+      post fragments_url, params: { fragment: {  } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class FragmentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update fragment" do
-    patch fragment_url(@fragment), params: { fragment: { content: @fragment.content, idfragment: @fragment.idfragment, introduction: @fragment.introduction, score: @fragment.score, source: @fragment.source, title: @fragment.title } }, as: :json
+    patch fragment_url(@fragment), params: { fragment: {  } }, as: :json
     assert_response 200
   end
 

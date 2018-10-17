@@ -12,7 +12,7 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create topic" do
     assert_difference('Topic.count') do
-      post topics_url, params: { topic: { idtopic: @topic.idtopic, name: @topic.name, score: @topic.score } }, as: :json
+      post topics_url, params: { topic: {  } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update topic" do
-    patch topic_url(@topic), params: { topic: { idtopic: @topic.idtopic, name: @topic.name, score: @topic.score } }, as: :json
+    patch topic_url(@topic), params: { topic: {  } }, as: :json
     assert_response 200
   end
 

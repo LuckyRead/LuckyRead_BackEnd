@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    @comments = Comment.all
+    @comments = Comment.all.paginate(page: params[:page], per_page: 10)
 
     render json: @comments
   end
@@ -46,6 +46,6 @@ class CommentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.require(:comment).permit(:idcomment, :message, :fragment_idfragment)
+      params.fetch(:comment, {})
     end
 end
