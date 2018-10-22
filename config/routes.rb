@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get 'api/users/best' => 'users#best'
   get 'api/fragments/:id' => 'fragments#show'
   get 'api/fragments' => 'fragments#index'
+  post 'api/preference/add' => 'preferences#add'
+  get 'api/preference/add_all' => 'preferences#add_all'
+  post 'api/topic/add' => 'topics#add'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
