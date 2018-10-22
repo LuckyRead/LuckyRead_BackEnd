@@ -37,10 +37,14 @@ class User < ApplicationRecord
     def self.checkemail (email)
         return User.where("users.email = ?", email)
     end
-
+=begin
     def self.bestuser
         return User.order(score: :desc).take(5).pluck(:username, :talk_to_us)
     end
+=end
+    scope :bestuser, ->(limit){order("score asc").limit(limit).pluck(:username, :talk_to_us)}
+
+    scope :user_most_recent, ->(limit){order("created_at desc").limit(limit)}
 =begin    
     def self.changepreferencesadd(id, preferences[])
         @i = 0
@@ -62,6 +66,8 @@ class User < ApplicationRecord
         end
     end
 =end
+
+
 end
 
 
