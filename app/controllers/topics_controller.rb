@@ -6,7 +6,9 @@ class TopicsController < ApplicationController
     @sub_topic = @sub_topics_topics = SubTopicsTopic.where(topic_id: params[:topic_id]).pluck(:sub_topic_id)
     array = []
     @sub_topic.each do |sub_topic_id|
-      array.push(SubTopic.find(sub_topic_id))
+      @st = SubTopic.find(sub_topic_id)
+      h1 = {id: @st.id, sub_topic_name: @st.sub_topic_name}
+      array.push(h1)  
     end
     render json: array, status: :ok
   end
