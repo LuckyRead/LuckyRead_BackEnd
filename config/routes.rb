@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post 'api/preference/add' => 'preferences#add'
   get 'api/preference/add_all' => 'preferences#add_all'
   post 'api/topic/add' => 'topics#add'
+  get 'api/sub_topic/:topic_id' => 'topics#sub_topic'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences

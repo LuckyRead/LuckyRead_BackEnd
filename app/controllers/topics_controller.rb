@@ -2,6 +2,15 @@ class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :update, :destroy]
   before_action :authenticate_user,  only: [:add]
 
+  def sub_topic
+    @sub_topic = @sub_topics_topics = SubTopicsTopic.where(topic_id: params[:topic_id]).pluck(:sub_topic_id)
+    array = []
+    @sub_topic.each do |sub_topic_id|
+      array.push(SubTopic.find(sub_topic_id))
+    end
+    render json: array, status: :ok
+  end
+
   def add
     @sub_topics_topics = SubTopicsTopic.where(topic_id: params[:topic_id]).pluck(:topic_id, :sub_topic_id)
     @sub_topics_topics.each do |topic_id, sub_topic_id|
