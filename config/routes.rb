@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'api/preference/add_all' => 'preferences#add_all'
   post 'api/topic/add' => 'topics#add'
   get 'api/sub_topic/:topic_id' => 'topics#sub_topic'
+  delete 'api/users/delete_temp' => 'users#delete_temp'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
