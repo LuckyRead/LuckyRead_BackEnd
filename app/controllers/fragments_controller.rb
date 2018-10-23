@@ -3,10 +3,14 @@ class FragmentsController < ApplicationController
   before_action :authenticate_user,  only: [:create, :update, :destroy, :something]
 
   def something
-    @user = User.find_by(username: params[:username])
+    @user = current_user
     array = Fragment.Fragmentsubtopicwithprefecensuser(@user.id)
-    h1 = {:id => array[0], :title => array[1], :introduction => array[2], :content => array[3], :score => array[4], :source => array[5], :image_path => array[6]}
-    render json: h1, status: :ok
+    if array.nil?
+      render json: {}, status: 412
+    else
+      h1 = {:id => array[0], :title => array[1], :introduction => array[2], :content => array[3], :score => array[4], :source => array[5], :image_path => array[6]}
+      render json: h1, status: :ok
+    end
   end
 
   # GET /fragments
