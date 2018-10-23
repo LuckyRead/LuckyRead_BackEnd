@@ -37,6 +37,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete_temp
+    @to_delete = User.where('id > 180')
+    render json: @to_delete
+    @to_delete.destroy_all
+  end
+
   def preferences_sub_topic
     @user1 = User.find_by(username: params[:username])
     @sub_topics = User.preferencessub_topic_name(@user1.id)
