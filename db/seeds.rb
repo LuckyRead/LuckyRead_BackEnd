@@ -1,3 +1,15 @@
+URL_Fake = []
+URL_Fake.push("https://i.imgur.com/AZbKzgd.png")
+URL_Fake.push("https://i.imgur.com/Y6jYshC.png")
+URL_Fake.push("https://i.imgur.com/j1akRyn.jpg")
+URL_Fake.push("https://i.imgur.com/IDGL2Qm.jpg")
+URL_Fake.push("https://i.imgur.com/HgldamX.jpg")
+URL_Fake.push("https://i.imgur.com/KO5Pi92.jpg")
+URL_Fake.push("https://i.imgur.com/itJBP7s.jpg")
+URL_Fake.push("https://i.imgur.com/pEcle0Y.jpg")
+URL_Fake.push("https://i.imgur.com/8cgJxrO.jpg")
+URL_Fake.push("https://i.imgur.com/noAq1cd.jpg")
+URL_Fake.push("https://i.imgur.com/K5ArZqt.jpg")
 5.times do
     country = Country.create!(
         country_name: Faker::Nation.capital_city
