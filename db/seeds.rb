@@ -1,3 +1,14 @@
+URL_Fake = []
+URL_Fake.push("")
+URL_Fake.push("")
+URL_Fake.push("")
+URL_Fake.push("")
+URL_Fake.push("")
+URL_Fake.push("")
+URL_Fake.push("")
+URL_Fake.push("")
+URL_Fake.push("")
+URL_Fake.push("")
 5.times do
     country = Country.create!(
         country_name: Faker::Nation.capital_city
@@ -15,7 +26,7 @@
             )
             3.times do                
                 photo = Photo.create!(
-                    path: Faker::Internet.url
+                    path: URL_Fake[Faker::Number.between(0, 9)]
                 )
                 @photouser
                 @photofragmen
