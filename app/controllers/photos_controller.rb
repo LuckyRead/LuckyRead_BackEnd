@@ -1,6 +1,12 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :update, :destroy]
 
+  def upload
+    @photo = Photo.create(image: params[:image])
+    @photo.save
+    render json: {id: @photo.id, image: @photo.image}, status: :created
+  end
+
   # GET /photos
   def index
     @photos = Photo.all.paginate(page: params[:page], per_page: 10)
