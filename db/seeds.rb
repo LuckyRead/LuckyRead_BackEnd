@@ -27,7 +27,7 @@ URL_Fake.push("https://i.imgur.com/K5ArZqt.jpg")
             )
             3.times do                
                 photo = Photo.create!(
-                    path: Faker::Internet.url
+                    path: URL_Fake[Faker::Number.between(0, 9)]
                 )
                 @photouser
                 @photofragmen
