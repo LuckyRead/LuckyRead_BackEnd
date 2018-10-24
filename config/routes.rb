@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post 'api/users/user_exist' => 'users#user_exist'
   post 'api/users/preferences_sub_topic' => 'users#preferences_sub_topic'
   post 'api/users/preferences_topic' => 'users#preferences_topic'
-  post 'api/fragments/something' => 'fragments#something'
+  get 'api/fragments/something' => 'fragments#something'
   get 'api/users/best' => 'users#best'
   get 'api/fragments/:id' => 'fragments#show'
   get 'api/fragments' => 'fragments#index'

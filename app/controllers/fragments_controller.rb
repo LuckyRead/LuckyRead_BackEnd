@@ -3,7 +3,7 @@ class FragmentsController < ApplicationController
   before_action :authenticate_user,  only: [:create, :update, :destroy, :something]
 
   def something
-    @user = User.find_by(username: params[:username])
+    @user = current_user
     array = Fragment.Fragmentsubtopicwithprefecensuser(@user.id)
     if array.nil?
       render json: {}, status: 412
