@@ -8,8 +8,9 @@ class FragmentsController < ApplicationController
     if array.nil?
       render json: {}, status: 412
     else
-      h1 = {:id => array[0], :title => array[1], :introduction => array[2], :content => array[3], :score => array[4], :source => array[5], :image_path => array[6]}
-      render json: h1, status: :ok
+      @to_show = array[Faker::Number.between(0, array.length - 1)]
+      @h1 = {:id => @to_show[0], :title => @to_show[1], :introduction => @to_show[2], :content => @to_show[3], :score => @to_show[4], :source => @to_show[5], :image_path => @to_show[6]}
+      render json: @h1, status: :ok
     end
   end
 
