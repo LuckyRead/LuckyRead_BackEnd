@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'api/sub_topic/:topic_id' => 'topics#sub_topic'
   delete 'api/users/delete_temp' => 'users#delete_temp'
   post 'api/photo/upload' => 'photos#upload'
+  get 'api/photo/:id' => 'photos#show'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences

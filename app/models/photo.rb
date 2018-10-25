@@ -12,5 +12,5 @@ class Photo < ApplicationRecord
     #validates :path, presence: true
     belongs_to :user, optional: true
     belongs_to :fragment, optional: true
-    #mount_uploader :path, PhotoUploader
+    mount_uploader :image, PhotoUploader
 end

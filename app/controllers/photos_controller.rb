@@ -2,9 +2,10 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :update, :destroy]
 
   def upload
-    @photo = Photo.create(image: params[:image])
+    @photo = Photo.create(path: 'default',image: params[:image])
     @photo.save
-    render json: {id: @photo.id, image: @photo.image}, status: :created
+    @photo.update_attribute(:path, @photo.image.url)
+    render json: {id: @photo.id, path: @photo.path}, status: :created
   end
 
   # GET /photos
@@ -16,7 +17,8 @@ class PhotosController < ApplicationController
 
   # GET /photos/1
   def show
-    render json: @photo
+    @temp_path = 'public'+Photo.find(params[:id]).path
+    send_file @temp_path, :type => 'image/jpeg', :disposition => 'inline'
   end
 
   # POST /photos
