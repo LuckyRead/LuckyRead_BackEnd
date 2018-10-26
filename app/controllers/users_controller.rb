@@ -10,7 +10,14 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: @user
+    #render json: @user
+    respond_to do |format|   
+      format.html   
+      format.pdf do
+        pdf = UserPdf.new(@user)
+        send_data pdf.render, filename: "export.pdf", type: 'application/pdf', disposition: 'inline'
+      end
+    end
   end
 
   def best
@@ -108,27 +115,12 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find(params[:id]) #:id
     end
 
     # Only allow a trusted parameter "white list" through.
     def user_params
       params[:user].permit(:username, :password, :name, :lastname, :email, :password, :city_id)
-    end
-
-    def showPDF
-      respond_to do |format|
-        // some other formats like: format.html { render :show }
-        
-        format.pdf do
-          pdf = Prawn::Document.new
-          pdf.text "Hellow World!"
-          send_data pdf.render,
-            filename: "export.pdf",
-            type: 'application/pdf',
-            disposition: 'inline'
-        end
-      end
     end
 
 end
