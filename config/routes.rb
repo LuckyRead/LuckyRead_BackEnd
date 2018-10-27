@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'api/fragments' => 'fragments#index'
   post 'api/preference/add' => 'preferences#add'
   get 'api/preference/add_all' => 'preferences#add_all'
+  get 'api/photo_id' => 'photos#photo_id'
+  post 'api/photo/upload_profile_photo' => 'photos#upload_profile_photo'
   post 'api/login/fb' => 'users#login_fb'
   post 'api/login/ggle' => 'users#login_ggle'
   post 'api/topic/add' => 'topics#add'
