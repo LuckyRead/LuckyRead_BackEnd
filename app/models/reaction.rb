@@ -11,4 +11,11 @@
 #
 
 class Reaction < ApplicationRecord
+    def self.likes (id)
+        Reaction.where("reactions.fragments_id = ? and reactions.reaction = 1", id).count()
+    end
+
+    def self.dislikes (id)
+        Reaction.where("reactions.fragments_id = ? and reactions.reaction = -1", id).count()
+    end
 end
