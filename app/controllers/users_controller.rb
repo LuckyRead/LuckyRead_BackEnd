@@ -19,7 +19,18 @@ class UsersController < ApplicationController
   end
 
   def login_ggle
-    render json: params, status: :created
+    @API_URL = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token='+params[:tokenId]
+    response = HTTParty.get(@API_URL)
+    if response["email"].nil?
+      render json: {error: "Google authentication error"}, status: :bad_request
+    else
+      @user = User.find_by(email: response["email"])
+      if @user.nil?
+        render json: {error: "User not registered"}, status: :bad_request
+      else
+        render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+      end
+    end
   end
 
   # GET /users
