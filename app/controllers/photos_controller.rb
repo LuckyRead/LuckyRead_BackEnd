@@ -1,21 +1,18 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:photo_id, :upload_profile_photo]
+  before_action :authenticate_user,  only: [:photo_id, :set_profile_photo]
 
   def photo_id
     render json: {id: current_user.photos_id}, status: :ok
   end
 
-  def upload_profile_photo
-    @photo = Photo.create(path: 'default',image: params[:image])
-    @photo.save
-    @photo.update_attribute(:path, @photo.image.url)
+  def set_profile_photo
     @user = User.find(current_user.id)
-    @user.photos_id = @photo.id
+    @user.photos_id = params[:id_photo]
     if @user.save
-      render json: {photo_upload: {user_photo: @user.photos_id}}, status: :created
+      render json: {user: {id_photo: @user.photos_id}}
     else
-      render json: {error: "Something was worng"}
+      render json: {error: 'Something was wrong'}
     end
   end
 
