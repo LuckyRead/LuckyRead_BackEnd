@@ -32,7 +32,8 @@ class FragmentsController < ApplicationController
   end
 
   def showpdf
-    respond_to do |format|   
+    @fragment = Fragment.find(params[:id])
+      respond_to do |format|   
       format.html   
       format.pdf do
         pdf = FragmentPdf.new(@fragment)
