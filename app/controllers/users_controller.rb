@@ -2,6 +2,16 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_action :authenticate_user,  only: [:current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
 
+  def login_fb
+    @API_URL = 'https://graph.facebook.com/me?access_token='+params[:accessToken]
+    response = HTTParty.get(@API_URL)
+    render json: response, status: :created
+  end
+
+  def login_ggle
+    puts params
+  end
+
   # GET /users
   def index
     @users = User.all.paginate(page: params[:page], per_page: 10)
