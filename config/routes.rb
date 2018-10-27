@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   #resources :photos
   #resources :responses
   #resources :comments
-  #resources :fragments
+  resources :fragments
   #resources :friends
   resources :users
   #resources :countries

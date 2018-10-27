@@ -27,8 +27,15 @@ class FragmentsController < ApplicationController
 
   # GET /fragments/1
   def show
-    @h1 = {:id => @fragment.id, :title => @fragment.title, :introduction => @fragment.introduction, :content => @fragment.content, :score => @fragment.content, :source => @fragment.source, :image_path => Photo.find(@fragment.photos_id).path}
-    render json: @h1, status: :ok
+    #@h1 = {:id => @fragment.id, :title => @fragment.title, :introduction => @fragment.introduction, :content => @fragment.content, :score => @fragment.content, :source => @fragment.source, :image_path => Photo.find(@fragment.photos_id).path}
+    #render json: @h1, status: :ok
+    respond_to do |format|   
+      format.html   
+      format.pdf do
+        pdf = FragmentPdf.new(@fragment)
+        send_data pdf.render, filename: "export.pdf", type: 'application/pdf', disposition: 'inline'
+      end
+    end
   end
 
   # POST /fragments
