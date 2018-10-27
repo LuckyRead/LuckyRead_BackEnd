@@ -12,7 +12,11 @@ class PhotosController < ApplicationController
     @photo.update_attribute(:path, @photo.image.url)
     @user = User.find(current_user.id)
     @user.photos_id = @photo.id
-    render json: {photo: "uploaded"}, status: :created
+    if @user.save
+      render json: {photo_upload: {user_photo: @user.photos_id}}, status: :created
+    else
+      render json: {error: "Something was worng"}
+    end
   end
 
   def upload
