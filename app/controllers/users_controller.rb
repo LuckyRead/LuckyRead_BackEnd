@@ -85,6 +85,8 @@ class UsersController < ApplicationController
 
   def signup
     user = User.new(user_params)
+    user.username = params[:user][:username].to_s.downcase
+    user.email = params[:user][:email].to_s.downcase
     if User.find_by(email: user.email).nil?
       if user.save
         render json: user, status: :created, msg: 'User created'
