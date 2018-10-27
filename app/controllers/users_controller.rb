@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def login_ggle
-    puts params
+    render json: params, status: :created
   end
 
   # GET /users

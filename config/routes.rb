@@ -16,8 +16,6 @@ Rails.application.routes.draw do
   get 'api/preference/add_all' => 'preferences#add_all'
   post 'api/login/fb' => 'users#login_fb'
   post 'api/login/ggle' => 'users#login_ggle'
-  post 'api/signup/fb' => 'users#signup_fb'
-  post 'api/signup/ggle' => 'users#signup_ggle'
   post 'api/topic/add' => 'topics#add'
   get 'api/sub_topic/:topic_id' => 'topics#sub_topic'
   delete 'api/users/delete_temp' => 'users#delete_temp'
