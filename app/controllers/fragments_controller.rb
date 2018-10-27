@@ -27,8 +27,11 @@ class FragmentsController < ApplicationController
 
   # GET /fragments/1
   def show
-    #@h1 = {:id => @fragment.id, :title => @fragment.title, :introduction => @fragment.introduction, :content => @fragment.content, :score => @fragment.content, :source => @fragment.source, :image_path => Photo.find(@fragment.photos_id).path}
-    #render json: @h1, status: :ok
+    @h1 = {:id => @fragment.id, :title => @fragment.title, :introduction => @fragment.introduction, :content => @fragment.content, :score => @fragment.content, :source => @fragment.source, :image_path => Photo.find(@fragment.photos_id).path}
+    render json: @h1, status: :ok
+  end
+
+  def showpdf
     respond_to do |format|   
       format.html   
       format.pdf do
@@ -37,6 +40,7 @@ class FragmentsController < ApplicationController
       end
     end
   end
+
 
   # POST /fragments
   def create

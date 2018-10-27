@@ -10,7 +10,10 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    #render json: @user
+    render json: @user
+  end
+
+  def showpdf
     respond_to do |format|   
       format.html   
       format.pdf do
@@ -18,7 +21,7 @@ class UsersController < ApplicationController
         send_data pdf.render, filename: "export.pdf", type: 'application/pdf', disposition: 'inline'
       end
     end
-  end
+  end 
 
   def best
     array = []
