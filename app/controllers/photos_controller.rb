@@ -1,6 +1,6 @@
 require "base64"
 class PhotosController < ApplicationController
-  before_action :set_photo, only: [:show, :update, :destroy]
+  before_action :set_photo, only: [:update, :destroy]
   before_action :authenticate_user,  only: [:photo_id, :set_profile_photo]
 
   def photo_id
@@ -47,10 +47,14 @@ class PhotosController < ApplicationController
   # GET /photos/1
   def show
     @photo = Photo.find(params[:id])
-    File.open(@photo.path, 'wb') do |f|
-      f.write(Base64.decode64(@photo.base64_image))
+    if @photo.nil?
+      render json: {error: "Photo id doesn't exist"}, status: :bad_request
+    else
+      File.open(@photo.path, 'wb') do |f|
+        f.write(Base64.decode64(@photo.base64_image))
+      end
+      send_file @photo.path, :type => 'image/jpeg', :disposition => 'inline'
     end
-    send_file @photo.path, :type => 'image/jpeg', :disposition => 'inline'
   end
 
   # POST /photos
