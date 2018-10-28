@@ -1,3 +1,4 @@
+require "base64"
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :update, :destroy]
   before_action :authenticate_user,  only: [:photo_id, :set_profile_photo]
@@ -19,21 +20,35 @@ class PhotosController < ApplicationController
   def upload
     @photo = Photo.create(path: 'default',image: params[:image])
     @photo.save
-    @photo.update_attribute(:path, @photo.image.url)
-    render json: {id: @photo.id, path: @photo.path}, status: :created
+    if @photo.image.url.nil?
+      render json: {error: 'Empty image request'}, status: :bad_request
+    else
+      @photo.update_attribute(:path, @photo.image.url)
+      @image_p = Base64.encode64(open('public'+@photo.path).read)
+      File.open('public/uploads/images/image' + @photo.id.to_s + '.png', 'wb') do |f|
+        f.write(Base64.decode64(@image_p))
+      end
+      @photo.base64_image = @image_p
+      if @photo.save
+        render json: {id: @photo.id, path: 'public/uploads/images/image' + @photo.id.to_s + '.png'}, status: :created
+      else
+        render json: {error: 'Something was wrong'}, status: :bad_request
+      end
+    end
   end
 
   # GET /photos
   def index
     @photos = Photo.all.paginate(page: params[:page], per_page: 10)
-
     render json: @photos
   end
 
   # GET /photos/1
   def show
-    @temp_path = 'public'+Photo.find(params[:id]).path
-    send_file @temp_path, :type => 'image/jpeg', :disposition => 'inline'
+    File.open('public/uploads/images/image'+ params[:id] +'.png', 'wb') do |f|
+      f.write(Base64.decode64(Photo.find(params[:id]).base64_image))
+    end
+    render json: {image: 'public/uploads/images/image'+ params[:id] +'.png'}, status: :ok
   end
 
   # POST /photos
