@@ -1,17 +1,32 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:myfriend, :create, :update, :destroy]
+  before_action :authenticate_user,  only: [:followed, :follower, :create, :update, :destroy]
 
   # GET /friends/1
   def show
     render json: @friend
   end
 
-  def myfriend
-    @user = User.find_by(username: params[:username])
+  def followed
+    @user = current_user
     @friends = Friend.where(:follower => @user.id)
-    @myFriend = User.where(:id => @friends)
-    render json: @myFriend, status: :ok
+    if @friends.nil?
+      render json: {error: 'No content'}, status: :no_content
+    else
+      @myFriend = User.where(:id => @friends)
+      render json: {who: 'Users who follow me', users: @myFriend}, status: :ok
+    end
+  end
+    
+  def follower
+    @user = current_user
+    @friends = Friend.where(:followed => @user.id)
+    if @friends.nil?
+      render json: {error: 'No content'}, status: :no_content
+    else
+      @myFriend = User.where(:id => @friends)
+      render json: {who: 'Users who I follow', users: @myFriend}, status: :ok
+    end
   end
 
   # POST /friends
