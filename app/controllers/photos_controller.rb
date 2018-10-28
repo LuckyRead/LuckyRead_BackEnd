@@ -31,7 +31,7 @@ class PhotosController < ApplicationController
       @photo.base64_image = @image_p
       @photo.path = 'public/uploads/images/image' + @photo.id.to_s + '.png'
       if @photo.save
-        render json: {id: @photo.id, path: @photo.path}, status: :created
+        render json: {id: @photo.id, path: @photo.path, direct_url: 'https://luckyread-backend.herokuapp.com/api/photo/' + @photo.id.to_s}, status: :created
       else
         render json: {error: 'Something was wrong'}, status: :bad_request
       end
