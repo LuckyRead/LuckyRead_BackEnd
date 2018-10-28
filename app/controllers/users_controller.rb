@@ -87,6 +87,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if User.find_by(email: user.email).nil?
       if user.save
+        UserMailer.welcome_email(user).deliver_now
         render json: user, status: :created, msg: 'User created'
       else
         render json: {status: :unprocessable_entity, error: user.errors}, status: :unprocessable_entity
