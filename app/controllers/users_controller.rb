@@ -121,18 +121,14 @@ class UsersController < ApplicationController
     if User.find_by(email: user.email).nil?
       if user.save
         render json: user, status: :created, msg: 'User created'
-    @user = User.new(user_params)
-    if User.find_by(email: @user.email).nil?
-      if @user.save
-        render json: @user, status: :created, msg: 'User created'
-        UserMailer.welcome_email(@user).deliver_now
+        user = User.new(user_params)
+        UserMailer.welcome_email(user).deliver_now
       else
-        render json: {status: :unprocessable_entity, error: @user.errors}, status: :unprocessable_entity
+        render json: {status: :unprocessable_entity, error: user.errors}, status: :unprocessable_entity
       end
     else
       render json: {msj: "Email taken"}, status: :conflict
     end
-    
   end
 
   def current
@@ -163,5 +159,4 @@ class UsersController < ApplicationController
     def user_params
       params[:user].permit(:username, :password, :name, :lastname, :email, :password, :city_id)
     end
-
 end
