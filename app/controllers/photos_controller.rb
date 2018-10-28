@@ -29,8 +29,9 @@ class PhotosController < ApplicationController
         f.write(Base64.decode64(@image_p))
       end
       @photo.base64_image = @image_p
+      @photo.path = 'public/uploads/images/image' + @photo.id.to_s + '.png'
       if @photo.save
-        render json: {id: @photo.id, path: 'public/uploads/images/image' + @photo.id.to_s + '.png'}, status: :created
+        render json: {id: @photo.id, path: @photo.path}, status: :created
       else
         render json: {error: 'Something was wrong'}, status: :bad_request
       end
@@ -45,10 +46,11 @@ class PhotosController < ApplicationController
 
   # GET /photos/1
   def show
-    File.open('public/uploads/images/image'+ params[:id] +'.png', 'wb') do |f|
-      f.write(Base64.decode64(Photo.find(params[:id]).base64_image))
+    @photo = Photo.find(params[:id])
+    File.open(@photo.path, 'wb') do |f|
+      f.write(Base64.decode64(@photo.base64_image))
     end
-    render json: {image: 'public/uploads/images/image'+ params[:id] +'.png'}, status: :ok
+    send_file @photo.path, :type => 'image/jpeg', :disposition => 'inline'
   end
 
   # POST /photos
