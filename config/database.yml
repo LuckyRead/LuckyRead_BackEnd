@@ -20,10 +20,10 @@ default: &default
 #default: &default
 #  adapter: mysql2
 #  encoding: utf8
-#  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+ # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 #  username: root
 #  password: floppy19
- # socket: /var/run/mysqld/mysqld.sock
+#  socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
