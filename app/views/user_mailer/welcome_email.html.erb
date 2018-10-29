@@ -1,6 +1,14 @@
-<h1>Welcome to lukyread, <%= @user.username %></h1>
-  <p>
-    You have successfully signed up to lukyread
-    your username is: <%= @user.username %>.<br>
-  </p>
-<p>Thanks for joining and have a great day!</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Bienvenido a Luckyread, <%= @user.name %></h1>
+    <p>
+      Usted se ha registrado satisfactoriamente a Luckyread,
+      Su nombre de usuario es: <%= @user.username %>.<br>
+    </p>
+    <p>¡Garcias por unirte y hacer parte de esta gran familia, esperamos que tengas un buen día!</p>
+  </body>
+</html>
