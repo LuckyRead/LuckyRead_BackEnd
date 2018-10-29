@@ -30,13 +30,9 @@ class PhotosController < ApplicationController
     else
       @photo.update_attribute(:path, @photo.image.url)
       @image_p = Base64.encode64(open('public'+@photo.path).read)
-      File.open('public/uploads/images/image' + @photo.id.to_s + '.png', 'wb') do |f|
-        f.write(Base64.decode64(@image_p))
-      end
       @photo.base64_image = @image_p
-      @photo.path = 'public/uploads/images/image' + @photo.id.to_s + '.png'
       if @photo.save
-        render json: {id: @photo.id, path: @photo.path, direct_url: 'https://luckyread-backend.herokuapp.com/api/photo/' + @photo.id.to_s}, status: :created
+        render json: {id: @photo.id, direct_url: 'https://luckyread-backend.herokuapp.com/api/photo/' + @photo.id.to_s}, status: :created
       else
         render json: {error: 'Something was wrong'}, status: :bad_request
       end
@@ -55,10 +51,11 @@ class PhotosController < ApplicationController
     if @photo.nil?
       render json: {error: "Photo id doesn't exist"}, status: :bad_request
     else
-      File.open(@photo.path, 'w+b') do |f|
+      @path = 'public/uploads/images/image' + params[:id].to_s + '.jpg'
+      File.open(@path, 'w+b') do |f|
         f.write(Base64.decode64(@photo.base64_image))
       end
-      send_file @photo.path, :type => 'image/jpeg', :disposition => 'inline'
+      send_file @path, :type => 'image/jpeg', :disposition => 'inline'
     end
   end
 
