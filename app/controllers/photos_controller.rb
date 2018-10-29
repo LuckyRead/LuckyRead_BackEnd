@@ -3,6 +3,10 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: [:update, :destroy]
   before_action :authenticate_user,  only: [:photo_id, :set_profile_photo]
 
+  def favicon
+    send_file 'public/favicon.ico', type: 'image/x-icon', disposition: 'inline'
+  end
+
   def photo_id
     render json: {id: current_user.photos_id}, status: :ok
   end
