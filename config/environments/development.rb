@@ -14,12 +14,12 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+  if Rails.root.join('tmp/caching-dev.txt').exist? #'tmp', 'caching-dev.txt'
     config.action_controller.perform_caching = true
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}" #2.days.to_i
     }
   else
     config.action_controller.perform_caching = false
@@ -28,29 +28,29 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  #config.active_storage.service = :local Quitar comentario
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.delivery_method = :sendmail
+  #confi.action_mailer.delivery_method = :sendmail Quitar comentario
   # Defaults to:
   # config.action_mailer.sendmail_settings = {
   #   location: '/usr/sbin/sendmail',
   #   arguments: '-i'
   # }
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'luckyreadis20182@gmail.com'}
+  #config.action_mailer.perform_deliveries = true Quitar comentario
+  #config.action_mailer.raise_delivery_errors = false
+  #config.action_mailer.default_options = {from: 'luckyreadis20182@gmail.com'} Quitar comentario
   config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
+  config.action_mailer.smtp_settings = {
   address:              'smtp.gmail.com',
   port:                 587,
   domain:               'http://www.lucky-read.com',
-  user_name:            '<luckyreadis20182>',
-  password:             '<floppy19>',
+  user_name:            'luckyreadIS20182',
+  password:             'floppy19',
   authentication:       'plain',
   enable_starttls_auto: true  }
   # Print deprecation notices to the Rails logger.
@@ -69,10 +69,10 @@ config.action_mailer.smtp_settings = {
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
+=begin
   Rails.application.routes.default_url_options = {
     host: 'localhost',
     port: 3000
   }
-
+=end
 end
