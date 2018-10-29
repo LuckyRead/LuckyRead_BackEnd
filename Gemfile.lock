@@ -201,8 +201,5 @@ DEPENDENCIES
   wdm (>= 0.1.0)
   will_paginate (~> 3.1.0)
 
-RUBY VERSION
-   ruby 2.3.3p222
-
 BUNDLED WITH
-   1.16.6
+   1.17.1
