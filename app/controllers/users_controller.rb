@@ -25,17 +25,21 @@ class UsersController < ApplicationController
   end
 
   def login_fb
-    @API_URL = 'https://graph.facebook.com/me?access_token='+params[:accessToken]
-    response = HTTParty.get(@API_URL)
-    # render json: response["name"], status: :ok
-    if response["name"].nil? || response["id"].nil?
-      render json: {error: "Facebook authentication error"}, status: :bad_request
+    if params[:accessToken].nil?
+      render json: {error: 'AccesToken empty'}, status: :bad_request
     else
-      @user = User.find_by(email: params[:email])
-      if @user.nil?
-        render json: {error: "User not registered"}, status: :bad_request
+      @API_URL = 'https://graph.facebook.com/me?access_token='+params[:accessToken]
+      response = HTTParty.get(@API_URL)
+      # render json: response["name"], status: :ok
+      if response["name"].nil? || response["id"].nil?
+        render json: {error: "Facebook authentication error"}, status: :bad_request
       else
-        render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+        @user = User.find_by(email: params[:email])
+        if @user.nil?
+          render json: {error: "User not registered"}, status: :bad_request
+        else
+          render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+        end
       end
     end
   end
