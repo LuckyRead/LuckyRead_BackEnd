@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
   def login_fb
     if params[:accessToken].nil?
-      render json: {error: 'AccesToken empty'}, status: :bad_request
+      render json: {error: 'AccesToken empty'}, status: :no_content
     else
       @API_URL = 'https://graph.facebook.com/me?access_token='+params[:accessToken]
       response = HTTParty.get(@API_URL)
