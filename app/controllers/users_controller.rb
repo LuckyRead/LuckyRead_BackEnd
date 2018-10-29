@@ -1,6 +1,23 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+
+  def send_reset_password
+    @user = User.find_by(email: params[:email])
+    @token = Knock::AuthToken.new(payload: { sub: @user.id }).token
+    @URL = 'https://www.lucky-read.com/reset_password/' + @token
+    #Mailer aca ......
+  end
+
+  def change_password
+    @user = current_user
+    @user.password = params[:new_password]
+    if @user.save
+      render json: {password: 'updated'}, status: :ok
+    else
+      render json: {error: 'Something was wrong'}, status: :not_modified
+    end
+  end
 
   def info 
     @user = {:name => current_user.name, :lastname => current_user.lastname, :username => current_user.username, :email => current_user.email, :city => City.find(current_user.city_id).city_name, :talk_to_us => User.find(current_user.id).talk_to_us, :profile_photo_id => current_user.photos_id}
