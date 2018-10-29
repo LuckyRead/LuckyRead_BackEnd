@@ -15,7 +15,7 @@ class PhotosController < ApplicationController
     @user = User.find(current_user.id)
     @user.photos_id = params[:id_photo]
     if @user.save
-      UserMailer.change_photo(user).deliver_now
+      #UserMailer.change_photo(user).deliver_now
       render json: {user: {id_photo: @user.photos_id}}
     else
       render json: {error: 'Something was wrong'}
