@@ -47,11 +47,15 @@ class PhotosController < ApplicationController
 
   # GET /photos/1
   def show
-    @photo = Photo.find(params[:id])
-    if @photo.nil?
-      render json: {error: "Photo id doesn't exist"}, status: :bad_request
+    if params[:id] = 'null'
+      render json: {image_id: nil , base64_image: Base64.encode64(open('https://i.imgur.com/8FEMhNx.png').read)}
     else
-      render json: {image_id: @photo.id, base64_image: @photo.base64_image}, status: :ok 
+      @photo = Photo.find(params[:id])
+      if @photo.nil?
+        render json: {error: "Photo id doesn't exist"}, status: :bad_request
+      else
+        render json: {image_id: @photo.id, base64_image: @photo.base64_image}, status: :ok 
+      end
     end
   end
 
