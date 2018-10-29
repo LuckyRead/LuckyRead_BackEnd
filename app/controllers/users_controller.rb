@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+
+  def info 
+    @user = {:name => current_user.name, :lastname => current_user.lastname, :username => current_user.username, :email => current_user.email, :city => City.find(current_user.city_id).city_name, :talk_to_us => User.find(current_user.id).talk_to_us}
+    render json: @user, status: :ok
+  end
 
   def login_fb
     @API_URL = 'https://graph.facebook.com/me?access_token='+params[:accessToken]
