@@ -15,10 +15,7 @@
 #
 
 class Fragment < ApplicationRecord
-    validates :title, presence: true, length: {maximum: 10000}
-    validates :introduction, length: {maximum: 1000} 
-    validates :content, length: {maximum: 50000}
-    validates :source, length: {maximum: 250}
+    validates :title, presence: true
     validates :users_id, presence: true    
     has_many :users
     has_many :comments
@@ -32,12 +29,10 @@ class Fragment < ApplicationRecord
     scope :bestfragment, ->(limit){order("score desc").limit(limit)}
 
     def self.Fragmentrandomwithoutregister (id) #Get 1
-        return Fragment.joins("inner join `rel_fragment_sub_topics` on `fragments`.`id` = `rel_fragment_sub_topics`.`fragments_id` inner join `sub_topics_users` on `sub_topics_users`.`sub_topic_id` = `rel_fragment_sub_topics`.`sub_topics_id` inner join `photos` on `fragments`.`photos_id` = `photos`.`fragment_id`").where("sub_topics_users.sub_topic_id = ?",id).order("RAND()").pluck(:id, :title, :introduction, :content, :score, :source, :created_at, :updated_at, :path).first
+        return Fragment.joins("inner join rel_fragment_sub_topics on fragments.id = rel_fragment_sub_topics.fragments_id inner join sub_topics_users on sub_topics_users.sub_topic_id = rel_fragment_sub_topics.sub_topics_id inner join photos on fragments.photos_id = photos.fragment_id").where("sub_topics_users.sub_topic_id = ?",id).pluck(:id, :title, :introduction, :content, :score, :source, :created_at, :updated_at, :path)
     end
 
     def self.Fragmentsubtopicwithprefecensuser (id)#Post 3 ID user
-        return Fragment.joins("inner join `rel_fragment_sub_topics` on `fragments`.`id` = `rel_fragment_sub_topics`.`fragments_id` inner join `sub_topics_users` on `sub_topics_users`.`sub_topic_id` = `rel_fragment_sub_topics`.`sub_topics_id` inner join `photos` on `fragments`.`photos_id` = `photos`.`fragment_id`").where("sub_topics_users.user_id = ?",id).order("RAND()").pluck(:id, :title, :introduction, :content, :score, :source, :path).first
+        return Fragment.joins("inner join rel_fragment_sub_topics on fragments.id = rel_fragment_sub_topics.fragments_id inner join sub_topics_users on sub_topics_users.sub_topic_id = rel_fragment_sub_topics.sub_topics_id inner join photos on fragments.photos_id = photos.fragment_id").where("sub_topics_users.user_id = ?",id).pluck(:id, :title, :introduction, :content, :score, :source, :path)
     end
-
-
 end

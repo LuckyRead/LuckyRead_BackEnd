@@ -1,11 +1,46 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+
+  def info 
+    @user = {:name => current_user.name, :lastname => current_user.lastname, :username => current_user.username, :email => current_user.email, :city => City.find(current_user.city_id).city_name, :talk_to_us => User.find(current_user.id).talk_to_us}
+    render json: @user, status: :ok
+  end
+
+  def login_fb
+    @API_URL = 'https://graph.facebook.com/me?access_token='+params[:accessToken]
+    response = HTTParty.get(@API_URL)
+    # render json: response["name"], status: :ok
+    if response["name"].nil? || response["id"].nil?
+      render json: {error: "Facebook authentication error"}, status: :bad_request
+    else
+      @user = User.find_by(email: params[:email])
+      if @user.nil?
+        render json: {error: "User not registered"}, status: :bad_request
+      else
+        render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+      end
+    end
+  end
+
+  def login_ggle
+    @API_URL = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token='+params[:tokenId]
+    response = HTTParty.get(@API_URL)
+    if response["email"].nil?
+      render json: {error: "Google authentication error"}, status: :bad_request
+    else
+      @user = User.find_by(email: response["email"])
+      if @user.nil?
+        render json: {error: "User not registered"}, status: :bad_request
+      else
+        render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+      end
+    end
+  end
 
   # GET /users
   def index
     @users = User.all.paginate(page: params[:page], per_page: 10)
-
     render json: @users
   end
 
@@ -13,6 +48,16 @@ class UsersController < ApplicationController
   def show
     render json: @user
   end
+
+  def showpdf
+    respond_to do |format|   
+      format.html   
+      format.pdf do
+        pdf = UserPdf.new(@user)
+        send_data pdf.render, filename: "export.pdf", type: 'application/pdf', disposition: 'inline'
+      end
+    end
+  end 
 
   def best
     array = []
@@ -35,6 +80,12 @@ class UsersController < ApplicationController
     else
       render json: {msj: "Email taken"}, status: :conflict
     end
+  end
+
+  def delete_temp
+    @to_delete = User.where('id > 180')
+    render json: @to_delete
+    @to_delete.destroy_all
   end
 
   def preferences_sub_topic
@@ -70,16 +121,18 @@ class UsersController < ApplicationController
 
   def signup
     user = User.new(user_params)
+    user.username = params[:user][:username].to_s.downcase
+    user.email = params[:user][:email].to_s.downcase
     if User.find_by(email: user.email).nil?
       if user.save
         render json: user, status: :created, msg: 'User created'
+        UserMailer.welcome_email(user).deliver_now
       else
         render json: {status: :unprocessable_entity, error: user.errors}, status: :unprocessable_entity
       end
     else
       render json: {msj: "Email taken"}, status: :conflict
     end
-    
   end
 
   def current
@@ -103,7 +156,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find(params[:id]) #:id
     end
 
     # Only allow a trusted parameter "white list" through.

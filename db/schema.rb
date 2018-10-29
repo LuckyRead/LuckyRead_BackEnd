@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_035040) do
+ActiveRecord::Schema.define(version: 2018_10_25_185155) do
 
   create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "city_name", null: false
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_035040) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
     t.index ["fragment_id"], name: "index_photos_on_fragment_id"
     t.index ["user_id"], name: "index_photos_on_user_id"
   end
