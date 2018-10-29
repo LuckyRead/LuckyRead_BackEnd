@@ -55,7 +55,7 @@ class PhotosController < ApplicationController
     if @photo.nil?
       render json: {error: "Photo id doesn't exist"}, status: :bad_request
     else
-      File.open(@photo.path, 'wb') do |f|
+      File.open(@photo.path, 'w+b') do |f|
         f.write(Base64.decode64(@photo.base64_image))
       end
       send_file @photo.path, :type => 'image/jpeg', :disposition => 'inline'
