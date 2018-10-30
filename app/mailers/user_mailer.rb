@@ -1,17 +1,25 @@
-class UserMailer < ApplicationMailer
+class UserMailer < ActionMailer::Base
+  default from: 'LuckyreadIS20182@gmail.com'
+
     def welcome_email(user)
       @user = user
-      mail(to: @user.email, subject: 'Bienvenido a LuckyRead')
+      mail(to: @user.email, subject: 'Bienvenido a LuckyRead',
+      template_path: 'user_mailer',
+      template_name: 'welcome_email')
     end
 
     def change_photo(user)
       @user = user
-      mail(to: @user.email, subject: 'Su foto de perfil ha sido cambiada')
+      mail(to: @user.email, subject: 'Su foto de perfil ha sido cambiada',
+      template_path: 'user_mailer',
+      template_name: 'change_photo')
     end
 
-    def change_password(user, URL)
+    def change_password(user, url)
       @user = user
-      @URL = URL
-      mail(to: @user.email, subject: 'Solicitud de cambiar su contraseña')
+      @URL = url
+      mail(to: @user.email, subject: 'Solicitud de cambiar su contraseña',
+      template_path: 'user_mailer',
+      template_name: 'change_password')
     end
 end
