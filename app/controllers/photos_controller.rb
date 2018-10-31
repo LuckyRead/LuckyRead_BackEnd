@@ -23,7 +23,7 @@ class PhotosController < ApplicationController
   end
 
   def upload
-    @photo = Photo.create(path: 'default',image: params[:image])
+    @photo = Photo.create(path: 'default', image: params[:image])
     @photo.save
     if @photo.image.url.nil?
       render json: {error: 'Empty image request'}, status: :bad_request

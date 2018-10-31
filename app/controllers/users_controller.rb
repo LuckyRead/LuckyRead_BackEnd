@@ -37,7 +37,29 @@ class UsersController < ApplicationController
       else
         @user = User.find_by(email: params[:email])
         if @user.nil?
-          render json: {error: "User not registered"}, status: :bad_request
+          @photo = Photo.new(
+            path: 'default',
+            image: 'facebook_image',
+            base64_image: Base64.encode64(open(params[:picture][:data][:url]).read)
+          )
+          @photo.save
+          @username = Faker::Name.unique.first_name
+          while !User.find_by(username: @username).nil?
+            @username = Faker::Name.unique.first_name
+          end
+          @user = User.create!(
+            username: @username,
+            name: params[:name],
+            lastname: ' ',
+            email: params[:email],
+            password: params[:id],
+            city_id: 1,
+            score: 1,
+            talk_to_us: nil,
+            photos_id: @photo.id
+          )
+          UserMailer.welcome_email(@user).deliver_now
+          render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user}, status: :created
         else
           render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
         end
@@ -53,7 +75,29 @@ class UsersController < ApplicationController
     else
       @user = User.find_by(email: response["email"])
       if @user.nil?
-        render json: {error: "User not registered"}, status: :bad_request
+        @photo = Photo.new(
+          path: 'default',
+          image: 'google_image',
+          base64_image: Base64.encode64(open(params[:profileObj][:imageUrl]).read)
+        )
+        @photo.save
+        @username = Faker::Name.unique.first_name
+        while !User.find_by(username: @username).nil?
+          @username = Faker::Name.unique.first_name
+        end
+        @user = User.create!(
+          username: @username,
+          name: params[:profileObj][:givenName],
+          lastname: params[:profileObj][:familyName],
+          email: params[:profileObj][:email],
+          password: params[:googleId],
+          city_id: 1,
+          score: 1,
+          talk_to_us: nil,
+          photos_id: @photo.id
+        )
+        UserMailer.welcome_email(@user).deliver_now
+        render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user}, status: :created
       else
         render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
       end
