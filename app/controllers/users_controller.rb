@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     @user = User.find_by(email: params[:email])
     @token = Knock::AuthToken.new(payload: { sub: @user.id }).token
     @URL = 'https://www.lucky-read.com/reset_password/' + @token
-    UserMailer.change_password(@User, @URL).deliver_now
+    UserMailer.change_password(@user, @URL).deliver_now
   end
 
   def change_password
