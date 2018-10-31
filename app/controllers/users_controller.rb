@@ -1,24 +1,68 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+
+  def send_reset_password
+    @user = User.find_by(email: params[:email])
+    @token = Knock::AuthToken.new(payload: { sub: @user.id }).token
+    @URL = 'https://www.lucky-read.com/reset_password/' + @token
+    UserMailer.change_password(@user, @URL).deliver_now
+    render json: {jwt: @token}, status: :created
+  end
+
+  def change_password
+    @user = current_user
+    @user.password = params[:new_password]
+    if @user.save
+      render json: {password: 'updated'}, status: :ok
+    else
+      render json: {error: 'Something was wrong'}, status: :not_modified
+    end
+  end
 
   def info 
-    @user = {:name => current_user.name, :lastname => current_user.lastname, :username => current_user.username, :email => current_user.email, :city => City.find(current_user.city_id).city_name, :talk_to_us => User.find(current_user.id).talk_to_us}
+    @user = {:name => current_user.name, :lastname => current_user.lastname, :username => current_user.username, :email => current_user.email, :city => City.find(current_user.city_id).city_name, :talk_to_us => User.find(current_user.id).talk_to_us, :profile_photo_id => current_user.photos_id}
     render json: @user, status: :ok
   end
 
   def login_fb
-    @API_URL = 'https://graph.facebook.com/me?access_token='+params[:accessToken]
-    response = HTTParty.get(@API_URL)
-    # render json: response["name"], status: :ok
-    if response["name"].nil? || response["id"].nil?
-      render json: {error: "Facebook authentication error"}, status: :bad_request
+    if params[:accessToken].nil?
+      render json: {error: 'AccesToken empty'}, status: :no_content
     else
-      @user = User.find_by(email: params[:email])
-      if @user.nil?
-        render json: {error: "User not registered"}, status: :bad_request
+      @API_URL = 'https://graph.facebook.com/me?access_token='+params[:accessToken]
+      response = HTTParty.get(@API_URL)
+      # render json: response["name"], status: :ok
+      if response["name"].nil? || response["id"].nil?
+        render json: {error: "Facebook authentication error"}, status: :bad_request
       else
-        render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+        @user = User.find_by(email: params[:email])
+        if @user.nil?
+          @photo = Photo.new(
+            path: 'default',
+            image: 'facebook_image',
+            base64_image: Base64.encode64(open(params[:picture][:data][:url]).read)
+          )
+          @photo.save
+          @username = Faker::Name.unique.first_name
+          while !User.find_by(username: @username).nil?
+            @username = Faker::Name.unique.first_name
+          end
+          @user = User.create!(
+            username: @username,
+            name: params[:name],
+            lastname: ' ',
+            email: params[:email],
+            password: params[:id],
+            city_id: 1,
+            score: 1,
+            talk_to_us: nil,
+            photos_id: @photo.id
+          )
+          UserMailer.welcome_email(@user).deliver_now
+          render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user}, status: :created
+        else
+          render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+        end
       end
     end
   end
@@ -31,7 +75,29 @@ class UsersController < ApplicationController
     else
       @user = User.find_by(email: response["email"])
       if @user.nil?
-        render json: {error: "User not registered"}, status: :bad_request
+        @photo = Photo.new(
+          path: 'default',
+          image: 'google_image',
+          base64_image: Base64.encode64(open(params[:profileObj][:imageUrl]).read)
+        )
+        @photo.save
+        @username = Faker::Name.unique.first_name
+        while !User.find_by(username: @username).nil?
+          @username = Faker::Name.unique.first_name
+        end
+        @user = User.create!(
+          username: @username,
+          name: params[:profileObj][:givenName],
+          lastname: params[:profileObj][:familyName],
+          email: params[:profileObj][:email],
+          password: params[:googleId],
+          city_id: 1,
+          score: 1,
+          talk_to_us: nil,
+          photos_id: @photo.id
+        )
+        UserMailer.welcome_email(@user).deliver_now
+        render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user}, status: :created
       else
         render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
       end
@@ -127,6 +193,7 @@ class UsersController < ApplicationController
       if user.save
         render json: user, status: :created, msg: 'User created'
         UserMailer.welcome_email(user).deliver_now
+        #UserMailer.with(user: user).welcome_email.deliver_now
       else
         render json: {status: :unprocessable_entity, error: user.errors}, status: :unprocessable_entity
       end

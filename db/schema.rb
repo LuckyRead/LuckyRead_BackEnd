@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2018_10_25_185155) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image"
+    t.text "base64_image"
     t.index ["fragment_id"], name: "index_photos_on_fragment_id"
     t.index ["user_id"], name: "index_photos_on_user_id"
   end

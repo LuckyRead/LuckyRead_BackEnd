@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   post 'api/photo/upload' => 'photos#upload'
   get 'api/photo/:id' => 'photos#show'
   get 'api/user/info' => 'users#info'
+  patch 'api/user/change_password' => 'users#change_password'
+  post 'api/user/send_reset_password' => 'users#send_reset_password'
   get 'favicon' => 'photos#favicon'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics

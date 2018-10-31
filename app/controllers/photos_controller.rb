@@ -15,7 +15,7 @@ class PhotosController < ApplicationController
     @user = User.find(current_user.id)
     @user.photos_id = params[:id_photo]
     if @user.save
-      UserMailer.change_photo(user).deliver_now
+      UserMailer.change_photo(@user).deliver_now
       render json: {user: {id_photo: @user.photos_id}}
     else
       render json: {error: 'Something was wrong'}
@@ -23,20 +23,16 @@ class PhotosController < ApplicationController
   end
 
   def upload
-    @photo = Photo.create(path: 'default',image: params[:image])
+    @photo = Photo.create(path: 'default', image: params[:image])
     @photo.save
     if @photo.image.url.nil?
       render json: {error: 'Empty image request'}, status: :bad_request
     else
       @photo.update_attribute(:path, @photo.image.url)
       @image_p = Base64.encode64(open('public'+@photo.path).read)
-      File.open('public/uploads/images/image' + @photo.id.to_s + '.png', 'wb') do |f|
-        f.write(Base64.decode64(@image_p))
-      end
       @photo.base64_image = @image_p
-      @photo.path = 'public/uploads/images/image' + @photo.id.to_s + '.png'
       if @photo.save
-        render json: {id: @photo.id, path: @photo.path, direct_url: 'https://luckyread-backend.herokuapp.com/api/photo/' + @photo.id.to_s}, status: :created
+        render json: {id: @photo.id, direct_url: 'https://luckyread-backend.herokuapp.com/api/photo/' + @photo.id.to_s}, status: :created
       else
         render json: {error: 'Something was wrong'}, status: :bad_request
       end
@@ -51,14 +47,15 @@ class PhotosController < ApplicationController
 
   # GET /photos/1
   def show
-    @photo = Photo.find(params[:id])
-    if @photo.nil?
-      render json: {error: "Photo id doesn't exist"}, status: :bad_request
+    if params[:id] == 'null'
+      render json: {image_id: nil , base64_image: Base64.encode64(open('https://i.imgur.com/8FEMhNx.png').read)}
     else
-      File.open(@photo.path, 'wb') do |f|
-        f.write(Base64.decode64(@photo.base64_image))
+      @photo = Photo.find(params[:id])
+      if @photo.nil?
+        render json: {error: "Photo id doesn't exist"}, status: :bad_request
+      else
+        render json: {image_id: @photo.id, base64_image: @photo.base64_image}, status: :ok 
       end
-      send_file @photo.path, :type => 'image/jpeg', :disposition => 'inline'
     end
   end
 
