@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     @token = Knock::AuthToken.new(payload: { sub: @user.id }).token
     @URL = 'https://www.lucky-read.com/reset_password/' + @token
     UserMailer.change_password(@user, @URL).deliver_now
+    render json: {jwt: @token}, status: :created
   end
 
   def change_password
