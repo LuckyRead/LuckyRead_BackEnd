@@ -47,7 +47,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/1
   def show
-    if params[:id] = 'null'
+    if params[:id] == 'null'
       render json: {image_id: nil , base64_image: Base64.encode64(open('https://i.imgur.com/8FEMhNx.png').read)}
     else
       @photo = Photo.find(params[:id])
