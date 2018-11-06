@@ -18,4 +18,16 @@ class Reaction < ApplicationRecord
     def self.dislikes (id)
         Reaction.where("reactions.fragments_id = ? and reactions.reaction = '-1'", id).count()
     end
+
+    def self.useractive #Return the activity of users
+        return Reaction.group(:users_id).count()
+    end
+
+    def self.fragmentslikes #return the likes of each fragment
+        return Reaction.where("reactions.reaction = '1'").group(:fragments_id).count()
+    end 
+
+    def self.fragmentsdisklikes #return the likes of each fragment
+        return Reaction.where("reactions.reaction = '-1'").group(:fragments_id).count()
+    end 
 end

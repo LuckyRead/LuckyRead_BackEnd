@@ -37,6 +37,10 @@ class User < ApplicationRecord
     def self.checkemail (email)
         return User.where("users.email = ?", email)
     end
+    
+    def self.userold #return last users register
+        return User.where("users.created_at >= (now() - interval 1 month)")
+    end
 =begin
     def self.bestuser
         return User.order(score: :desc).take(5).pluck(:username, :talk_to_us)
