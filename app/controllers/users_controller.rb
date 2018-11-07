@@ -142,9 +142,9 @@ class UsersController < ApplicationController
   def email_exist
     @user = User.find_by(email: params[:email])
     if @user.nil?
-      render json: {email: "Taken"}, status: :ok
-    else
       render json: {email: "Not Taken"}, status: :ok
+    else
+      render json: {email: "Taken"}, status: :ok
     end
   end
 
@@ -179,9 +179,9 @@ class UsersController < ApplicationController
   def user_exist
     @user = User.find_by(username: params[:username])
     if @user.nil?
-      render json: {email: "Taken"}, status: :ok
-    else
       render json: {email: "Not Taken"}, status: :ok
+    else
+      render json: {email: "Taken"}, status: :ok
     end
   end
 
