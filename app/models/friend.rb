@@ -10,7 +10,11 @@
 #
 
 class Friend < ApplicationRecord
-    def self.userfollowed #return the likes of each fragment
+    def self.userfollowed #return followers of all users
         return Friend.group(:followed).count()
+    end 
+
+    def self.userfollowedesp(id, date) #return news followers of a specific user
+        return Friend.where("friends.follower = ? and friends.created_at >= ?", id, date).group(:followed).count()
     end 
 end
