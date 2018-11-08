@@ -115,7 +115,7 @@ REACTION_Fake.push("1")
                     talk_to_us: Faker::HarryPotter.quote,
                     photos_id: @photouser
                 )
-                
+
                 4.times do
                     user2 = User.create!(
                         username: Faker::Name.unique.first_name,
@@ -160,45 +160,47 @@ REACTION_Fake.push("1")
                         sub_topic_id: subtopic.id,
                         score: Faker::Number.between(1, 10)
                     )
-                    @num = Faker::Number.between(0, 56)
-                    fragment = Fragment.create!(
-                        title: @Fragment_Seed[@num][:title],
-                        introduction: @Fragment_Seed[@num][:introduction],
-                        content: @Fragment_Seed[@num][:content],
-                        source: @Fragment_Seed[@num][:source],
-                        score: @Fragment_Seed[@num][:score],
-                        users_id: user.id,
-                        photos_id: @photofragmen
-                    )
-                
-                    Reaction.create!(
-                        users_id: user.id,
-                        fragments_id: fragment.id,
-                        reaction: REACTION_Fake[Faker::Number.between(0,2)]
-                    )
-
-                    comment = Comment.create!(
-                        message: Faker::HarryPotter.quote,
-                        datetime: Faker::Date.backward(14),
-                        user_id: user.id,
-                        fragment_id: fragment.id
-                    )
-                    RelFragmentSubTopic.create!(
-                        fragments_id: fragment.id,
-                        sub_topics_id: subtopic.id
-                    )
-
-                    FragmentsSubTopic.create!(
-                        fragment_id: fragment.id,
-                        sub_topic_id: subtopic.id
-                    )
+                    3.times do
+                        @num = Faker::Number.between(0, 56)
+                        fragment = Fragment.create!(
+                            title: @Fragment_Seed[@num][:title],
+                            introduction: @Fragment_Seed[@num][:introduction],
+                            content: @Fragment_Seed[@num][:content],
+                            source: @Fragment_Seed[@num][:source],
+                            score: @Fragment_Seed[@num][:score],
+                            users_id: user.id,
+                            photos_id: @photofragmen
+                        )
                     
-                    response = Response.create!(
-                        message: Faker::HarryPotter.quote,
-                        datetime: Faker::Date.backward(14),
-                        comments_id: comment.id,
-                        users_id: user.id
-                    )
+                        Reaction.create!(
+                            users_id: user.id,
+                            fragments_id: fragment.id,
+                            reaction: REACTION_Fake[Faker::Number.between(0,2)]
+                        )
+
+                        comment = Comment.create!(
+                            message: Faker::HarryPotter.quote,
+                            datetime: Faker::Date.backward(14),
+                            user_id: user.id,
+                            fragment_id: fragment.id
+                        )
+                        RelFragmentSubTopic.create!(
+                            fragments_id: fragment.id,
+                            sub_topics_id: subtopic.id
+                        )
+
+                        FragmentsSubTopic.create!(
+                            fragment_id: fragment.id,
+                            sub_topic_id: subtopic.id
+                        )
+                        
+                        response = Response.create!(
+                            message: Faker::HarryPotter.quote,
+                            datetime: Faker::Date.backward(14),
+                            comments_id: comment.id,
+                            users_id: user.id
+                        )
+                    end
                 end                
             end         
         end
