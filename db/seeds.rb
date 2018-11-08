@@ -115,21 +115,24 @@ REACTION_Fake.push("1")
                     talk_to_us: Faker::HarryPotter.quote,
                     photos_id: @photouser
                 )
-                user2 = User.create!(
-                    username: Faker::Name.unique.first_name,
-                    name: Faker::Name.first_name,
-                    lastname: Faker::Name.last_name,
-                    email: Faker::Internet.email,
-                    password: Faker::Internet.password,
-                    city_id: @city.id,
-                    score: Faker::Number.between(1, 10),
-                    talk_to_us: Faker::HarryPotter.quote
-                )
+                
+                4.times do
+                    user2 = User.create!(
+                        username: Faker::Name.unique.first_name,
+                        name: Faker::Name.first_name,
+                        lastname: Faker::Name.last_name,
+                        email: Faker::Internet.email,
+                        password: Faker::Internet.password,
+                        city_id: @city.id,
+                        score: Faker::Number.between(1, 10),
+                        talk_to_us: Faker::HarryPotter.quote
+                    )
 
-                Friend.create!(
-                    follower: user.id,
-                    followed: user2.id
-                )
+                    Friend.create!(
+                        follower: user.id,
+                        followed: user2.id
+                    )
+                end
 
                 3.times do
                     subtopic = SubTopic.create!(

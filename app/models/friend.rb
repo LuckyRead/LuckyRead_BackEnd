@@ -10,4 +10,7 @@
 #
 
 class Friend < ApplicationRecord
+    def self.userfollowed #return the likes of each fragment
+        return Friend.group(:followed).count()
+    end 
 end
