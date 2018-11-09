@@ -201,3 +201,28 @@ REACTION_Fake.push("1")
         end
     end
 end
+URL_Profile = []
+URL_Profile.push("https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-all-about-face.jpg")
+URL_Profile.push("https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-smile-with-teeth.jpg")
+URL_Profile.push("https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg")
+URL_Profile.push("https://www.bigredcloud.com/wp-content/uploads/4-tips-for-taking-professional-profile-pictures.jpg")
+URL_Profile.push("https://pm1.narvii.com/6530/1ff26e641941394e0d3140836b715ea270e7a2ca_hq.jpg")
+URL_Profile.push("https://www.iti.org.uk/images/article-images/Profile-Interview-Photo---Fiona-Gray.jpg")
+URL_Profile.push("https://i.imgur.com/AZbKzgd.png")
+URL_Profile.push("https://i.imgur.com/AZbKzgd.png")
+URL_Profile.push("https://i.imgur.com/AZbKzgd.png")
+URL_Profile.push("https://i.imgur.com/AZbKzgd.png")
+URL_Profile.push("https://i.imgur.com/AZbKzgd.png")
+#https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqZC4f-_Herjqq2mBem7wIKT6OQgTUUgbLFaV20s00AO8cj6wS-g
+#https://s3.amazonaws.com/aspph-wp-production/app/uploads/2017/03/Ans-.jpg
+#https://www.insidethehall.com/wp-content/authors/bladner-15.jpg
+#https://i.cricketcb.com/stats/img/faceImages/576.jpg
+#http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-male-4.jpg
+Photo.create!(
+    path: 'default',
+    
+)
+User.all.each do |single|
+    if single.photos_id.nil?
+
+end
