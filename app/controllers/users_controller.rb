@@ -59,9 +59,9 @@ class UsersController < ApplicationController
             photos_id: @photo.id
           )
           UserMailer.welcome_email(@user).deliver_now
-          render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user}, status: :created
+          render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user, username: @user.username}, status: :created
         else
-          render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+          render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, username: @user.username}, status: :created
         end
       end
     end
@@ -97,9 +97,9 @@ class UsersController < ApplicationController
           photos_id: @photo.id
         )
         UserMailer.welcome_email(@user).deliver_now
-        render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user}, status: :created
+        render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user, username: @user.username}, status: :created
       else
-        render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+        render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, username: @user.username}, status: :created
       end
     end
   end
