@@ -60,6 +60,33 @@ class FragmentsController < ApplicationController
     end
   end
 
+  def new_fragments
+    arrayFragments = []
+    Fragment.fragmentold.each do |id|
+      hash2 = {:fragment_id => Fragment.find_by(id: id).id}
+      arrayFragments.push(hash2)
+    end 
+    render json: arrayFragments, status: :ok
+  end
+
+  def likes_fragments
+    arrayFragmentslikes = []
+    Reaction.fragmentslikes.each do |reactions_fragments_id, count_all|
+      hash2 = {:fragment_id => reactions_fragments_id, :count_all => count_all}
+      arrayFragmentslikes.push(hash2)
+    end 
+    render json: arrayFragmentslikes, status: :ok
+  end
+
+  def dislikes_fragments
+    arrayFragmentsdislikes = []
+    Reaction.fragmentsdisklikes.each do |reactions_fragments_id, count_all|
+      hash2 = {:fragment_id => reactions_fragments_id, :count_all => count_all}
+      arrayFragmentsdislikes.push(hash2)
+    end 
+    render json: arrayFragmentsdislikes, status: :ok
+  end
+
   # PATCH/PUT /fragments/1
   def update
     if @fragment.update(fragment_params)
