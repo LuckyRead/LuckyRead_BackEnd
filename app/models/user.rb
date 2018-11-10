@@ -39,38 +39,12 @@ class User < ApplicationRecord
     end
     
     def self.userold #return last users register
-        return User.where("users.created_at >= (now() - interval 1 month)")
+        return User.where("users.created_at >= (now() - interval 1 month)").pluck(:id, :username)
     end
-=begin
-    def self.bestuser
-        return User.order(score: :desc).take(5).pluck(:username, :talk_to_us)
-    end
-=end
+
     scope :bestuser, ->(limit){order("score asc").limit(limit).pluck(:username, :talk_to_us)}
 
     scope :user_most_recent, ->(limit){order("created_at desc").limit(limit)}
-=begin    
-    def self.changepreferencesadd(id, preferences[])
-        @i = 0
-        preferences.length.times do
-            SubTopicsUser.create!(
-                        user_id: id,
-                        sub_topic_id: preferences[i].id,
-                        score: 0
-                    )
-            i += 1
-        end
-    end
-
-    def self.changepreferencesremove(id, preferences[])
-        @i = 0
-        preferences.length.times do
-            SubTopicsUser.where("SubTopicsUser.user_id = ? and SubTopicsUser.sub_topic_id = ? ", id, preferences[i].id)
-            i += 1
-        end
-    end
-=end
-
 
 end
 

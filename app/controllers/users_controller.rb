@@ -165,6 +165,16 @@ class UsersController < ApplicationController
     render json: array, status: :ok
   end
 
+  
+  def new_users
+    arrayUsers = []
+    User.userold.each do |id, username|
+      hash2 = {:user_id => User.find_by(id: id).id, :username => username}
+      arrayUsers.push(hash2)
+    end 
+    render json: arrayUsers, status: :ok
+  end
+
   def preferences_topic
     @user1 = User.find_by(username: params[:username])
     @topics = User.preferencestopic_name(@user1.id)
