@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   get 'api/user/stat/user _activity' => 'users#user_activity'
   post 'api/user/stat/user _activityDate' => 'users#user_activityDate'
   post 'api/user/stat/user _activityDate&ID' => 'users#user_activityDate_Id'
+  get 'api/friend/stat/friends' => 'friends#friends'
+  post 'api/friend/stat/friendsDate&Id' => 'friends#friendsDate_ID'  
   get 'api/fragments/stat/new_fragments' => 'fragments#new_fragments'
   get 'api/fragments/stat/likes_fragments' => 'fragments#likes_fragments'
   get 'api/fragments/stat/dislikes_fragments' => 'fragments#dislikes_fragments'

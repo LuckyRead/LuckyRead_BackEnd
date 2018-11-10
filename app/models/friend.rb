@@ -15,7 +15,9 @@ class Friend < ApplicationRecord
     end 
 
     def self.userfollowedesp(id, date) #return news followers of a specific user
-        return Friend.where("friends.follower = ? and friends.created_at >= ?", id, date).group(:followed).count()
+        dateinit = date + ' 00:00:00'
+        dateend = date + ' 23:59:59'
+        return Friend.where("friends.follower = ? and friends.created_at >= ? and friends.created_at <= ?", id, dateinit, dateend).group(:followed).count()
     end 
 
 end

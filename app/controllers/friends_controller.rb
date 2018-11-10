@@ -18,6 +18,26 @@ class FriendsController < ApplicationController
     end
   end
     
+  def friends
+    arrayfriends = []
+    Friend.userfollowed.each do |friends_followed, count_all|
+      hash3 = {:user_id => friends_followed, :count_all => count_all}
+      arrayfriends.push(hash3)
+    end
+    render json: arrayfriends, status: :ok
+  end
+
+  def friendsDate_ID
+    @date = params[:date]
+    @id = params[:id]
+    arrayfriends = []
+    Friend.userfollowedesp(@id, @date).each do |friends_followed, count_all|
+      hash3 = {:user_id => friends_followed, :count_all => count_all}
+      arrayfriends.push(hash3)
+    end
+    render json: arrayfriends, status: :ok
+  end
+
   def follower
     @user = current_user
     @friends = Friend.where(:followed => @user.id)

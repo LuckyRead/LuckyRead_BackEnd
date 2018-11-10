@@ -30,7 +30,9 @@ class Reaction < ApplicationRecord
     end
 
     def self.useractivedateanduser(id, date) #Return the activity of one user and date specific 
-        return Reaction.where("reactions.users_id = ? and reactions.created_at >= ?", id, date).group(:users_id).count()
+        dateinit = date + ' 00:00:00'
+        dateend = date + ' 23:59:59'
+        return Reaction.where("reactions.users_id = ? and reactions.created_at >= ? and reactions.created_at <= ?", id, dateinit, dateend).group(:users_id).count()
     end
 
     def self.fragmentslikes #return the likes of each fragment
