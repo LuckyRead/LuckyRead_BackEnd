@@ -23,8 +23,10 @@ class Reaction < ApplicationRecord
         return Reaction.group(:users_id).count()
     end
 
-    def self.useractivedate #Return the activity of users one date specific
-        return Reaction.where("reactions.created_at >= ?", date).group(:users_id).count()
+    def self.useractivedate(date) #Return the activity of users one date specific
+        dateinit = date + ' 00:00:00'
+        dateend = date + ' 23:59:59'
+        return Reaction.where("reactions.created_at >= ? and reactions.created_at <= ?", dateinit, dateend).group(:users_id).count()
     end
 
     def self.useractivedateanduser(id, date) #Return the activity of one user and date specific 

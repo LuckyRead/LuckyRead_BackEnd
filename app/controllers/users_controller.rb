@@ -175,6 +175,36 @@ class UsersController < ApplicationController
     render json: arrayUsers, status: :ok
   end
 
+  def user_activity
+    arrayUsersAct = []
+    Reaction.useractive.each do |reactions_users_id, count_all|
+      hash3 = {:user_id => reactions_users_id, :count_all => count_all}
+      arrayUsersAct.push(hash3)
+    end
+    render json: arrayUsersAct, status: :ok
+  end 
+
+  def user_activityDate
+    @date = params[:date]
+    arrayUsersAct = []
+    Reaction.useractivedate(@date).each do |reactions_users_id, count_all|
+      hash3 = {:user_id => reactions_users_id, :count_all => count_all}
+      arrayUsersAct.push(hash3)
+    end
+    render json: arrayUsersAct, status: :ok
+  end
+
+  def user_activityDate_Id
+    @date = params[:date]
+    @id = params[:id]
+    arrayUsersAct = []
+    Reaction.useractivedateanduser(@id, @date).each do |reactions_users_id, count_all|
+      hash3 = {:user_id => reactions_users_id, :count_all => count_all}
+      arrayUsersAct.push(hash3)
+    end
+    render json: arrayUsersAct, status: :ok
+  end
+
   def preferences_topic
     @user1 = User.find_by(username: params[:username])
     @topics = User.preferencestopic_name(@user1.id)

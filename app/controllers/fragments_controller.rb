@@ -71,11 +71,20 @@ class FragmentsController < ApplicationController
 
   def likes_fragments
     arrayFragmentslikes = []
-    Reaction.fragmentslikes.each do |count_all, reactions_fragments_id|
-      hash2 = {:fragment_id => Reaction.find_by(fragments_id: reactions_fragments_id).id, :count_all => count_all}
+    Reaction.fragmentslikes.each do |reactions_fragments_id, count_all|
+      hash2 = {:fragment_id => reactions_fragments_id, :count_all => count_all}
       arrayFragmentslikes.push(hash2)
     end 
     render json: arrayFragmentslikes, status: :ok
+  end
+
+  def dislikes_fragments
+    arrayFragmentsdislikes = []
+    Reaction.fragmentsdisklikes.each do |reactions_fragments_id, count_all|
+      hash2 = {:fragment_id => reactions_fragments_id, :count_all => count_all}
+      arrayFragmentsdislikes.push(hash2)
+    end 
+    render json: arrayFragmentsdislikes, status: :ok
   end
 
   # PATCH/PUT /fragments/1

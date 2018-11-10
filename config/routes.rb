@@ -29,8 +29,12 @@ Rails.application.routes.draw do
   post 'api/user/send_reset_password' => 'users#send_reset_password'
   get 'favicon' => 'photos#favicon'
   get 'api/user/stat/new_users' => 'users#new_users'
+  get 'api/user/stat/user _activity' => 'users#user_activity'
+  post 'api/user/stat/user _activityDate' => 'users#user_activityDate'
+  post 'api/user/stat/user _activityDate&ID' => 'users#user_activityDate_Id'
   get 'api/fragments/stat/new_fragments' => 'fragments#new_fragments'
   get 'api/fragments/stat/likes_fragments' => 'fragments#likes_fragments'
+  get 'api/fragments/stat/dislikes_fragments' => 'fragments#dislikes_fragments'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
