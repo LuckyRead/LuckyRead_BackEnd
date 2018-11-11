@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'api/photo/:id' => 'photos#show'
   get 'api/user/info' => 'users#info'
   patch 'api/user/change_password' => 'users#change_password'
+  patch 'api/user/change_talk' => 'users#change_talk'
   post 'api/user/send_reset_password' => 'users#send_reset_password'
   get 'favicon' => 'photos#favicon'
   root :to => 'responses#api_test'

@@ -1,10 +1,10 @@
 class CreatePhotos < ActiveRecord::Migration[5.2]
   def change
     create_table :photos do |t|
-      t.string :path, :null => false
-      t.references :fragment#, foreign_key: true, :null => true
-      t.references :user#, foreign_key: true, :null => true
+      t.string :image
+      t.text :base64_image
       t.timestamps
     end
+    change_column :photos, :base64_image, :text, :limit => 4294967295
   end
 end

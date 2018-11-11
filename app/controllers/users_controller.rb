@@ -1,6 +1,16 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+
+  def change_talk
+    @user = current_user
+    @user.talk_to_us = params[:talk_to_us]
+    if @user.save
+      render json: {password: 'updated'}, status: :ok
+    else
+      render json: {error: 'Something was wrong'}, status: :not_modified
+    end
+  end
 
   def send_reset_password
     @user = User.find_by(email: params[:email])
@@ -38,7 +48,6 @@ class UsersController < ApplicationController
         @user = User.find_by(email: params[:email])
         if @user.nil?
           @photo = Photo.new(
-            path: 'default',
             image: 'facebook_image',
             base64_image: Base64.encode64(open(params[:picture][:data][:url]).read)
           )
@@ -76,7 +85,6 @@ class UsersController < ApplicationController
       @user = User.find_by(email: response["email"])
       if @user.nil?
         @photo = Photo.new(
-          path: 'default',
           image: 'google_image',
           base64_image: Base64.encode64(open(params[:profileObj][:imageUrl]).read)
         )
@@ -126,17 +134,18 @@ class UsersController < ApplicationController
   end 
 
   def best
-    array = []
-    User.bestuser.each do |tUser|
-      tUser.each do |usern, talk|
-        if User.find_by(username: usern).nil?
+    @array = []
+    User.bestuser(5).each do |tUser|
+      tUser.each do |usern, talk, name, photo|
+        @user = User.find_by(username: usern)
+        if @user.nil?
           break
         end
-        hash1 = {:id => User.find_by(username: usern).id, :username => usern, :talk_to_us => User.find_by(username: usern).talk_to_us} 
-        array.push(hash1) 
+        @hash = {username: @user.username, name: @user.name, lastname: @user.lastname, profie_photo: Photo.find_by(id: @user.photos_id).base64_image}
+        @array.push(@hash)
       end
     end
-    render json: array, status: :ok
+    render json: @array, status: :ok
   end
 
   def email_exist
