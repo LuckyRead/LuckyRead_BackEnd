@@ -5,6 +5,6 @@ class CreatePhotos < ActiveRecord::Migration[5.2]
       t.text :base64_image
       t.timestamps
     end
-    change_column :photos, :base64_image, :text, :limit => 4294967295
+    change_column :photos, :base64_image, :text, :limit => 1.gigabyte - 1
   end
 end
