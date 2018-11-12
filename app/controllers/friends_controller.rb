@@ -1,6 +1,17 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:follow, :followed, :follower, :create, :update, :destroy]
+  before_action :authenticate_user,  only: [:unfllow, :follow, :followed, :follower, :create, :update, :destroy]
+
+  def unfollow
+    @follower = current_user
+    @followed = User.find_by(username: params[:username])
+    @exist = Friend.where('follower = ? and followed = ?', @follower.id, @followed.id)
+    if @exist == []
+      render json: {error: 'Friendship not fount'}, status: :ok
+    else
+      render json: @exist[0].destroy, status: :ok
+    end
+  end
 
   def follow
     @follower = current_user
@@ -24,13 +35,14 @@ class FriendsController < ApplicationController
 
   def followed
     @user = current_user
-    @friends = Friend.where(:followed => @user.id)
-    if @friends.nil?
-      render json: {error: 'No content'}, status: :no_content
-    else
-      @myFriend = User.where(:id => @friends)
-      render json: {who: 'Users who follow me', users: @myFriend}, status: :ok
+    @friends = Friend.where(:followed => @user.id).pluck(:followed)
+    @array = []
+    @friends.each do |id|
+      @temp = User.find_by(id: id)
+      @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, profile_photo: Photo.find_by(id: @temp.photos_id).base64_image}
+      @array.push(@hash)
     end
+    render json: {who: 'Users who follow me', users: @array}, status: :ok
   end
     
   def follower
