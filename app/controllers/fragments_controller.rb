@@ -33,7 +33,7 @@ class FragmentsController < ApplicationController
 
   # GET /fragments/1
   def show
-    @h1 = {:id => @fragment.id, :title => @fragment.title, :introduction => @fragment.introduction, :content => @fragment.content, :score => @fragment.content, :source => @fragment.source, :image_path => Photo.find(@fragment.photos_id).path}
+    @h1 = {:id => @fragment.id, :title => @fragment.title, :introduction => @fragment.introduction, :content => @fragment.content, :score => @fragment.content, :source => @fragment.source, :base64_image => Photo.find(@fragment.photos_id).base64_image}
     render json: @h1, status: :ok
   end
 
