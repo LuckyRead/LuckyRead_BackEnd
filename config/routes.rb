@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post 'api/user/send_reset_password' => 'users#send_reset_password'
   post 'api/friend/follow' => 'friends#follow'
   post 'api/friend/unfollow' => 'friends#unfollow'
+  get 'api/friend/random' => 'friends#random'
   get 'favicon' => 'photos#favicon'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
