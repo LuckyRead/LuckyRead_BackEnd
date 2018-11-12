@@ -39,6 +39,10 @@ class Reaction < ApplicationRecord
         return Reaction.where("reactions.reaction = '1'").group(:fragments_id).count()
     end 
 
+    def self.allfragmentslikes #return the likes of each fragment
+        return Reaction.group(:fragments_id).count()
+    end 
+
     def self.fragmentsdisklikes #return the likes of each fragment
         return Reaction.where("reactions.reaction = '-1'").group(:fragments_id).count()
     end 

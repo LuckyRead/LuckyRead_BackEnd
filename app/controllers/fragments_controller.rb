@@ -99,6 +99,21 @@ class FragmentsController < ApplicationController
     render json: arrayFragmentsreaction, status: :ok
   end
 
+  def five_fragments_more_percentage_likes
+    arrayFiveFragments = []
+    Reaction.fragmentslikes.each do |reactions_fragments_id, count_all|
+      Reaction.allfragmentslikes.each do |reactions_fragments_id2, count_all2|
+        if reactions_fragments_id == reactions_fragments_id2
+          @percentage = count_all*100/count_all2
+          hash1 = {:fragment_id => reactions_fragments_id, :count_all => @percentage}
+          arrayFiveFragments.push(hash1)
+        end
+      end
+    end
+    arrayFiveFragmentsend = arrayFiveFragments.sort_by{|e| -e[:count_all]}.first(5)
+    render json: arrayFiveFragmentsend, status: :ok
+  end
+
   # PATCH/PUT /fragments/1
   def update
     if @fragment.update(fragment_params)
