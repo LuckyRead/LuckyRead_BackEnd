@@ -1,6 +1,36 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:unfllow, :follow, :followed, :follower, :create, :update, :destroy]
+  before_action :authenticate_user,  only: [:random, :unfllow, :follow, :followed, :follower, :create, :update, :destroy]
+
+  def random
+    @user = current_user
+    @array1 = []
+    @array2 = []
+    User.all.length
+    5.times do
+      @rand = Faker::Number.between(1, User.all.length)
+      while @rand == @user.id
+        @rand = Faker::Number.between(1, User.all.length)
+      end
+      @array1.push(
+        Friend.create!(
+          follower: @user.id,
+          followed: @rand
+        )
+      )
+      @rand = Faker::Number.between(1, User.all.length)
+      while @rand == @user.id
+        @rand = Faker::Number.between(1, User.all.length)
+      end
+      @array2.push(
+        Friend.create!(
+          followed: @user.id,
+          follower: @rand
+        )
+      )
+    end
+    render json: {new_people_who_you_follow: @array1, new_people_who_follow_you: @array2}, status: :ok
+  end
 
   def unfollow
     @follower = current_user

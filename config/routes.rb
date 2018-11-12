@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post 'api/user/send_reset_password' => 'users#send_reset_password'
   post 'api/friend/follow' => 'friends#follow'
   post 'api/friend/unfollow' => 'friends#unfollow'
+  get 'api/friend/random' => 'friends#random'
   get 'favicon' => 'photos#favicon'
   get 'api/user/stat/new_users' => 'users#new_users'
   get 'api/user/stat/user _activity' => 'users#user_activity'
