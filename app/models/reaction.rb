@@ -18,4 +18,48 @@ class Reaction < ApplicationRecord
     def self.dislikes (id)
         Reaction.where("reactions.fragments_id = ? and reactions.reaction = '-1'", id).count()
     end
+
+    def self.useractive #Return the activity of users
+        return Reaction.group(:users_id).count()
+    end
+
+    def self.useractivedate(date) #Return the activity of users one date specific
+        dateinit = date + ' 00:00:00'
+        dateend = date + ' 23:59:59'
+        return Reaction.where("reactions.created_at >= ? and reactions.created_at <= ?", dateinit, dateend).group(:users_id).count()
+    end
+
+    def self.useractivedateanduser(id, date) #Return the activity of one user and date specific 
+        dateinit = date + ' 00:00:00'
+        dateend = date + ' 23:59:59'
+        return Reaction.where("reactions.users_id = ? and reactions.created_at >= ? and reactions.created_at <= ?", id, dateinit, dateend).group(:users_id).count()
+    end
+
+    def self.fragmentslikes #return the likes of each fragment
+        return Reaction.where("reactions.reaction = '1'").group(:fragments_id).count()
+    end 
+
+    def self.allfragmentslikes #return the likes of each fragment
+        return Reaction.group(:fragments_id).count()
+    end 
+
+    def self.fragmentsdisklikes #return the likes of each fragment
+        return Reaction.where("reactions.reaction = '-1'").group(:fragments_id).count()
+    end 
+
+    def self.allreactionafragment (id) #return the likes of each fragment
+        return Reaction.where("reactions.fragments_id = ?", id).count()
+    end 
+
+    def self.reactionlikesafragment (id) #return the likes of each fragment
+        return Reaction.where("reactions.fragments_id = ? and reactions.reaction = 1", id).count()
+    end 
+
+    def self.reactiondislikesafragment (id) #return the likes of each fragment
+        return Reaction.where("reactions.fragments_id = ? and reactions.reaction = -1", id).count()
+    end 
+    
+    def self.reactionnoulikesafragment (id) #return the likes of each fragment
+        return Reaction.where("reactions.fragments_id = ? and reactions.reaction = 0", id).count()
+    end 
 end

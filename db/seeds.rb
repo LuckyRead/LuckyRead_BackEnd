@@ -1,21 +1,7 @@
-URL_Fake = []
-URL_Fake.push("https://i.imgur.com/AZbKzgd.png")
-URL_Fake.push("https://i.imgur.com/Y6jYshC.png")
-URL_Fake.push("https://i.imgur.com/j1akRyn.jpg")
-URL_Fake.push("https://i.imgur.com/IDGL2Qm.jpg")
-URL_Fake.push("https://i.imgur.com/HgldamX.jpg")
-URL_Fake.push("https://i.imgur.com/KO5Pi92.jpg")
-URL_Fake.push("https://i.imgur.com/itJBP7s.jpg")
-URL_Fake.push("https://i.imgur.com/pEcle0Y.jpg")
-URL_Fake.push("https://i.imgur.com/8cgJxrO.jpg")
-URL_Fake.push("https://i.imgur.com/noAq1cd.jpg")
-URL_Fake.push("https://i.imgur.com/K5ArZqt.jpg")
-URL_Fake.push("https://i.imgur.com/8FEMhNx.png")
 REACTION_Fake = []
 REACTION_Fake.push("-1")
 REACTION_Fake.push("0")
 REACTION_Fake.push("1")
-
 @Fragment_Seed = []
 @Fragment_Seed.push({title: 'Órbita geosíncrona', introduction: 'Una órbita geosíncrona es una órbita geocéntrica que tiene el mismo periodo orbital que el periodo de rotación sideral de la Tierra. Tiene un semieje mayor de 42 164 km en el plano ecuatorial.Las órbitas síncronas existen alrededor de todas las lunas, planetas, estrellas y agujeros negros, a menos que roten tan lentamente que la órbita estuviera fuera de su esfera de Hill. La mayoría de las lunas interiores de los planetas tienen rotación síncrona, así que sus órbitas síncronas están, en la práctica, limitadas a sus puntos de Lagrange. Los objetos con rotación caótica (como Hiperión) son también problemáticos, ya que sus órbitas síncronas cambian imprevisiblemente.', content: 'Órbitas circulares geosíncronas  Las órbitas geosíncronas en el ecuador se conocen como órbitas geoestacionarias. Una órbita geoestacionaria perfecta es una quimera que sólo puede ser aproximada. En la práctica, el satélite se desviaría fuera de su órbita debido perturbaciones como el viento solar, variaciones en el campo gravitacional de la Tierra, y la gravedad de la Luna y el Sol. Se utilizan cohetes para mantener la órbita en un proceso conocido como mantenimiento de estación.  Otras órbitas geosíncronas  Las órbitas elípticas se diseñan para satélites de comunicaciones que se manteniene a la vista de su estación base o receptor. Un satélite en órbita geosíncrona parece oscilar en el cielo desde el punto de vista de la estación base dibujando un analema en el cielo.  Teóricamente, una órbita geosíncrona activa puede mantenerse si se usan otras fuerzas aparte de la gravedad para mantener la órbita como velas solares.', score: Faker::Number.between(1,10), source: 'Wikipedia', users_id: Faker::Number.between(1,180), photos_id: Faker::Number.between(0,10)})
 @Fragment_Seed.push({title: 'Nicolás Constantínovich de Rusia', introduction: 'Nicolás Constantínovich de Rusia (14 de febrero de 1850 - 26 de enero de 1918) fue el hijo primogénito del Gran Duque Constantino Nikoláyevich de Rusia (1827-1892) y de la gran duquesa Alejandra Iósifovna (1830-1911), nacida princesa de Sajonia-Altenburgo y nieto de Nicolás I de Rusia.', content: 'Primeros años  Nacido en San Petersburgo, en el medio del siglo XIX en la familia Romanov, tuvo una infancia muy privilegiada. La mayoría de los niños de la realeza fueron criados por niñeras y servidores de manera que cuando Nicolás creció vivió una vida muy independiente habiéndose convertido en un dotado oficial militar y un mujeriego incorregible.  Nicolás fue educado en la Academia Militar de San Petersburgo, donde se graduó en 1868. El Gran Duque fue el primer miembro de la familia imperial de obtener un título universitario. Fue uno de los mejores en su clase, con una medalla de plata. Se convirtió en un oficial destacado en el ejército imperial. Después de graduarse, viajó al extranjero y comenzó a reunir su colección de pinturas de Europa Central. A su regreso a Rusia, se unió al regimiento de la Guardia a caballo.  En 1870, conoció a Harriet Brackford (alias Fanny Lear) en un baile de máscaras. Era una aventurera y actriz de teatro estadounidense casada con una hija. Comenzó un romance entre dos jóvenes. En 1871 se le dio el mando de un escuadrón. En 1873, preocupados por la relación, el Gran Duque fue enviado a participar en una expedición militar en Asia Central con las tropas rusas bajo el mando del gobernador general de Turkestán, el Ayudante General Konstantín von Kaufman (1818-1882).  Mostró gran interés en Jiva y el desarrollo de las regiones de Asia Central. Recibió su grado de coronel durante la campaña contra el Kanato de Jiva, después de haber recibido su bautismo de fuego. En el desierto de Kyzyl Kum, (ubicado entre los ríos Amu Darya y Syr Darya), el Gran Duque comandó una tropa pionera. Durante la difícil travesía del desierto de arena roja, la compañía sufrió grandes pérdidas, pero el gran duque mostró gran coraje y fue un ejemplo para sus hombres. Recibió la Orden de San Vladimiro después de la expedición. A su regreso de Asia Central, se apasionó por el orientalismo.  El Gran Duque fue miembro de la Sociedad Geográfica Rusa. Deseoso de llevar a cabo una expedición científica al Amu Darya, presentó su idea a los expertos. Su propósito era explorar el Kanato de Jiva recién anexada por Rusia, para evaluar su potencial. Estos planes atrajeron la atención del emperador Alejandro II, quien se declaró a favor de este proyecto. La Sociedad Imperial de geografía también aprobó la expedición. El Gran Duque Nicolás fue nombrado miembro honorario de la Sociedad Imperial de Geografía y puesto al mando de la expedición.  De regreso en 1877, el Gran Duque realizó tres expediciones cerca del desierto de Karakum: en 1877, 1878 y 1879. En cada uno de sus viajes científicos estudió el terreno en condiciones climáticas extremas, para permitir la construcción de un ferrocarril al este del desierto de Karakum. También estudió la navegación en el río Amu Darya y la posibilidad de traer un agua de bypass del Amu Darya en el Mar Caspio con el lecho seco de río Ouzboï1. Los estudios científicos del Gran Duque fueron publicados bajo el título de Sables du Kara-Koum au Chemin de fer dAsie centrale. Orenburg - 1878. Sur le choix des lignes les plus courtes du chemin de fer dAsie centrale. San Petersburgo - 1878. Daria y Uzboy. Samara 1878. Se imaginó construir una línea de ferrocarril que uniera Rusia con Turquestán. En San Petersburgo, el proyecto se consideró poco rentable debido a la pequeña población que vivía en estas tierras.  Escándalo en la familia imperial de Rusia  Nicolás I de Rusia.   Índice 1 Primeros años 2 Escándalo en la familia imperial de Rusia 3 Vida posterior 4 Familia 5 Distinciones honoríficas 6 Ancestros 7 Enlaces externos Primeros años Nacido en San Petersburgo, en el medio del siglo XIX en la familia Romanov, tuvo una infancia muy privilegiada. La mayoría de los niños de la realeza fueron criados por niñeras y servidores de manera que cuando Nicolás creció vivió una vida muy independiente habiéndose convertido en un dotado oficial militar y un mujeriego incorregible.  Nicolás fue educado en la Academia Militar de San Petersburgo, donde se graduó en 1868. El Gran Duque fue el primer miembro de la familia imperial de obtener un título universitario. Fue uno de los mejores en su clase, con una medalla de plata. Se convirtió en un oficial destacado en el ejército imperial. Después de graduarse, viajó al extranjero y comenzó a reunir su colección de pinturas de Europa Central. A su regreso a Rusia, se unió al regimiento de la Guardia a caballo.  En 1870, conoció a Harriet Brackford (alias Fanny Lear) en un baile de máscaras. Era una aventurera y actriz de teatro estadounidense casada con una hija. Comenzó un romance entre dos jóvenes. En 1871 se le dio el mando de un escuadrón. En 1873, preocupados por la relación, el Gran Duque fue enviado a participar en una expedición militar en Asia Central con las tropas rusas bajo el mando del gobernador general de Turkestán, el Ayudante General Konstantín von Kaufman (1818-1882).  Mostró gran interés en Jiva y el desarrollo de las regiones de Asia Central. Recibió su grado de coronel durante la campaña contra el Kanato de Jiva, después de haber recibido su bautismo de fuego. En el desierto de Kyzyl Kum, (ubicado entre los ríos Amu Darya y Syr Darya), el Gran Duque comandó una tropa pionera. Durante la difícil travesía del desierto de arena roja, la compañía sufrió grandes pérdidas, pero el gran duque mostró gran coraje y fue un ejemplo para sus hombres. Recibió la Orden de San Vladimiro después de la expedición. A su regreso de Asia Central, se apasionó por el orientalismo.  El Gran Duque fue miembro de la Sociedad Geográfica Rusa. Deseoso de llevar a cabo una expedición científica al Amu Darya, presentó su idea a los expertos. Su propósito era explorar el Kanato de Jiva recién anexada por Rusia, para evaluar su potencial. Estos planes atrajeron la atención del emperador Alejandro II, quien se declaró a favor de este proyecto. La Sociedad Imperial de geografía también aprobó la expedición. El Gran Duque Nicolás fue nombrado miembro honorario de la Sociedad Imperial de Geografía y puesto al mando de la expedición.  De regreso en 1877, el Gran Duque realizó tres expediciones cerca del desierto de Karakum: en 1877, 1878 y 1879. En cada uno de sus viajes científicos estudió el terreno en condiciones climáticas extremas, para permitir la construcción de un ferrocarril al este del desierto de Karakum. También estudió la navegación en el río Amu Darya y la posibilidad de traer un agua de bypass del Amu Darya en el Mar Caspio con el lecho seco de río Ouzboï1. Los estudios científicos del Gran Duque fueron publicados bajo el título de Sables du Kara-Koum au Chemin de fer dAsie centrale. Orenburg - 1878. Sur le choix des lignes les plus courtes du chemin de fer dAsie centrale. San Petersburgo - 1878. Daria y Uzboy. Samara 1878. Se imaginó construir una línea de ferrocarril que uniera Rusia con Turquestán. En San Petersburgo, el proyecto se consideró poco rentable debido a la pequeña población que vivía en estas tierras.  Escándalo en la familia imperial de Rusia A la vuelta de su expedición a Jiva en 1873, el Gran Duque regresó con su amante, Fanny Lear, en Europa, donde continuó enriqueciendo su colección de arte.  Pero en la primavera de 1874 sucedió algo que cambió por completo la vida del Gran Duque.  De hecho, la madre del gran duque, la Gran Duquesa Alejandra Iósifovna, constató en abril de 1874 la desaparición desde su habitación en el Palacio de Mármol de tres diamantes preciosas engastadas en un icono, que fue un regalo de bodas de Nicolás I de Rusia. El Gran Duque Constantino echando humo de rabia llamó a la policía y los diamantes pronto fueron descubiertos en un presta garantías de San Petersburgo. Las sospechas recayeron sobre los niños de la pareja, el médico, la criada, la dama de honor y dos sirvientes. Debido a su estado, miembros de la familia imperial no estaban implicados y por lo tanto la sospecha recayeron en el servicio doméstico, pero no hubo evidencias para apoyar estas acusaciones. Las sospechas recayeron sobre otras personas. Durante el interrogatorio del 15 de abril de 1874, el capitán Vorhopovsky, ayudante del gran duque Nicolás negó su participación en el robo de los diamantes, pero informó que el Gran Duque le había dado varios diamantes con la expresa orden de ir a París para vender. El Gran Duque Nicolás juró su inocencia en la Biblia, que para algunos agrava su culpa. El emperador tomó personalmente sobre el caso y cuidadosamente siguió el progreso de la investigación por parte del jefe de la policía, el comandante Piotr Chouvalov.  Durante tres horas, el comandante Chouvalov sometió al joven Gran Duque Nicolás a interrogatorio, después fue encontrado culpable. El dinero de la venta de diamantes se había utilizado para comprar regalos para el amante del príncipe - actriz Fanny Lear, esto era las razones dadas para el robo. Alejandro II convocó un consejo de familia, que, después de mucho debate, eligió dos soluciones: llevar un juicio público o trabajos forzados. Para evitar daño a la familia imperial, se declaró al Gran duque como demente. Alejandro II desterró al Gran Duque de la capital imperial, Fanny Lear fue expulsada de Rusia con la prohibición de regresar.  La culpa de la Gran Duque fue anunciada por un manifiesto publicado por el emperador el 11 de diciembre de 1874: el Gran Duque fue reconocido como enfermo mentalmente inestable, sufriendo de alucinaciones, estando sujeto a cadena perpetua, tratamiento obligatorio y un aislamiento completo. Los miembros de la familia imperial tenían prohibido mencionar su nombre; su legado debía ser pasado a sus hermanos menores; sus grados, se eliminaron sus recompensas; su nombre se retiró de la lista de su regimiento. Fue expulsado de San Petersburgo para siempre y fue obligado a residir en custodia en un lugar seguro.  En sus memorias Histoire dAmour tragique publicadas en 1917, Fanny Lear evoca su vínculo con el gran duque que cree que es inocente del robo de los diamantes. También se describe la difícil situación que enfrentó el Gran Duque después de su detención en la capital. Se dice que fue drogado e incluso golpeado  Escándalo en la familia imperial de Rusia  A la vuelta de su expedición a Jiva en 1873, el Gran Duque regresó con su amante, Fanny Lear, en Europa, donde continuó enriqueciendo su colección de arte.  Pero en la primavera de 1874 sucedió algo que cambió por completo la vida del Gran Duque.  De hecho, la madre del gran duque, la Gran Duquesa Alejandra Iósifovna, constató en abril de 1874 la desaparición desde su habitación en el Palacio de Mármol de tres diamantes preciosas engastadas en un icono, que fue un regalo de bodas de Nicolás I de Rusia. El Gran Duque Constantino echando humo de rabia llamó a la policía y los diamantes pronto fueron descubiertos en un presta garantías de San Petersburgo. Las sospechas recayeron sobre los niños de la pareja, el médico, la criada, la dama de honor y dos sirvientes. Debido a su estado, miembros de la familia imperial no estaban implicados y por lo tanto la sospecha recayeron en el servicio doméstico, pero no hubo evidencias para apoyar estas acusaciones. Las sospechas recayeron sobre otras personas. Durante el interrogatorio del 15 de abril de 1874, el capitán Vorhopovsky, ayudante del gran duque Nicolás negó su participación en el robo de los diamantes, pero informó que el Gran Duque le había dado varios diamantes con la expresa orden de ir a París para vender. El Gran Duque Nicolás juró su inocencia en la Biblia, que para algunos agrava su culpa. El emperador tomó personalmente sobre el caso y cuidadosamente siguió el progreso de la investigación por parte del jefe de la policía, el comandante Piotr Chouvalov.  Durante tres horas, el comandante Chouvalov sometió al joven Gran Duque Nicolás a interrogatorio, después fue encontrado culpable. El dinero de la venta de diamantes se había utilizado para comprar regalos para el amante del príncipe - actriz Fanny Lear, esto era las razones dadas para el robo. Alejandro II convocó un consejo de familia, que, después de mucho debate, eligió dos soluciones: llevar un juicio público o trabajos forzados. Para evitar daño a la familia imperial, se declaró al Gran duque como demente. Alejandro II desterró al Gran Duque de la capital imperial, Fanny Lear fue expulsada de Rusia con la prohibición de regresar.  La culpa de la Gran Duque fue anunciada por un manifiesto publicado por el emperador el 11 de diciembre de 1874: el Gran Duque fue reconocido como enfermo mentalmente inestable, sufriendo de alucinaciones, estando sujeto a cadena perpetua, tratamiento obligatorio y un aislamiento completo. Los miembros de la familia imperial tenían prohibido mencionar su nombre; su legado debía ser pasado a sus hermanos menores; sus grados, se eliminaron sus recompensas; su nombre se retiró de la lista de su regimiento. Fue expulsado de San Petersburgo para siempre y fue obligado a residir en custodia en un lugar seguro.  En sus memorias Histoire dAmour tragique publicadas en 1917, Fanny Lear evoca su vínculo con el gran duque que cree que es inocente del robo de los diamantes. También se describe la difícil situación que enfrentó el Gran Duque después de su detención en la capital. Se dice que fue drogado e incluso golpeado.', score: Faker::Number.between(1,10), source: 'Wikipedia', users_id: Faker::Number.between(1,180), photos_id: Faker::Number.between(0,10)})
@@ -74,6 +60,31 @@ REACTION_Fake.push("1")
 @Fragment_Seed.push({title: 'Ed Gein', introduction: 'Edward Theodore Gein (Condado de La Crosse, Wisconsin, Estados Unidos, 27 de agosto de 1906 - Madison, Wisconsin, 26 de julio de 1984) fue un asesino y ladrón de tumbas estadounidense. La mayoría de los científicos y otros expertos afirman que las pruebas que apoyan la existencia de Nessie no son convincentes, y consideran dichos informes fraudes o identificaciones erróneas de criaturas reales', content: 'Ed Gein fue criado a las afueras del pueblo Plainfield (condado de La Crosse, Wisconsin, Estados Unidos) e hijo de George P. Gein (1874-1940) y Augusta T. Lehrk (fallecida en 1945). Gein tuvo una infancia difícil, ya que su padre, George, era una persona poco afectiva con su familia, además de tener graves problemas de alcoholismo, mientras que su madre, Augusta, poseía fuertes ideales religiosos que la llevaron a despreciar a los hombres y considerar a las mujeres como la fuente misma del pecado, lo que produjo a Edward Gein y su hermano Henry Gein a tener una crianza estricta, en la que se les disciplinaba constantemente, y con el que se formó su carácter asocial.  Su padre falleció a los 66 años, lo que llevó a los hermanos Gein a buscar trabajo para contribuir a la economía familiar, mientras que su hermano comenzó a desafiar los ideales religiosos de su madre, aunque terminó falleciendo en un incendio en extrañas circunstancias.  Posteriormente, Augusta T. Lehrk sufrió un paro cardíaco en 1944 que la dejó en cama durante los siguientes doce meses, finalizando su vida en 1945 y dejando completamente solo a Edward Theodore Gein', score: Faker::Number.between(1,10), source: 'Wikipedia', users_id: Faker::Number.between(1,180), photos_id: Faker::Number.between(0,10)})
 @Fragment_Seed.push({title: 'Estigma (milagro)', introduction: 'Los estigmas (del latín stigma, y este a su vez del griego st??µa) son señales o marcas que aparecen de forma espontánea en el cuerpo de algunas personas, casi siempre místicas extáticas cristianas. Estas heridas son similares a las infligidas sobre Jesús de Nazaret durante su crucifixión según la iconografía cristiana tradicional, y van precedidas y acompañadas de tormentos físicos y morales.1? Suelen aparecer en las manos, pies y costado izquierdo, y a veces también en la cabeza y en las espaldas, lo que recuerda la coronación de espinas y la flagelación de Jesús de Nazaret.2', content: 'Las diversas confesiones cristianas diferencian la estigmatización de origen sobrenatural, bien por un don de Dios o por una intervención diabólica, de las de orden natural, causadas por el mismo sujeto que las porta, ya sea intencionalmente o por razones de origen psicosomático (por sugestión, hipnosis, etc. se ha conseguido producir fenómenos similares a la estigmatización, aunque difieren en la instantaneidad del fenómeno y en el deseo de su constatación a la vista de los demás).3?4?  La Iglesia católica, cuando los considera auténticos y don divino, afirma que son participación de los sufrimientos de Jesús.1? Reconoce algo más de trescientos casos de estigmatizados;5? estos pueden ser visibles o no, sangrientos o no, permanentes o no. Los estigmas invisibles, según la Iglesia católica, pueden producir tanto dolor como los visibles.  El tipo de heridas refleja su correspondencia con la Pasión de Jesús a través de las siguientes señales:2?  Heridas en manos o muñecas, semejantes a las causadas por clavos. Heridas en los pies, semejantes a las causadas por clavos. Heridas en la cabeza, semejantes a las provocadas por la corona de espinas. Heridas en la espalda, semejantes a las de látigo en la flagelación. Herida en un costado semejante a la causada por una lanza, por lo general en el lateral izquierdo.', score: Faker::Number.between(1,10), source: 'Wikipedia', users_id: Faker::Number.between(1,180), photos_id: Faker::Number.between(0,10)})
 @Fragment_Seed.push({title: 'Terror nocturno', introduction: 'El terror, pavor o temor nocturno es un trastorno de sueño que se caracteriza por producir un terror extremo y un estado de inhabilidad para recuperar la consciencia completamente. En este estado, la persona no tiene control de sus movimientos.', content: 'Se produce sobre todo en niños pequeños durante las primeras horas de sueño, en las fases de onda lenta.  El niño (o adulto) grita de forma súbita, presentando un despertar de tipo vegetativo con sudoración, taquicardia e hiperventilación. Puede ser difícil de despertar y rara vez recuerda el episodio al despertarse por la mañana.  Las crisis recidivantes son raras y el tratamiento suele estar basado en medidas para tranquilizar al paciente por parte de los padres. Tanto el terror nocturno como el sonambulismo son alteraciones del despertar. Por el contrario, la pesadilla se produce durante el sueño REM y provoca un despertar completo con memoria por parte del paciente del episodio desagradable asociado con el sueño. También puede llamarse `síndrome Eserenol`, que es cuando afecta a personas mayores. Se puede medicar.', score: Faker::Number.between(1,10), source: 'Wikipedia', users_id: Faker::Number.between(1,180), photos_id: Faker::Number.between(0,10)})
+Photo.create!(base64_image: Base64.encode64(open('https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-all-about-face.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://static.makeuseof.com/wp-content/uploads/2015/11/perfect-profile-picture-background-constrast-solid.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://data.whicdn.com/images/256858398/superthumb.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://i.imgur.com/TYUXhxe.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://i.imgur.com/u76gXgY.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://i.imgur.com/PYPWNwk.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://i.imgur.com/lRRIYyk.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://i.imgur.com/zWWEsZ9.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://i.imgur.com/rmeWyMh.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://i.imgur.com/52pdwcu.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://i.imgur.com/oSYvsmo.jpg').read))
+Photo.create!(base64_image: Base64.encode64(open('https://i.imgur.com/hbT0Uvf.jpg').read))
+#-----------------------------------------------------------------------------------------
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/AZbKzgd.png").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/Y6jYshC.png").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/j1akRyn.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/IDGL2Qm.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/HgldamX.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/KO5Pi92.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/itJBP7s.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/pEcle0Y.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/8cgJxrO.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/noAq1cd.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/K5ArZqt.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/8FEMhNx.jpg").read))
 5.times do
     country = Country.create!(
         country_name: Faker::Nation.capital_city
@@ -83,27 +94,12 @@ REACTION_Fake.push("1")
             city_name: Faker::Nation.capital_city,
             countries_id: country.id
         )
-
         2.times do
             topic = Topic.create!(
                 topic_name: Faker::Simpsons.quote,
                 score: Faker::Number.between(1, 100)
             )
             3.times do                
-                photo = Photo.create!(
-                    path: URL_Fake[Faker::Number.between(0, 10)]
-                )
-                @photouser
-                @photofragmen
-                if photo.id%2==0
-                    photo.user_id = photo.id
-                    photo.save
-                    @photouser = photo.id
-                else
-                    photo.fragment_id = photo.id
-                    photo.save
-                    @photofragmen = photo.id
-                end
                 user = User.create!(
                     username: Faker::Name.unique.first_name,
                     name: Faker::Name.first_name,
@@ -113,7 +109,7 @@ REACTION_Fake.push("1")
                     city_id: @city.id,
                     score: Faker::Number.between(1, 10),
                     talk_to_us: Faker::HarryPotter.quote,
-                    photos_id: @photouser
+                    photos_id: Faker::Number.between(1, 12)
                 )
                 user2 = User.create!(
                     username: Faker::Name.unique.first_name,
@@ -123,35 +119,30 @@ REACTION_Fake.push("1")
                     password: Faker::Internet.password,
                     city_id: @city.id,
                     score: Faker::Number.between(1, 10),
-                    talk_to_us: Faker::HarryPotter.quote
+                    talk_to_us: Faker::HarryPotter.quote,
+                    photos_id: Faker::Number.between(1, 12)
                 )
-
                 Friend.create!(
                     follower: user.id,
                     followed: user2.id
                 )
-
                 3.times do
                     subtopic = SubTopic.create!(
                         sub_topic_name: Faker::Simpsons.quote
                     )
-
                     reltopic = RelTopicSubTopic.create!(
                         topics_id: topic.id,
                         sub_topics_id: subtopic.id
                     )
-                    
                     SubTopicsTopic.create!(
                         topic_id: topic.id,
                         sub_topic_id: subtopic.id
                     )
-
                     SubTopicsUser.create!(
                         user_id: user.id,
                         sub_topic_id: subtopic.id,
                         score: Faker::Number.between(1, 10)
                     )
-
                     Preference.create!(
                         user_id: user.id,
                         sub_topic_id: subtopic.id,
@@ -165,15 +156,13 @@ REACTION_Fake.push("1")
                         source: @Fragment_Seed[@num][:source],
                         score: @Fragment_Seed[@num][:score],
                         users_id: user.id,
-                        photos_id: @photofragmen
+                        photos_id: Faker::Number.between(13, 24)
                     )
-                
                     Reaction.create!(
                         users_id: user.id,
                         fragments_id: fragment.id,
                         reaction: REACTION_Fake[Faker::Number.between(0,2)]
                     )
-
                     comment = Comment.create!(
                         message: Faker::HarryPotter.quote,
                         datetime: Faker::Date.backward(14),
@@ -184,12 +173,10 @@ REACTION_Fake.push("1")
                         fragments_id: fragment.id,
                         sub_topics_id: subtopic.id
                     )
-
                     FragmentsSubTopic.create!(
                         fragment_id: fragment.id,
                         sub_topic_id: subtopic.id
                     )
-                    
                     response = Response.create!(
                         message: Faker::HarryPotter.quote,
                         datetime: Faker::Date.backward(14),

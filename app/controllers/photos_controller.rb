@@ -23,16 +23,14 @@ class PhotosController < ApplicationController
   end
 
   def upload
-    @photo = Photo.create(path: 'default', image: params[:image])
+    @photo = Photo.create(image: params[:image])
     @photo.save
     if @photo.image.url.nil?
       render json: {error: 'Empty image request'}, status: :bad_request
     else
-      @photo.update_attribute(:path, @photo.image.url)
-      @image_p = Base64.encode64(open('public'+@photo.path).read)
-      @photo.base64_image = @image_p
+      @photo.base64_image = Base64.encode64(open('public'+@photo.image.url).read)
       if @photo.save
-        render json: {id: @photo.id, direct_url: 'https://luckyread-backend.herokuapp.com/api/photo/' + @photo.id.to_s}, status: :created
+        render json: {id: @photo.id}, status: :created
       else
         render json: {error: 'Something was wrong'}, status: :bad_request
       end

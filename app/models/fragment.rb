@@ -29,10 +29,14 @@ class Fragment < ApplicationRecord
     scope :bestfragment, ->(limit){order("score desc").limit(limit)}
 
     def self.Fragmentrandomwithoutregister (id) #Get 1
-        return Fragment.joins("inner join rel_fragment_sub_topics on fragments.id = rel_fragment_sub_topics.fragments_id inner join sub_topics_users on sub_topics_users.sub_topic_id = rel_fragment_sub_topics.sub_topics_id inner join photos on fragments.photos_id = photos.fragment_id").where("sub_topics_users.sub_topic_id = ?",id).pluck(:id, :title, :introduction, :content, :score, :source, :created_at, :updated_at, :path)
+        return Fragment.joins("inner join rel_fragment_sub_topics on fragments.id = rel_fragment_sub_topics.fragments_id inner join sub_topics_users on sub_topics_users.sub_topic_id = rel_fragment_sub_topics.sub_topics_id").where("sub_topics_users.sub_topic_id = ?",id).pluck(:id, :title, :introduction, :content, :score, :source, :created_at, :updated_at, :photos_id)
     end
 
     def self.Fragmentsubtopicwithprefecensuser (id)#Post 3 ID user
-        return Fragment.joins("inner join rel_fragment_sub_topics on fragments.id = rel_fragment_sub_topics.fragments_id inner join sub_topics_users on sub_topics_users.sub_topic_id = rel_fragment_sub_topics.sub_topics_id inner join photos on fragments.photos_id = photos.fragment_id").where("sub_topics_users.user_id = ?",id).pluck(:id, :title, :introduction, :content, :score, :source, :path)
+        return Fragment.joins("inner join rel_fragment_sub_topics on fragments.id = rel_fragment_sub_topics.fragments_id inner join sub_topics_users on sub_topics_users.sub_topic_id = rel_fragment_sub_topics.sub_topics_id").where("sub_topics_users.user_id = ?",id).pluck(:id, :title, :introduction, :content, :score, :source, :photos_id)
+    end
+
+    def self.fragmentold #return last users register
+        return Fragment.where("fragments.created_at >= (now() - interval 1 month)")
     end
 end

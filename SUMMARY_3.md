@@ -12,7 +12,7 @@ This is a little summary that exhibit the features and who worked on it:
     In this feature, it was implemented three mailers
         New user
 
-* fearute/18-write-summaryrb (Developer Cristhian Contreras) </br>
+* feature/18-write-summaryrb (Developer Cristhian Contreras) </br>
     In this feature, it was wrote the Summary
 
 * feature/8-modify-seedsrb (Developer Daniel Escobar)  </br>

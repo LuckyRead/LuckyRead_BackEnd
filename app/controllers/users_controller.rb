@@ -1,6 +1,16 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+
+  def change_talk
+    @user = current_user
+    @user.talk_to_us = params[:talk_to_us]
+    if @user.save
+      render json: {password: 'updated'}, status: :ok
+    else
+      render json: {error: 'Something was wrong'}, status: :not_modified
+    end
+  end
 
   def send_reset_password
     @user = User.find_by(email: params[:email])
@@ -38,7 +48,6 @@ class UsersController < ApplicationController
         @user = User.find_by(email: params[:email])
         if @user.nil?
           @photo = Photo.new(
-            path: 'default',
             image: 'facebook_image',
             base64_image: Base64.encode64(open(params[:picture][:data][:url]).read)
           )
@@ -59,9 +68,9 @@ class UsersController < ApplicationController
             photos_id: @photo.id
           )
           UserMailer.welcome_email(@user).deliver_now
-          render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user}, status: :created
+          render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user, username: @user.username}, status: :created
         else
-          render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+          render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, username: @user.username}, status: :created
         end
       end
     end
@@ -76,7 +85,6 @@ class UsersController < ApplicationController
       @user = User.find_by(email: response["email"])
       if @user.nil?
         @photo = Photo.new(
-          path: 'default',
           image: 'google_image',
           base64_image: Base64.encode64(open(params[:profileObj][:imageUrl]).read)
         )
@@ -97,9 +105,9 @@ class UsersController < ApplicationController
           photos_id: @photo.id
         )
         UserMailer.welcome_email(@user).deliver_now
-        render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user}, status: :created
+        render json: {warning: "User not registered", jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, user: @user, username: @user.username}, status: :created
       else
-        render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token}, status: :created
+        render json: { jwt: Knock::AuthToken.new(payload: { sub: @user.id }).token, username: @user.username}, status: :created
       end
     end
   end
@@ -126,25 +134,26 @@ class UsersController < ApplicationController
   end 
 
   def best
-    array = []
-    User.bestuser.each do |tUser|
-      tUser.each do |usern, talk|
-        if User.find_by(username: usern).nil?
+    @array = []
+    User.bestuser(5).each do |tUser|
+      tUser.each do |usern, talk, name, photo|
+        @user = User.find_by(username: usern)
+        if @user.nil?
           break
         end
-        hash1 = {:id => User.find_by(username: usern).id, :username => usern, :talk_to_us => User.find_by(username: usern).talk_to_us} 
-        array.push(hash1) 
+        @hash = {username: @user.username, name: @user.name, lastname: @user.lastname, profie_photo: Photo.find_by(id: @user.photos_id).base64_image}
+        @array.push(@hash)
       end
     end
-    render json: array, status: :ok
+    render json: @array, status: :ok
   end
 
   def email_exist
     @user = User.find_by(email: params[:email])
     if @user.nil?
-      render json: {msj: "Email not taken"}, status: :ok
+      render json: {email: "Not Taken"}, status: :ok
     else
-      render json: {msj: "Email taken"}, status: :conflict
+      render json: {email: "Taken"}, status: :ok
     end
   end
 
@@ -165,6 +174,46 @@ class UsersController < ApplicationController
     render json: array, status: :ok
   end
 
+  
+  def new_users
+    arrayUsers = []
+    User.userold.each do |id, username|
+      hash2 = {:user_id => User.find_by(id: id).id, :username => username}
+      arrayUsers.push(hash2)
+    end 
+    render json: arrayUsers, status: :ok
+  end
+
+  def user_activity
+    arrayUsersAct = []
+    Reaction.useractive.each do |reactions_users_id, count_all|
+      hash3 = {:user_id => reactions_users_id, :count_all => count_all}
+      arrayUsersAct.push(hash3)
+    end
+    render json: arrayUsersAct, status: :ok
+  end 
+
+  def user_activityDate
+    @date = params[:date]
+    arrayUsersAct = []
+    Reaction.useractivedate(@date).each do |reactions_users_id, count_all|
+      hash3 = {:user_id => reactions_users_id, :count_all => count_all}
+      arrayUsersAct.push(hash3)
+    end
+    render json: arrayUsersAct, status: :ok
+  end
+
+  def user_activityDate_Id
+    @date = params[:date]
+    @id = params[:id]
+    arrayUsersAct = []
+    Reaction.useractivedateanduser(@id, @date).each do |reactions_users_id, count_all|
+      hash3 = {:user_id => reactions_users_id, :count_all => count_all}
+      arrayUsersAct.push(hash3)
+    end
+    render json: arrayUsersAct, status: :ok
+  end
+
   def preferences_topic
     @user1 = User.find_by(username: params[:username])
     @topics = User.preferencestopic_name(@user1.id)
@@ -179,9 +228,9 @@ class UsersController < ApplicationController
   def user_exist
     @user = User.find_by(username: params[:username])
     if @user.nil?
-      render json: {msj: "User not taken"}, status: :ok
+      render json: {email: "Not Taken"}, status: :ok
     else
-      render json: {msj: "User taken"}, status: :conflict
+      render json: {email: "Taken"}, status: :ok
     end
   end
 

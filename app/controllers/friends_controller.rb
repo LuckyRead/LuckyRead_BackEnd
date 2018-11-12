@@ -1,6 +1,62 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:followed, :follower, :create, :update, :destroy]
+  before_action :authenticate_user,  only: [:random, :unfllow, :follow, :followed, :follower, :create, :update, :destroy]
+
+  def random
+    @user = current_user
+    @array1 = []
+    @array2 = []
+    User.all.length
+    5.times do
+      @rand = Faker::Number.between(1, User.all.length)
+      while @rand == @user.id
+        @rand = Faker::Number.between(1, User.all.length)
+      end
+      @array1.push(
+        Friend.create!(
+          follower: @user.id,
+          followed: @rand
+        )
+      )
+      @rand = Faker::Number.between(1, User.all.length)
+      while @rand == @user.id
+        @rand = Faker::Number.between(1, User.all.length)
+      end
+      @array2.push(
+        Friend.create!(
+          followed: @user.id,
+          follower: @rand
+        )
+      )
+    end
+    render json: {new_people_who_you_follow: @array1, new_people_who_follow_you: @array2}, status: :ok
+  end
+
+  def unfollow
+    @follower = current_user
+    @followed = User.find_by(username: params[:username])
+    @exist = Friend.where('follower = ? and followed = ?', @follower.id, @followed.id)
+    if @exist == []
+      render json: {error: 'Friendship not fount'}, status: :ok
+    else
+      render json: @exist[0].destroy, status: :ok
+    end
+  end
+
+  def follow
+    @follower = current_user
+    @followed = User.find_by(username: params[:username])
+    @exist = Friend.where('follower = ? and followed = ?', @follower.id, @followed.id)
+    if @exist == []
+      @new_Friend = Friend.create!(
+        follower: @follower.id,
+        followed: @followed.id
+      )
+      render json: @new_Friend, status: :ok
+    else
+      render json: {error: 'Friendship alredy exist', proof: @exist}
+    end
+  end
 
   # GET /friends/1
   def show
@@ -9,24 +65,46 @@ class FriendsController < ApplicationController
 
   def followed
     @user = current_user
-    @friends = Friend.where(:follower => @user.id)
-    if @friends.nil?
-      render json: {error: 'No content'}, status: :no_content
-    else
-      @myFriend = User.where(:id => @friends)
-      render json: {who: 'Users who follow me', users: @myFriend}, status: :ok
+    @friends = Friend.where(:followed => @user.id).pluck(:followed)
+    @array = []
+    @friends.each do |id|
+      @temp = User.find_by(id: id)
+      @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, profile_photo: Photo.find_by(id: @temp.photos_id).base64_image}
+      @array.push(@hash)
     end
+    render json: {who: 'Users who follow me', users: @array}, status: :ok
   end
     
+  def friends
+    arrayfriends = []
+    Friend.userfollowed.each do |friends_followed, count_all|
+      hash3 = {:user_id => friends_followed, :count_all => count_all}
+      arrayfriends.push(hash3)
+    end
+    render json: arrayfriends, status: :ok
+  end
+
+  def friendsDate_ID
+    @date = params[:date]
+    @id = params[:id]
+    arrayfriends = []
+    Friend.userfollowedesp(@id, @date).each do |friends_followed, count_all|
+      hash3 = {:user_id => friends_followed, :count_all => count_all}
+      arrayfriends.push(hash3)
+    end
+    render json: arrayfriends, status: :ok
+  end
+
   def follower
     @user = current_user
-    @friends = Friend.where(:followed => @user.id)
-    if @friends.nil?
-      render json: {error: 'No content'}, status: :no_content
-    else
-      @myFriend = User.where(:id => @friends)
-      render json: {who: 'Users who I follow', users: @myFriend}, status: :ok
+    @friends = Friend.where(:follower => @user.id).pluck(:followed)
+    @array = []
+    @friends.each do |id|
+      @temp = User.find_by(id: id)
+      @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, profile_photo: Photo.find_by(id: @temp.photos_id).base64_image}
+      @array.push(@hash)
     end
+    render json: {who: 'Users who I follow', users: @array}, status: :ok
   end
 
   # POST /friends
