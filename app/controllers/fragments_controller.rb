@@ -11,7 +11,7 @@ class FragmentsController < ApplicationController
       @to_show = array[Faker::Number.between(0, (array.length - 1))]
       if @to_show.nil?
         @to_show = Fragment.find(Faker::Number.between(0, (Fragment.all.length - 1)))
-        @h1 = {:id => @to_show.id, :title => @to_show.title, :introduction => @to_show.introduction, :content => @to_show.content, :score => @to_show.score, :source => @to_show.source, :image_path => Photo.find(@to_show.photos_id).path}
+        @h1 = {:id => @to_show.id, :title => @to_show.title, :introduction => @to_show.introduction, :content => @to_show.content, :score => @to_show.score, :source => @to_show.source, :base64_image => Photo.find(@to_show.photos_id).base64_image}
         render json: @h1, status: :ok
       else 
         @h1 = {:id => @to_show[0], :title => @to_show[1], :introduction => @to_show[2], :content => @to_show[3], :score => @to_show[4], :source => @to_show[5], :image_path => @to_show[6]}
