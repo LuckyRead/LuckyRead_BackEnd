@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   patch 'api/user/change_password' => 'users#change_password'
   patch 'api/user/change_talk' => 'users#change_talk'
   post 'api/user/send_reset_password' => 'users#send_reset_password'
+  post 'api/friend/follow' => 'friends#follow'
+  post 'api/friend/unfollow' => 'friends#unfollow'
   get 'favicon' => 'photos#favicon'
   get 'api/user/stat/new_users' => 'users#new_users'
   get 'api/user/stat/user _activity' => 'users#user_activity'
