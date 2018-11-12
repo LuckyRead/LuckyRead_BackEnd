@@ -87,14 +87,14 @@ class FragmentsController < ApplicationController
     render json: arrayFragmentsdislikes, status: :ok
   end
 
-  def porcentage_reaction_fragments
+  def percentage_reaction_fragments
     @id = params[:id]
     @allreaction = Reaction.allreactionafragment(@id)
     @likesreaction = BigDecimal(Reaction.reactionlikesafragment(@id)*100/@allreaction)
     @dislikesallreaction = BigDecimal(Reaction.reactiondislikesafragment(@id)*100/@allreaction)
     @noureaction = BigDecimal(Reaction.reactionnoulikesafragment(@id)*100/@allreaction)
     arrayFragmentsreaction = []
-    hash1 = {:porcentagelikes => @likesreaction, :porcentagedislikes => @dislikesallreaction, :porcentagnoreaction => @noureaction}#:allreactions => @allreaction,
+    hash1 = {:percentagelikes => @likesreaction, :percentagedislikes => @dislikesallreaction, :percentagnoreaction => @noureaction}#:allreactions => @allreaction,
     arrayFragmentsreaction.push(hash1)
     render json: arrayFragmentsreaction, status: :ok
   end
