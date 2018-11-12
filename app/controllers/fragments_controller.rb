@@ -14,7 +14,7 @@ class FragmentsController < ApplicationController
         @h1 = {:id => @to_show.id, :title => @to_show.title, :introduction => @to_show.introduction, :content => @to_show.content, :score => @to_show.score, :source => @to_show.source, :base64_image => Photo.find(@to_show.photos_id).base64_image}
         render json: @h1, status: :ok
       else 
-        @h1 = {:id => @to_show[0], :title => @to_show[1], :introduction => @to_show[2], :content => @to_show[3], :score => @to_show[4], :source => @to_show[5], :image_path => @to_show[6]}
+        @h1 = {:id => @to_show[0], :title => @to_show[1], :introduction => @to_show[2], :content => @to_show[3], :score => @to_show[4], :source => @to_show[5], :image => @to_show[6]}
         render json: @h1, status: :ok
       end
     end
@@ -25,7 +25,7 @@ class FragmentsController < ApplicationController
     @fragments = Fragment.all.paginate(page: params[:page], per_page: 10)
     array = []
     @fragments.each do |f|
-      h1 = {:tile => f.title, :introduction => f.introduction, :content => f.content, :score => f.score, :source => f.source, :users_id => f.users_id, :photo_url => Photo.find(f.photos_id).path}
+      h1 = {:tile => f.title, :introduction => f.introduction, :content => f.content, :score => f.score, :source => f.source, :users_id => f.users_id, :photo_url => Photo.find(f.photos_id).base64_image}
       array.push(h1)
     end
     render json: array
@@ -38,8 +38,8 @@ class FragmentsController < ApplicationController
   end
 
   def showpdf
-    @fragment = Fragment.find(params[:id])
-      respond_to do |format|   
+    @fragment = Fragment.find_by(id: params[:id])
+    respond_to do |format|   
       format.html   
       format.pdf do
         pdf = FragmentPdf.new(@fragment)
