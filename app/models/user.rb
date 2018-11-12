@@ -41,8 +41,8 @@ class User < ApplicationRecord
     def self.userold #return last users register
         return User.where("users.created_at >= (now() - interval 1 month)").pluck(:id, :username)
     end
-
-    scope :bestuser, ->(limit){order("score asc").limit(limit).pluck(:username, :talk_to_us)}
+    
+    scope :bestuser, ->(limit){order("score asc").limit(limit).pluck(:username, :talk_to_us, :name, :photos_id)}
 
     scope :user_most_recent, ->(limit){order("created_at desc").limit(limit)}
 

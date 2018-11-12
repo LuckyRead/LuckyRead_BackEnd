@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'api/photo/:id' => 'photos#show'
   get 'api/user/info' => 'users#info'
   patch 'api/user/change_password' => 'users#change_password'
+  patch 'api/user/change_talk' => 'users#change_talk'
   post 'api/user/send_reset_password' => 'users#send_reset_password'
   get 'favicon' => 'photos#favicon'
   get 'api/user/stat/new_users' => 'users#new_users'
@@ -37,7 +38,7 @@ Rails.application.routes.draw do
   get 'api/fragments/stat/new_fragments' => 'fragments#new_fragments'
   get 'api/fragments/stat/likes_fragments' => 'fragments#likes_fragments'
   get 'api/fragments/stat/dislikes_fragments' => 'fragments#dislikes_fragments'
-  post 'api/fragments/stat/porcentage_reaction_fragments' => 'fragments#porcentage_reaction_fragments'
+  post 'api/fragments/stat/porcentage_reaction_fragments/:id' => 'fragments#porcentage_reaction_fragments'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
