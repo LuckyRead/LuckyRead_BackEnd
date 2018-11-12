@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   patch 'api/user/change_password' => 'users#change_password'
   patch 'api/user/change_talk' => 'users#change_talk'
   post 'api/user/send_reset_password' => 'users#send_reset_password'
+  post 'api/friend/follow' => 'friends#follow'
   get 'favicon' => 'photos#favicon'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics

@@ -1,6 +1,21 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:followed, :follower, :create, :update, :destroy]
+  before_action :authenticate_user,  only: [:follow, :followed, :follower, :create, :update, :destroy]
+
+  def follow
+    @follower = current_user
+    @followed = User.find_by(username: params[:username])
+    @exist = Friend.where('follower = ? and followed = ?', @follower.id, @followed.id)
+    if @exist == []
+      @new_Friend = Friend.create!(
+        follower: @follower.id,
+        followed: @followed.id
+      )
+      render json: @new_Friend, status: :ok
+    else
+      render json: {error: 'Friendship alredy exist', proof: @exist}
+    end
+  end
 
   # GET /friends/1
   def show
@@ -9,7 +24,7 @@ class FriendsController < ApplicationController
 
   def followed
     @user = current_user
-    @friends = Friend.where(:follower => @user.id)
+    @friends = Friend.where(:followed => @user.id)
     if @friends.nil?
       render json: {error: 'No content'}, status: :no_content
     else
@@ -20,13 +35,11 @@ class FriendsController < ApplicationController
     
   def follower
     @user = current_user
-    @friends = Friend.where(:followed => @user.id)
-    @myFriend = User.where(:id => @friends)
+    @friends = Friend.where(:follower => @user.id).pluck(:followed)
     @array = []
-    @myFriend.each do |user_who|
-      if Photo.find_by(id: user_who.photos_id).nil?
-        @b64 = 
-      @hash = {:id => user_who.id, :username => user_who.username, :lastname => user_who.lastname, :email => user_who.email, :city => City.find_by(id: user_who.city_id).city_name, :score => user_who.score, :talk_to_us => user_who.talk_to_us, :base64_image => @b64}
+    @friends.each do |id|
+      @temp = User.find_by(id: id)
+      @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, profile_photo: Photo.find_by(id: @temp.photos_id).base64_image}
       @array.push(@hash)
     end
     render json: {who: 'Users who I follow', users: @array}, status: :ok
