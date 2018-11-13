@@ -6,6 +6,6 @@ class UserPdf < Prawn::Document
     end
 
     def name
-        text "Nombre \#{@user.name}", zise: 50, sytle: :bold
+        text "Nombre #{@user.name}", zise: 50, sytle: :bold
     end
 end

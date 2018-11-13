@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'api/users/best' => 'users#best'
   get 'api/fragments/:id' => 'fragments#show'
   get 'api/fragments_pdf/:id' => 'fragments#showpdf'
+  get 'api/user_pdf' => 'users#showpdf'
   get 'api/fragments' => 'fragments#index'
   post 'api/preference/add' => 'preferences#add'
   get 'api/preference/add_all' => 'preferences#add_all'

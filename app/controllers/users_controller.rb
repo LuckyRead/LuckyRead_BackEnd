@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
 
   def change_talk
     @user = current_user
@@ -124,6 +124,7 @@ class UsersController < ApplicationController
   end
 
   def showpdf
+    @user = current_user
     respond_to do |format|   
       format.html   
       format.pdf do
@@ -242,7 +243,6 @@ class UsersController < ApplicationController
       if user.save
         render json: user, status: :created, msg: 'User created'
         UserMailer.welcome_email(user).deliver_now
-        #UserMailer.with(user: user).welcome_email.deliver_now
       else
         render json: {status: :unprocessable_entity, error: user.errors}, status: :unprocessable_entity
       end

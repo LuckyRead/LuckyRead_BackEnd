@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_25_185155) do
+ActiveRecord::Schema.define(version: 2018_10_15_035040) do
 
   create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "city_name", null: false
@@ -70,15 +70,10 @@ ActiveRecord::Schema.define(version: 2018_10_25_185155) do
   end
 
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "path", null: false
-    t.bigint "fragment_id"
-    t.bigint "user_id"
+    t.string "image"
+    t.text "base64_image", limit: 4294967295
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "image"
-    t.text "base64_image"
-    t.index ["fragment_id"], name: "index_photos_on_fragment_id"
-    t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
   create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
