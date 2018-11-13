@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_035040) do
+ActiveRecord::Schema.define(version: 2018_10_14_211843) do
 
   create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "city_name", null: false
@@ -51,15 +51,6 @@ ActiveRecord::Schema.define(version: 2018_10_15_035040) do
     t.index ["users_id"], name: "index_fragments_on_users_id"
   end
 
-  create_table "fragments_sub_topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "fragment_id"
-    t.bigint "sub_topic_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["fragment_id"], name: "index_fragments_sub_topics_on_fragment_id"
-    t.index ["sub_topic_id"], name: "index_fragments_sub_topics_on_sub_topic_id"
-  end
-
   create_table "friends", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "follower", null: false
     t.bigint "followed", null: false
@@ -74,16 +65,6 @@ ActiveRecord::Schema.define(version: 2018_10_15_035040) do
     t.text "base64_image", limit: 4294967295
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "sub_topic_id", null: false
-    t.integer "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["sub_topic_id"], name: "index_preferences_on_sub_topic_id"
-    t.index ["user_id"], name: "index_preferences_on_user_id"
   end
 
   create_table "reactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -181,8 +162,6 @@ ActiveRecord::Schema.define(version: 2018_10_15_035040) do
   add_foreign_key "fragments", "users", column: "users_id"
   add_foreign_key "friends", "users", column: "followed"
   add_foreign_key "friends", "users", column: "follower"
-  add_foreign_key "preferences", "sub_topics"
-  add_foreign_key "preferences", "users"
   add_foreign_key "reactions", "fragments", column: "fragments_id"
   add_foreign_key "reactions", "users", column: "users_id"
   add_foreign_key "rel_fragment_sub_topics", "fragments", column: "fragments_id"
