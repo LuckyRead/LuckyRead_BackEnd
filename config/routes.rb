@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'api/preference/add_all' => 'preferences#add_all'
   get 'api/photo_id' => 'photos#photo_id'
   patch 'api/photo/set_profile_photo' => 'photos#set_profile_photo'
+  patch 'api/user/change_username' => 'users#change_username'
   post 'api/login/fb' => 'users#login_fb'
   post 'api/login/ggle' => 'users#login_ggle'
   post 'api/topic/add' => 'topics#add'
@@ -54,9 +55,9 @@ Rails.application.routes.draw do
   #resources :photos
   #resources :responses
   #resources :comments
-  resources :fragments
+  #resources :fragments
   #resources :friends
-  resources :users
+  #resources :users
   #resources :countries
   #resources :cities
 end

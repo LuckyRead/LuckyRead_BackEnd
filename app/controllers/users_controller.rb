@@ -1,14 +1,24 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+
+  def change_username
+    @user = current_user
+    @user.username = params[:username].to_s.downcase
+    if @user.save
+      render json: {talk_to_us: 'updated'}, status: :ok
+    else
+      render json: {error: @user.errors}, status: :not_modified
+    end
+  end
 
   def change_talk
     @user = current_user
     @user.talk_to_us = params[:talk_to_us]
     if @user.save
-      render json: {password: 'updated'}, status: :ok
+      render json: {talk_to_us: 'updated'}, status: :ok
     else
-      render json: {error: 'Something was wrong'}, status: :not_modified
+      render json: {error: @user.errors}, status: :not_modified
     end
   end
 
@@ -26,7 +36,7 @@ class UsersController < ApplicationController
     if @user.save
       render json: {password: 'updated'}, status: :ok
     else
-      render json: {error: 'Something was wrong'}, status: :not_modified
+      render json: {error: @user.errors}, status: :not_modified
     end
   end
 
@@ -150,7 +160,7 @@ class UsersController < ApplicationController
   end
 
   def email_exist
-    @user = User.find_by(email: params[:email])
+    @user = User.find_by(email: params[:email].to_s.downcase)
     if @user.nil?
       render json: {email: "Not Taken"}, status: :ok
     else
@@ -227,32 +237,34 @@ class UsersController < ApplicationController
   end
 
   def user_exist
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(username: params[:username].to_s.downcase)
     if @user.nil?
-      render json: {email: "Not Taken"}, status: :ok
+      render json: {user: "Not Taken"}, status: :ok
     else
-      render json: {email: "Taken"}, status: :ok
+      render json: {user: "Taken"}, status: :ok
     end
   end
 
   def signup
-    user = User.new(user_params)
-    user.username = params[:user][:username].to_s.downcase
-    user.email = params[:user][:email].to_s.downcase
-    if User.find_by(email: user.email).nil?
-      if user.save
-        render json: user, status: :created, msg: 'User created'
-        UserMailer.welcome_email(user).deliver_now
-      else
-        render json: {status: :unprocessable_entity, error: user.errors}, status: :unprocessable_entity
-      end
-    else
+    @user = User.new(user_params)
+    @user.username = params[:user][:username].to_s.downcase
+    @user.email = params[:user][:email].to_s.downcase
+    if !User.find_by(username: @user.username).nil?
+      render json: {msj: "Username taken"}, status: :conflict
+    elsif !User.find_by(email: @user.email).nil?
       render json: {msj: "Email taken"}, status: :conflict
+    else
+      if @user.save
+        render json: @user, status: :created
+        UserMailer.welcome_email(@user).deliver_now
+      else
+        render json: {status: :unprocessable_entity, error: @user.errors}, status: :unprocessable_entity
+      end
     end
   end
 
   def current
-    render json: {current_user: current_user.username}, status: 200
+    render json: {current_user: current_user.username}, status: :ok
   end
 
   # PATCH/PUT /users/1
