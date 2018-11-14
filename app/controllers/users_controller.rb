@@ -169,7 +169,7 @@ class UsersController < ApplicationController
   end
 
   def delete_temp
-    @to_delete = User.where('id > 180')
+    @to_delete = User.where('id > 30')
     render json: @to_delete
     @to_delete.destroy_all
   end
