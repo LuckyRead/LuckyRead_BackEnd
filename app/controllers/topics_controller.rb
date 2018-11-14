@@ -1,6 +1,27 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:add]
+  before_action :authenticate_user,  only: [:add, :addone, :add_all]
+  
+  def addone
+    SubTopicsUser.create!(
+      user_id: current_user.id,
+      sub_topic_id: params[:sub_topic_id],
+      score: 10
+    )
+    render json: {username: current_user.username, sub_topic_id: params[:sub_topic_id]}, status: :created
+  end
+
+  def add_all
+    @sub = SubTopic.all.pluck(:id)
+    @sub.each do |sub_topic_id|
+      SubTopicsUser.create!(
+      user_id: current_user.id,
+      sub_topic_id: sub_topic_id,
+      score: 10
+    )
+    end
+    render json: {username: current_user.username, sub_topics: 'All'}, status: :created
+  end
 
   def sub_topic
     @sub_topic = @sub_topics_topics = SubTopicsTopic.where(topic_id: params[:topic_id]).pluck(:sub_topic_id)
