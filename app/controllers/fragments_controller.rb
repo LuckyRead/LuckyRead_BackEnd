@@ -28,7 +28,7 @@ class FragmentsController < ApplicationController
     @fragments = Fragment.all.paginate(page: params[:page], per_page: 10)
     array = []
     @fragments.each do |f|
-      h1 = {:tile => f.title, :introduction => f.introduction, :content => f.content, :score => f.score, :source => f.source, :users_id => f.users_id, :photo_url => Photo.find(f.photos_id).base64_image}
+      h1 = {:tile => f.title, :introduction => f.introduction, :content => f.content, :score => f.score, :source => f.source, :users_id => f.users_id, :base64_image => Photo.find(f.photos_id).base64_image}
       array.push(h1)
     end
     render json: array
