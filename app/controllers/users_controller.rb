@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:preferences_sub_topic, :change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
 
   def change_username
     @user = current_user
@@ -175,14 +175,14 @@ class UsersController < ApplicationController
   end
 
   def preferences_sub_topic
-    @user1 = User.find_by(username: params[:username])
-    @sub_topics = User.preferencessub_topic_name(@user1.id)
-    array = []
-    @sub_topics.each do |user, sub_topic_name|
-      hash1 = {:sub_topic_id => SubTopic.find_by(sub_topic_name: sub_topic_name).id, :sub_topic_name => sub_topic_name}
-      array.push(hash1)
-    end
-    render json: array, status: :ok
+    @user = current_user
+    render json: {sub_topics: User.preferencessub_topic_name(@user.id)}, status: :ok
+    #@sub_topics = User.preferencessub_topic_name(@user.id)
+    # @array = []
+    # @sub_topics.each do |user, sub_topic_name, score|
+    #   @hash = {:sub_topic_id => SubTopic.find_by(sub_topic_name: sub_topic_name).id, :sub_topic_name => sub_topic_name, :score => score}
+    #   @array.push(@hash)
+    # end
   end
 
   
@@ -226,8 +226,8 @@ class UsersController < ApplicationController
   end
 
   def preferences_topic
-    @user1 = User.find_by(username: params[:username])
-    @topics = User.preferencestopic_name(@user1.id)
+    @user = User.find_by(username: params[:username])
+    @topics = User.preferencestopic_name(@user.id)
     array = []
     @topics.each do |user, topic_name|
       hash1 = {:topic_id => Topic.find_by(topic_name: topic_name).id, :topic_name => topic_name}
