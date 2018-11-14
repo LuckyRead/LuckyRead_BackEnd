@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:preferences_sub_topic, :change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:preferences_topic, :preferences_sub_topic, :change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
 
   def change_username
     @user = current_user
@@ -226,7 +226,7 @@ class UsersController < ApplicationController
   end
 
   def preferences_topic
-    @user = User.find_by(username: params[:username])
+    @user = current_user
     @topics = User.preferencestopic_name(@user.id)
     array = []
     @topics.each do |user, topic_name|
