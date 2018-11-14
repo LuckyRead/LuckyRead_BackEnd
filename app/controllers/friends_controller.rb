@@ -6,7 +6,6 @@ class FriendsController < ApplicationController
     @user = current_user
     @array1 = []
     @array2 = []
-    User.all.length
     5.times do
       @rand = Faker::Number.between(1, User.all.length)
       while @rand == @user.id

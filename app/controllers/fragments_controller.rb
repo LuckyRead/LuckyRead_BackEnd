@@ -26,9 +26,9 @@ class FragmentsController < ApplicationController
   # GET /fragments
   def index
     @fragments = Fragment.all.paginate(page: params[:page], per_page: 10)
-    array = []
+    @array = []
     @fragments.each do |f|
-      h1 = {
+      @hash = {
         :tile => f.title,
         :introduction => f.introduction,
         :content => f.content,
@@ -37,9 +37,9 @@ class FragmentsController < ApplicationController
         :users_id => f.users_id,
         :base64_image => Photo.find(f.photos_id).base64_image
       }
-      array.push(h1)
+      @array.push(@hash)
     end
-    render json: array
+    render json: @array
   end
 
   # GET /fragments/1
