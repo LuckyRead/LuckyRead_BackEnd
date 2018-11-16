@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:love, :add, :addone, :add_all]
+  before_action :authenticate_user,  only: [:rmone, :love, :add, :addone, :add_all]
   
   def love
     @love = SubTopicsUser.where('user_id = ? and sub_topic_id = ?', current_user.id, params[:id])
@@ -14,10 +14,19 @@ class TopicsController < ApplicationController
   def addone
     SubTopicsUser.create!(
       user_id: current_user.id,
-      sub_topic_id: params[:sub_topic_id],
+      sub_topic_id: params[:id],
       score: 10
     )
-    render json: {username: current_user.username, sub_topic_id: params[:sub_topic_id]}, status: :created
+    render json: {username: current_user.username, sub_topic_id: params[:id]}, status: :created
+  end
+
+  def rmone
+    @noLove = SubTopicsUser.where('user_id = ? and sub_topic_id = ?', current_user.id, params[:id])
+    if SubTopicsUser.find(@noLove[0].id).destroy
+      render json: {preference: 'deleted'}, status: :ok
+    else
+      render json: {error: 'Something was wrong'}
+    end
   end
 
   def add_all
