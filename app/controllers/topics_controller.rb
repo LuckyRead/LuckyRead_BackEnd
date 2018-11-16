@@ -6,7 +6,7 @@ class TopicsController < ApplicationController
     @love = SubTopicsUser.where('user_id = ? and sub_topic_id = ?', current_user.id, params[:id])
     if !@love.nil?
       render json: {hurra: 'User loves this sub topic'}, status: :ok
-    else
+    elsif @love == []
       render json: {ups: 'User does not love this sub topic yet'}, status: :ok
     end
   end
