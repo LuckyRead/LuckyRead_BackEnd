@@ -1,6 +1,15 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:add, :addone, :add_all]
+  before_action :authenticate_user,  only: [:love, :add, :addone, :add_all]
+  
+  def love
+    @love = SubTopicsUser.where('user_id = ? and sub_topic_id = ?', current_user.id, params[:id])
+    if !@love.nil?
+      render json: {hurra: 'User loves this sub topic'}, status: :ok
+    else
+      render json: {ups: 'User does not love this sub topic yet'}, status: :ok
+    end
+  end
   
   def addone
     SubTopicsUser.create!(

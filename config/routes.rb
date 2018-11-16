@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   get 'api/fragments/stat/percentage_reaction_fragments/:id' => 'fragments#percentage_reaction_fragments'
   get 'api/fragments/stat/five_fragments_more_percentage_likes' => 'fragments#five_fragments_more_percentage_likes'
   delete 'api/user' => 'users#delete'
+  get 'api/subtopics/love/:id' => 'topics#love'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
