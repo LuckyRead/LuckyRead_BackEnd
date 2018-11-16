@@ -2,6 +2,35 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_action :authenticate_user,  only: [:preferences_topic, :preferences_sub_topic, :change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
 
+  def delete
+    if params.has_key?(:email)
+      if !User.find_by(email: params[:email].to_s.downcase).nil?
+        @user = User.find_by(email: params[:email].to_s.downcase)
+        if @user.destroy
+          render json: {user_deleted: @user}, status: :ok
+        else
+          render json: {error: user.errors}, status: :conflict
+        end
+      else
+        render json: {error: 'User not found'}
+      end
+    elsif params.has_key?(:username)
+      if !User.find_by(username: params[:username].to_s.downcase).nil?
+        @user = User.find_by(username: params[:username].to_s.downcase)
+        if @user.destroy
+          render json: {user_deleted: @user}, status: :ok
+        else
+          render json: {error: user.errors}, status: :conflict
+        end
+      else
+        render json: {error: 'User not found'}
+      end
+    else
+      render json: {error: 'error'}, status: :bad_request
+    end
+  end
+  
+
   def change_username
     @user = current_user
     @user.username = params[:username].to_s.downcase
