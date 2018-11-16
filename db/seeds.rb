@@ -136,7 +136,7 @@ end
         reaction: REACTION_Fake[Faker::Number.between(0,2)]
     )
 end
-2.times do
+10.times do
     topic = Topic.create!(
         topic_name: Faker::Simpsons.quote,
         score: Faker::Number.between(1, 100)
