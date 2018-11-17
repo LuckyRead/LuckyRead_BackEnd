@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   get 'api/fragments_pdf/:id' => 'fragments#showpdf'
   get 'api/user_pdf' => 'users#showpdf'
   get 'api/fragments' => 'fragments#index'
-  get 'api/preference/add/:id' => 'topics#addone'
-  get 'api/preference/rm/:id' => 'topics#rmone'
+  post 'api/preference/add/:id' => 'topics#addone'
+  delete 'api/preference/rm/:id' => 'topics#rmone'
   get 'api/preference/add_all' => 'topics#add_all'
   get 'api/photo_id' => 'photos#photo_id'
   patch 'api/photo/set_profile_photo' => 'photos#set_profile_photo'
@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   get 'api/fragments/stat/five_fragments_more_percentage_likes' => 'fragments#five_fragments_more_percentage_likes'
   delete 'api/user' => 'users#delete'
   get 'api/subtopics/love/:id' => 'topics#love'
+  get 'api/friend/ifollow' => 'friends#ifollow'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
