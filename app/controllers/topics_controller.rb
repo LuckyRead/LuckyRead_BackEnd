@@ -1,7 +1,54 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:rmone, :love, :add, :addone, :add_all]
+  before_action :authenticate_user,  only: [:add_all_topic, :rm_all_topic, :rmone, :love, :add, :addone, :add_all]
   
+  def add_all_topic
+    @user = current_user
+    @query1 = SubTopicsTopic.where('topic_id = ?', params[:id])
+    if @query1 == []
+      render json: {error: 'Not sub topics are found'}, status: :conflict
+    else
+      @array = []
+      @query1.each do |it|
+        @query2 = SubTopicsUser.where("user_id = ? and sub_topic_id = ?", @user.id, it[:sub_topic_id])
+        if @query2 == []
+          SubTopicsUser.create!(
+            user_id: @user.id,
+            sub_topic_id: it[:sub_topic_id]
+          )
+          @array.push({id: it[:sub_topic_id], name: SubTopic.find(it[:sub_topic_id]).sub_topic_name})
+        end
+      end
+      if @array == []
+        render json: {error: 'User alredy has all sub topics of this topic'}, status: :conflict
+      else 
+        render json: {sub_topics_added: @array}, status: :created
+      end
+    end
+  end
+  
+  def rm_all_topic
+    @user = current_user
+    @query1 = SubTopicsTopic.where('topic_id = ?', params[:id])
+    if @query1 == []
+      render json: {error: 'Not sub topics are found'}, status: :conflict
+    else
+      @array = []
+      @query1.each do |it|
+        @sb = SubTopicsUser.find_by(sub_topic_id: it[:sub_topic_id])
+        if !@sb.nil?
+          @array.push({id: @sb.sub_topic_id, name: SubTopic.find(@sb.sub_topic_id).sub_topic_name})
+          @sb.destroy
+        end
+      end
+      if @array == []
+        render json: {error: "User hasn't any preference with this topic"}, status: :conflict
+      else
+        render json: {sub_topics_deleted: @array}, status: :created
+      end
+    end
+  end
+
   def love
     @love = SubTopicsUser.where('user_id = ? and sub_topic_id = ?', current_user.id, params[:id])
     if @love != []
