@@ -2,10 +2,12 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
   before_action :authenticate_user,  only: [:get_comments]
 
+  def count
+    @comments = Comment.where('fragment_id = ?', params[:id])
+    render json: {count: @comments.length}
+  end
+
   def get_comments
-    #likes
-    #dislikes
-    #datetime
     if Fragment.find(params[:id]).nil?
       render json: {error: 'Does not exist any fragment with this id'}, status: :ok
     else
