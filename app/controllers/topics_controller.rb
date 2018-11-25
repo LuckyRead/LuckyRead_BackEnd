@@ -108,10 +108,10 @@ class TopicsController < ApplicationController
   end
 
   def all_topic 
-    @alltopics = Topic.alltopics
+    @alltopics = Topic.alltopics.paginate(page: params[:page], per_page: 10)
     array = []
     @alltopics.each do |id|
-      h1 = {id: id, topic_name: sub_topic_name}
+      h1 = {id: id, topic_name: topic_name}
       array.push(h1)
     end
     render json: array, status: :ok

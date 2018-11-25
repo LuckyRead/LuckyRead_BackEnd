@@ -144,7 +144,6 @@ ActiveRecord::Schema.define(version: 2018_10_14_211843) do
     t.string "lastname", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
-    t.string "user_token"
     t.bigint "city_id", null: false
     t.string "score"
     t.string "talk_to_us"
