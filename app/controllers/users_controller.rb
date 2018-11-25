@@ -298,7 +298,8 @@ class UsersController < ApplicationController
 
   def userstopic
     @id = params[:id]
-    if SubTopicsUser.topicuser(@id).nil?
+    @dontlike = SubTopicsUser.topicuser(@id)
+    if @dontlike == []
       render json: {msj: "Topic doesn't like to user"}, status: :ok
     else
       render json: {msj: "Topic does like to user"}, status: :ok
