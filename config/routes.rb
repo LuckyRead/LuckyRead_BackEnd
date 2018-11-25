@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   delete 'api/user' => 'users#delete'
   get 'api/subtopics/love/:id' => 'topics#love'
   get 'api/friend/ifollow' => 'friends#ifollow'
+  post 'api/users/preference/topic' => 'users#userstopic'
   post 'api/topic/add_pref/:id' => 'topics#add_all_topic'
   delete 'api/topic/rm_pref/:id' => 'topics#rm_all_topic'
   root :to => 'responses#api_test'

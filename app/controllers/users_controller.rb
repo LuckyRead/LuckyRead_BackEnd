@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:preferences_topic, :preferences_sub_topic, :change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic]
+  before_action :authenticate_user,  only: [:preferences_topic, :preferences_sub_topic, :change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic, :userstopic]
 
   def delete
     if params.has_key?(:email)
@@ -293,6 +293,15 @@ class UsersController < ApplicationController
       else
         render json: {status: :unprocessable_entity, error: @user.errors}, status: :unprocessable_entity
       end
+    end
+  end
+
+  def userstopic
+    @id = params[:id]
+    if SubTopicsUser.topicuser(@id).nil?
+      render json: {msj: "Topic doesn't like to user"}, status: :ok
+    else
+      render json: {msj: "Topic does like to user"}, status: :ok
     end
   end
 

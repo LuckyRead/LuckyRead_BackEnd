@@ -45,7 +45,14 @@ class FragmentsController < ApplicationController
   # GET /fragments/1
   def show
     @fragment = Fragment.find(params[:id])
-    render json: {
+    @id = params[:id]
+    @allreaction = Reaction.allreactionafragment(@id)
+    @likesreaction = BigDecimal(Reaction.reactionlikesafragment(@id)*100/@allreaction)
+    @dislikesallreaction = BigDecimal(Reaction.reactiondislikesafragment(@id)*100/@allreaction)
+    @noureaction = BigDecimal(Reaction.reactionnoulikesafragment(@id)*100/@allreaction)
+    arrayFragmentsreaction = []
+    hash1 = {:percentagelikes => @likesreaction.round, :percentagedislikes => @dislikesallreaction.round, :percentagenoreaction => @noureaction.round}#:allreactions => @allreaction,
+    hash2 = {
       :id => @fragment.id,
       :title => @fragment.title,
       :introduction => @fragment.introduction,
@@ -54,7 +61,11 @@ class FragmentsController < ApplicationController
       :source => @fragment.source,
       :topics => Fragment.topicsUnderFragment(params[:id]).uniq,
       :base64_image => Photo.find(@fragment.photos_id).base64_image
-    }, status: :ok
+    }
+    arrayFragmentsreaction.push(hash1)
+    arrayFragmentsreaction.push(hash2)
+    render json: arrayFragmentsreaction, status: :ok
+    #render json: , status: :ok
   end
 
   def showpdf
