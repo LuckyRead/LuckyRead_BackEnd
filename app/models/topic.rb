@@ -20,6 +20,6 @@ class Topic < ApplicationRecord
 =end
     scope :besttopic, ->(limit){order("score asc").limit(limit).pluck(:id, :topic_name).limit(limit)}
     def self.alltopics
-        Topic.order(:id)
+        Topic.all
     end
 end
