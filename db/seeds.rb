@@ -167,7 +167,9 @@ end
                 message: Faker::HarryPotter.quote,
                 datetime: Faker::Date.backward(14),
                 user_id: Faker::Number.between(1, 30),
-                fragment_id: Faker::Number.between(1,57)
+                fragment_id: Faker::Number.between(1,57),
+                likes: Faker::Number.between(1,100),
+                dislikes: Faker::Number.between(1,100)
             )
             RelFragmentSubTopic.create!(
                 fragments_id: Faker::Number.between(1,57),

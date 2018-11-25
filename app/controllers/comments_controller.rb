@@ -1,5 +1,37 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
+  before_action :authenticate_user,  only: [:get_comments]
+
+  def get_comments
+    #likes
+    #dislikes
+    #datetime
+    if Fragment.find(params[:id]).nil?
+      render json: {error: 'Does not exist any fragment with this id'}, status: :ok
+    else
+      @comments = Comment.where('fragment_id = ?', params[:id]).order('created_at ASC')
+      if @comments == []
+        render json: {error: "There are no comments for this fragment"}
+      else
+        @array = []
+        @comments.each do |it|
+          @user = User.find(it.user_id)
+          @array.push(
+            {
+              username: @user.username,
+              name: @user.name,
+              text: it.message,
+              likes: it.likes,
+              dislikes: it.dislikes,
+              datetime: it.created_at,
+              profile_photo: Photo.find(@user.photos_id).base64_image
+            }
+          )
+        end
+        render json: {comments: @array}, status: :ok
+      end
+    end
+  end
 
   # GET /comments
   def index
