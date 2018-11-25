@@ -109,12 +109,16 @@ class TopicsController < ApplicationController
 
   def all_topic 
     @alltopics = Topic.all.paginate(page: params[:page], per_page: 10)
-    array = []
-    @alltopics.each do |id|
-      h1 = {:id => id, :topic_name => topic_name}
-      array.push(h1)
+    @array = []
+    @alltopics.each do |f|
+      @hash = {
+        :id => f.id,
+        :topic_name => f.topic_name,
+        :score => f.score
+      }
+      @array.push(@hash)
     end
-    render json: array, status: :ok
+    render json: @array
   end
 
   # GET /topics
