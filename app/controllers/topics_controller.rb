@@ -109,7 +109,7 @@ class TopicsController < ApplicationController
 
   def all_topic 
     @alltopics = Topic.alltopics
-    arrray = []
+    array = []
     @alltopics.each do |id|
       h1 = {id: id, topic_name: sub_topic_name}
       array.push(h1)
