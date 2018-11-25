@@ -107,6 +107,16 @@ class TopicsController < ApplicationController
     render json: {username: current_user.username, topic_id: params[:topic_id]}, status: :created
   end
 
+  def all_topic 
+    @alltopics = Topic.alltopics
+    arrray = []
+    @alltopics.each do |id|
+      h1 = {id: id, topic_name: sub_topic_name}
+      array.push(h1)
+    end
+    render json: array, status: :ok
+  end
+
   # GET /topics
   def index
     @topics = Topic.all.paginate(page: params[:page], per_page: 10)
