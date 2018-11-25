@@ -3,11 +3,24 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
-  <body>
-    <h1>Buen día, <%= @user.name %></h1>
-    <p>
-      Haz realizado una solicitud de cambio de foto de perfil, la cual se realizó satisfactoriamente en Luckyread.%>.<br>
-    </p>
-    <p>¡Esperamos que tengas un buen día!</p>
+  <body><table style="max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;">
+	<tr>
+		<td style="background-color: #ecf0f1; text-align: left; padding: 0">
+			<a href=http://www.lucky-read.com/>
+				<img width="20%" style="display:block; margin: 1.5% 3%" src="https://s16.postimg.org/arsbkbzlh/poketrainers.png">
+			</a>
+		</td>
+	</tr>	
+	<tr>
+		<td style="background-color: #ecf0f1">
+			<div style="color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif">
+				<h2 style="color: #e67e22; margin: 0 0 7px">Hola <%= @user.name %></h2>
+				<p style="margin: 2px; font-size: 15px">
+        Has realizado una solicitud de cambio de foto de perfil, la cual se realizó satisfactoriamente en Luckyread.</p>
+				<p style="color: #b3b3b3; font-size: 12px; text-align: center;margin: 30px 0 0">Te saluda LuckyRead, y te deseamos un feliz día</p>
+			</div>
+		</td>
+	</tr>
+</table>
   </body>
 </html>
