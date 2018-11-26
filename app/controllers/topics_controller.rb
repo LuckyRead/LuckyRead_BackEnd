@@ -1,7 +1,33 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:add_all_topic, :rm_all_topic, :rmone, :love, :add, :addone, :add_all]
+  before_action :authenticate_user,  only: [:add_many, :add_all_topic, :rm_all_topic, :rmone, :love, :add, :addone, :add_all]
   
+  def add_many
+    if !params.has_key?(:topics_id)
+      render json: {error: "Request hasn't topics_id attribute"}, status: :bad_request
+      return
+    end
+    @user = current_user
+    @array = params[:topics_id]
+    @array1 = []
+    @array.each do |i|
+      @query1 = SubTopicsTopic.where('topic_id = ?', i).pluck('sub_topic_id')
+      @query1.each do |j|
+        @query2 = SubTopicsUser.where('sub_topic_id = ? and user_id = ?', j, @user.id)
+        if @query2 != []
+          next
+        end
+        SubTopicsUser.create!(
+          user_id: @user.id,
+          sub_topic_id: j,
+          score: 10
+        )
+      end
+      @array1.push(Topic.find(i).topic_name)
+    end
+    render json: {topics_added: @array1}
+  end
+
   def add_all_topic
     @user = current_user
     @query1 = SubTopicsTopic.where('topic_id = ?', params[:id])

@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   post 'api/fragment/new' => 'fragments#new'
   post 'api/comment/new' => 'comments#new'
   get 'api/fragment/something/:id' => 'fragments#random_f'
+  post 'api/topic/add_many' => 'topics#add_many'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
