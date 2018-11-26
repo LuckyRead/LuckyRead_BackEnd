@@ -184,3 +184,9 @@ end
         end                
     end         
 end
+30.times do
+    LikeComment.create!(
+        users_id: Faker::Number.between(1, 30),
+        comments_id: Faker::Number.between(1, 90)
+    )
+end

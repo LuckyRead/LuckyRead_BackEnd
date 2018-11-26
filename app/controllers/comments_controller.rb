@@ -45,8 +45,8 @@ class CommentsController < ApplicationController
               name: @user.name,
               text: it.message,
               likes: it.likes,
-              dislikes: it.dislikes,
               datetime: it.created_at,
+              liked_by_user?: (LikeComment.where('comments_id = ? and users_id = ?', it.id, @user.id) != []),
               profile_photo: Photo.find(@user.photos_id).base64_image
             }
           )
