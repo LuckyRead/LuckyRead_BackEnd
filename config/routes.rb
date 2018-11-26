@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   get 'api/comment/count_by_fragment/:id' => 'comments#count'
   post 'api/fragment/new' => 'fragments#new'
   post 'api/comment/new' => 'comments#new'
+  get 'api/fragment/something/:id' => 'fragments#random_f'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
