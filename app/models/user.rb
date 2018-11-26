@@ -54,7 +54,10 @@ class User < ApplicationRecord
     scope :bestuser, ->(limit){order("score asc").limit(limit).pluck(:username, :talk_to_us, :name, :photos_id)}
 
     scope :user_most_recent, ->(limit){order("created_at desc").limit(limit)}
-
+    
+    def self.notificate
+        SendFragmentIntroductionJob.perform(user, fragment)
+    end
 end
 
 
