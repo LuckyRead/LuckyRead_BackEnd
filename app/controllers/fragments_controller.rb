@@ -2,6 +2,32 @@ class FragmentsController < ApplicationController
   before_action :set_fragment, only: [:show, :update, :destroy]
   before_action :authenticate_user,  only: [:new, :create, :update, :destroy, :something]
 
+  def random_f
+    @query1 = SubTopicsTopic.where('topic_id = ?', params[:id]).pluck('id')
+    @array = []
+    if @query1 == []
+      render json: {error: 'There are not topic with this id'}, status: :conflict
+    else
+      @query1.each do |i|
+        @query2 = RelFragmentSubTopic.where('sub_topics_id = ?', i).pluck('fragments_id')
+        @query2.each do |j|
+          @array.push(j)
+        end
+      end
+      @fragment = Fragment.find(@array[Faker::Number.between(0, (@array.length - 1))])
+      render json: {Fragment: {
+        id: @fragment.id,
+        title: @fragment.title,
+        introduction: @fragment.introduction,
+        content: @fragment.content,
+        score: @fragment.score,
+        source: @fragment.source,
+        topics: Fragment.topicsUnderFragment(@fragment.id).uniq,
+        base64_image: Photo.find(@fragment.photos_id).base64_image
+      }}
+    end
+  end
+
   def new
     @user = current_user
     if !params.has_key?(:title)
