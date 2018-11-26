@@ -55,6 +55,14 @@ class User < ApplicationRecord
 
     scope :user_most_recent, ->(limit){order("created_at desc").limit(limit)}
 
+    def self.notificate
+        @userfirst = User.first
+        @userlast = User.last
+        id = Faker::Number.between(@userfirst.id, @userlast.id)
+        idfragment = User.preferencessub_topic_name(id).take
+        fragment = RelFragmentSubTopic.fragment(idfragment)
+        SendFragmentIntroductionJob.set(wait: 1.day).perform(User.find(id), fragment)
+    end
 end
 
 

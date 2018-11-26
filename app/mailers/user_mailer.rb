@@ -22,4 +22,12 @@ class UserMailer < ActionMailer::Base
       template_path: 'user_mailer',
       template_name: 'change_password')
     end
+
+    def notificate(user, fragment)
+      @user = user
+      @fragment = fragment
+      mail(to: @user.email, subject: 'Fragmento del día',
+      template_path: 'user_mailer',
+      template_name: 'notificate')
+    end
 end

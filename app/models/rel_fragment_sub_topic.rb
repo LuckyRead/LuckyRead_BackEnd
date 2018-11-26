@@ -10,4 +10,7 @@
 #
 
 class RelFragmentSubTopic < ApplicationRecord
+    def self.fragment (id)
+        RelFragmentSubTopic.where("rel_fragment_sub_topics.sub_topics_id = ?", id).take
+    end
 end

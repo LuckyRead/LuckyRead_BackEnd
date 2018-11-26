@@ -14,6 +14,7 @@ gem 'mysql2'
 gem 'puma', '~> 3.11'
 gem 'jwt'
 gem 'will_paginate', '~> 3.1.0'
+gem 'whenever', :require => false
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
