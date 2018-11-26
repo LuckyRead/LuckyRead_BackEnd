@@ -61,7 +61,7 @@ class User < ApplicationRecord
         id = Faker::Number.between(@userfirst.id, @userlast.id)
         idfragment = User.preferencessub_topic_name(id).take
         fragment = RelFragmentSubTopic.fragment(idfragment)
-        SendFragmentIntroductionJob.set(wait: 1.day)perform(User.find(id), fragment)
+        SendFragmentIntroductionJob.set(wait: 1.day).perform(User.find(id), fragment)
     end
 end
 
