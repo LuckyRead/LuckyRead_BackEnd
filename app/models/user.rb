@@ -58,7 +58,10 @@ class User < ApplicationRecord
     def self.notificate
         @userfirst = User.first
         @userlast = User.last
-        SendFragmentIntroductionJob.set(wait: 1.day)perform(User.find([Faker::Number.between(@userfirst.id, @userlast.id)]]), fragment)
+        id = Faker::Number.between(@userfirst.id, @userlast.id)
+        idfragment = User.preferencessub_topic_name(id).take
+        fragment = RelFragmentSubTopic.fragment(idfragment)
+        SendFragmentIntroductionJob.set(wait: 1.day)perform(User.find(id), fragment)
     end
 end
 
