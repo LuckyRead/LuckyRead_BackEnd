@@ -52,14 +52,14 @@ class Reaction < ApplicationRecord
     end 
 
     def self.reactionlikesafragment (id) #return the likes of each fragment
-        return Reaction.where("reactions.fragments_id = ? and reactions.reaction = 1", id).count()
+        return Reaction.where("reactions.fragments_id = ? and reactions.reaction = '1'", id).count()
     end 
 
     def self.reactiondislikesafragment (id) #return the likes of each fragment
-        return Reaction.where("reactions.fragments_id = ? and reactions.reaction = -1", id).count()
+        return Reaction.where("reactions.fragments_id = ? and reactions.reaction = '-1'", id).count()
     end 
     
     def self.reactionnoulikesafragment (id) #return the likes of each fragment
-        return Reaction.where("reactions.fragments_id = ? and reactions.reaction = 0", id).count()
+        return Reaction.where("reactions.fragments_id = ? and reactions.reaction = '0'", id).count()
     end 
 end

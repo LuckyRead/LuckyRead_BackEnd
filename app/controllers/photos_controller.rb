@@ -30,7 +30,7 @@ class PhotosController < ApplicationController
     else
       @photo.base64_image = Base64.encode64(open('public'+@photo.image.url).read)
       if @photo.save
-        render json: {id: @photo.id}, status: :created
+        render json: {id: @photo.id, base64_image: @photo.base64_image.gsub("\n","")}, status: :created
       else
         render json: {error: 'Something was wrong'}, status: :bad_request
       end
@@ -46,7 +46,7 @@ class PhotosController < ApplicationController
   # GET /photos/1
   def show
     if params[:id] == 'null'
-      render json: {image_id: nil , base64_image: Base64.encode64(open('https://i.imgur.com/8FEMhNx.png').read)}
+      render json: {image_id: nil , base64_image: Photo.find(24).base64_image}
     else
       @photo = Photo.find(params[:id])
       if @photo.nil?

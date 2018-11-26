@@ -1,12 +1,26 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:random, :unfllow, :follow, :followed, :follower, :create, :update, :destroy]
+  before_action :authenticate_user,  only: [:ifollow, :random, :unfllow, :follow, :followed, :follower, :create, :update, :destroy]
+
+  def ifollow
+    @user = current_user
+    @user2 = User.find_by(username: params[:username].to_s.downcase)
+    if @user2.nil?
+      render json: {error: 'User ' + params[:username] + ' does not exist'}, status: :ok
+    else
+      @query = Friend.where('follower = ? and followed = ?', @user.id, @user2.id)
+      if @query == []
+        render json: {response: 'NotFollowed'}, status: :ok
+      else
+        render json: {response: 'Followed'}, status: :ok
+      end
+    end
+  end
 
   def random
     @user = current_user
     @array1 = []
     @array2 = []
-    User.all.length
     5.times do
       @rand = Faker::Number.between(1, User.all.length)
       while @rand == @user.id

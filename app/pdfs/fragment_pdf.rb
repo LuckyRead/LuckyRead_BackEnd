@@ -8,7 +8,6 @@ class FragmentPdf < Prawn::Document
         content
         likes_and_dislikes
         source
-        photo
     end
 
     def stile
@@ -51,11 +50,6 @@ class FragmentPdf < Prawn::Document
             text " #{@fragment.source}"
         end
     end
-    
-    def photo
-        @link = Photo.find(@fragment.photos_id).path
-        #image open(@link) #:width => 150
-    end
 
     def likes_and_dislikes
         text "Likes:"
@@ -66,7 +60,7 @@ class FragmentPdf < Prawn::Document
         text " #{@Dislikes}"
     end
 
-    def topics
-        text
-    end
+    # def topics
+    #     text
+    # end
 end

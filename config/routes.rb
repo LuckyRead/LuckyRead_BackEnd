@@ -6,17 +6,20 @@ Rails.application.routes.draw do
   get  'api/follower' => 'friends#follower'
   post 'api/users/email_exist' => 'users#email_exist'
   post 'api/users/user_exist' => 'users#user_exist'
-  post 'api/users/preferences_sub_topic' => 'users#preferences_sub_topic'
-  post 'api/users/preferences_topic' => 'users#preferences_topic'
+  get 'api/users/preferences_sub_topic' => 'users#preferences_sub_topic'
+  get 'api/users/preferences_topic' => 'users#preferences_topic'
   get 'api/fragments/something' => 'fragments#something'
   get 'api/users/best' => 'users#best'
   get 'api/fragments/:id' => 'fragments#show'
   get 'api/fragments_pdf/:id' => 'fragments#showpdf'
+  get 'api/user_pdf' => 'users#showpdf'
   get 'api/fragments' => 'fragments#index'
-  post 'api/preference/add' => 'preferences#add'
-  get 'api/preference/add_all' => 'preferences#add_all'
+  post 'api/preference/add/:id' => 'topics#addone'
+  delete 'api/preference/rm/:id' => 'topics#rmone'
+  get 'api/preference/add_all' => 'topics#add_all'
   get 'api/photo_id' => 'photos#photo_id'
   patch 'api/photo/set_profile_photo' => 'photos#set_profile_photo'
+  patch 'api/user/change_username' => 'users#change_username'
   post 'api/login/fb' => 'users#login_fb'
   post 'api/login/ggle' => 'users#login_ggle'
   post 'api/topic/add' => 'topics#add'
@@ -43,6 +46,19 @@ Rails.application.routes.draw do
   get 'api/fragments/stat/dislikes_fragments' => 'fragments#dislikes_fragments'
   get 'api/fragments/stat/percentage_reaction_fragments/:id' => 'fragments#percentage_reaction_fragments'
   get 'api/fragments/stat/five_fragments_more_percentage_likes' => 'fragments#five_fragments_more_percentage_likes'
+  delete 'api/user' => 'users#delete'
+  get 'api/subtopics/love/:id' => 'topics#love'
+  get 'api/friend/ifollow' => 'friends#ifollow'
+  get 'api/topic/alltopics' => 'topics#all_topic'
+  get 'api/users/preference/topic/:id' => 'users#userstopic'
+  post 'api/topic/add_pref/:id' => 'topics#add_all_topic'
+  delete 'api/topic/rm_pref/:id' => 'topics#rm_all_topic'
+  get 'api/comment/fragment/:id' => 'comments#get_comments'
+  get 'api/comment/count_by_fragment/:id' => 'comments#count'
+  post 'api/fragment/new' => 'fragments#new'
+  post 'api/comment/new' => 'comments#new'
+  get 'api/fragment/something/:id' => 'fragments#random_f'
+  post 'api/topic/add_many' => 'topics#add_many'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
@@ -53,9 +69,9 @@ Rails.application.routes.draw do
   #resources :photos
   #resources :responses
   #resources :comments
-  resources :fragments
+  #resources :fragments
   #resources :friends
-  resources :users
+  #resources :users
   #resources :countries
   #resources :cities
 end

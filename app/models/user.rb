@@ -15,7 +15,16 @@ class User < ApplicationRecord
     has_many :users
 
     def self.preferencessub_topic_name (id)
-        return User.joins(:sub_topics).where("users.id = ?",id).pluck(:username, :sub_topic_name)
+        return User.joins('
+            INNER JOIN sub_topics_users ON users.id = sub_topics_users.user_id
+            INNER JOIN sub_topics ON sub_topics_users.sub_topic_id = sub_topics.id
+        ').where(
+            'users.id = ?', id
+        ).select(
+            'sub_topics.id as id',
+            'sub_topics.sub_topic_name as sub_topic_name',
+            'sub_topics_users.score as score'
+        )
     end
     
     def self.preferencestopic_name (id)
