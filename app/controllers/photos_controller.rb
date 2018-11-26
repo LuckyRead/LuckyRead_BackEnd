@@ -30,7 +30,7 @@ class PhotosController < ApplicationController
     else
       @photo.base64_image = Base64.encode64(open('public'+@photo.image.url).read)
       if @photo.save
-        render json: {id: @photo.id}, status: :created
+        render json: {id: @photo.id, base64_image: @photo.base64_image.gsub("\n","")}, status: :created
       else
         render json: {error: 'Something was wrong'}, status: :bad_request
       end
