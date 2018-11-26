@@ -1,6 +1,27 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:get_comments]
+  before_action :authenticate_user,  only: [:new, :get_comments]
+
+  def new
+    @user = current_user
+    if !params.has_key?(:fragment_id)
+      render json: {error: "Request hasn't fragment_id attribute"}, status: :bad_request
+      return
+    end
+    if !params.has_key?(:comment)
+      render json: {error: "Request hasn't comment attribute"}, status: :bad_request
+      return
+    end
+    @c = Comment.create!(
+      message: params[:comment],
+      datetime: DateTime.now,
+      user_id: @user.id,
+      fragment_id: params[:fragment_id],
+      likes: 0,
+      dislikes: 0
+    )
+    render json: {new_comment_has_been_created: @c}, status: :created
+  end
 
   def count
     @comments = Comment.where('fragment_id = ?', params[:id])
