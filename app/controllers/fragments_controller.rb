@@ -1,6 +1,55 @@
 class FragmentsController < ApplicationController
   before_action :set_fragment, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:create, :update, :destroy, :something]
+  before_action :authenticate_user,  only: [:new, :create, :update, :destroy, :something]
+
+  def new
+    @user = current_user
+    if !params.has_key?(:title)
+      render json: {error: "Request hasn't title attribute"}, status: :bad_request
+      return
+    end
+    if !params.has_key?(:introduction)
+      render json: {error: "Request hasn't introduction attribute"}, status: :bad_request
+      return
+    end
+    if !params.has_key?(:content)
+      render json: {error: "Request hasn't content attribute"}, status: :bad_request
+      return
+    end
+    if !params.has_key?(:source)
+      render json: {error: "Request hasn't source attribute"}, status: :bad_request
+      return
+    end
+    if !params.has_key?(:sub_topics_id)
+      render json: {error: "Request hasn't sub_topics_id attribute"}, status: :bad_request
+      return
+    end
+    if !params.has_key?(:image_id)
+      render json: {error: "Request hasn't image_id attribute"}, status: :bad_request
+      return
+    end
+    @f = Fragment.create!(
+      title: params[:title],
+      introduction: params[:introduction],
+      content: params[:content],
+      score: 0,
+      source: params[:source],
+      users_id: @user.id,
+      photos_id: params[:image_id]
+    )
+    @array = []
+    params[:sub_topics_id].each do |it|
+      if SubTopic.where('id = ?', it) == []
+        next
+      end
+      RelFragmentSubTopic.create!(
+        fragments_id: @f.id,
+        sub_topics_id: it
+      )
+      @array.push(SubTopic.find(it).sub_topic_name)
+    end
+    render json: {new_fragment_was_uploaded: @f, sub_topics: @array}, status: :created
+  end
 
   def something
     @user = current_user

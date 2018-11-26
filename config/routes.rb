@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   delete 'api/topic/rm_pref/:id' => 'topics#rm_all_topic'
   get 'api/comment/fragment/:id' => 'comments#get_comments'
   get 'api/comment/count_by_fragment/:id' => 'comments#count'
+  post 'api/fragment/new' => 'fragments#new'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
