@@ -150,11 +150,7 @@ end
             subtopic = SubTopic.create!(
                 sub_topic_name: Faker::Simpsons.quote
             )
-            reltopic = RelTopicSubTopic.create!(
-                topics_id: topic.id,
-                sub_topics_id: subtopic.id
-            )
-            SubTopicsTopic.create!(
+            reltopic = SubTopicsTopic.create!(
                 topic_id: topic.id,
                 sub_topic_id: subtopic.id
             )
