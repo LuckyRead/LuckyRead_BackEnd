@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2018_11_26_024720) do
     t.bigint "user_id", null: false
     t.bigint "fragment_id", null: false
     t.string "likes", null: false
-    t.string "dislikes", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fragment_id"], name: "index_comments_on_fragment_id"
@@ -96,15 +95,6 @@ ActiveRecord::Schema.define(version: 2018_11_26_024720) do
     t.index ["sub_topics_id"], name: "index_rel_fragment_sub_topics_on_sub_topics_id"
   end
 
-  create_table "rel_topic_sub_topics", force: :cascade do |t|
-    t.bigint "topics_id", null: false
-    t.bigint "sub_topics_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["sub_topics_id"], name: "index_rel_topic_sub_topics_on_sub_topics_id"
-    t.index ["topics_id"], name: "index_rel_topic_sub_topics_on_topics_id"
-  end
-
   create_table "responses", force: :cascade do |t|
     t.text "message", null: false
     t.datetime "datetime", null: false
@@ -144,8 +134,10 @@ ActiveRecord::Schema.define(version: 2018_11_26_024720) do
   create_table "topics", force: :cascade do |t|
     t.string "topic_name", null: false
     t.integer "score"
+    t.bigint "photos_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["photos_id"], name: "index_topics_on_photos_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -176,10 +168,9 @@ ActiveRecord::Schema.define(version: 2018_11_26_024720) do
   add_foreign_key "reactions", "users", column: "users_id"
   add_foreign_key "rel_fragment_sub_topics", "fragments", column: "fragments_id"
   add_foreign_key "rel_fragment_sub_topics", "sub_topics", column: "sub_topics_id"
-  add_foreign_key "rel_topic_sub_topics", "sub_topics", column: "sub_topics_id"
-  add_foreign_key "rel_topic_sub_topics", "topics", column: "topics_id"
   add_foreign_key "responses", "comments", column: "comments_id"
   add_foreign_key "responses", "users", column: "users_id"
+  add_foreign_key "topics", "photos", column: "photos_id"
   add_foreign_key "users", "cities"
   add_foreign_key "users", "photos", column: "photos_id"
 end

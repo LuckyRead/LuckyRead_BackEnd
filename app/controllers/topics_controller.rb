@@ -140,7 +140,8 @@ class TopicsController < ApplicationController
       @hash = {
         :id => f.id,
         :topic_name => f.topic_name,
-        :score => f.score
+        :score => f.score,
+        :topic_image => Photo.find(f.photos_id).base64_image
       }
       @array.push(@hash)
     end
