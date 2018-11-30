@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   get 'api/fragment/something/:id' => 'fragments#random_f'
   post 'api/topic/add_many' => 'topics#add_many'
   get 'api/fragments/by_topic/:id' => 'fragments#by_topic'
+  get 'api/topics/get_all_in_one' => 'topics#get_all_in_one'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
