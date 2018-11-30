@@ -71,8 +71,8 @@ class Fragment < ApplicationRecord
     def self.topicsUnderFragment (id)
         return Fragment.joins('
             INNER JOIN rel_fragment_sub_topics ON fragments.id = rel_fragment_sub_topics.fragments_id
-            INNER JOIN rel_topic_sub_topics ON rel_fragment_sub_topics.sub_topics_id = rel_topic_sub_topics.sub_topics_id
-            INNER JOIN topics ON rel_topic_sub_topics.topics_id = topics.id
+            INNER JOIN sub_topics_topics ON rel_fragment_sub_topics.sub_topics_id = sub_topics_topics.sub_topic_id
+            INNER JOIN topics ON sub_topics_topics.topic_id = topics.id
         ').where(
             'fragments.id = ?', id
         ).select(
