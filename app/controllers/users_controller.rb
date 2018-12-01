@@ -91,9 +91,9 @@ class UsersController < ApplicationController
             base64_image: Base64.encode64(open(params[:picture][:data][:url]).read)
           )
           @photo.save
-          @username = Faker::Name.unique.first_name
+          @username = Faker::Internet.password(6)
           while !User.find_by(username: @username).nil?
-            @username = Faker::Name.unique.first_name
+            @username = Faker::Internet.password(6)
           end
           @user = User.create!(
             username: @username,
@@ -128,9 +128,9 @@ class UsersController < ApplicationController
           base64_image: Base64.encode64(open(params[:profileObj][:imageUrl]).read)
         )
         @photo.save
-        @username = Faker::Name.unique.first_name
+        @username = Faker::Internet.password(6)
         while !User.find_by(username: @username).nil?
-          @username = Faker::Name.unique.first_name
+          @username = Faker::Internet.password(6)
         end
         @user = User.create!(
           username: @username,
