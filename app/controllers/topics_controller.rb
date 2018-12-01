@@ -7,18 +7,21 @@ class TopicsController < ApplicationController
     @topics = Topic.all.pluck('id')
     @topics.each do |i|
       @array1 = []
+      @spref = false
       @subs = SubTopicsTopic.where('topic_id = ?', i).pluck('sub_topic_id')
       @subs.each do |j|
         @pref = SubTopicsUser.where('user_id = ? and sub_topic_id = ?', current_user.id, j)
         @array1.push({
           id: j,
           sub_topic_name: SubTopic.find(j).sub_topic_name,
-          love?: @pref != []
+          love: @pref != []
         })
+        @spref = @spref || (@pref != [])
       end
       @array.push({
         id: i,
         topic_name: Topic.find(i).topic_name,
+        loveTopic: @spref,
         sub_topics: @array1
       })
     end
