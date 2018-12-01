@@ -243,7 +243,7 @@ class FragmentsController < ApplicationController
       Reaction.allfragmentslikes.each do |reactions_fragments_id2, count_all2|
         if reactions_fragments_id == reactions_fragments_id2
           @percentage = count_all*100/count_all2
-          hash1 = {:fragment_id => Fragment.find(reactions_fragments_id=, :count_all => @percentage}
+          hash1 = {:fragment_id => Fragment.find(reactions_fragments_id), :count_all => @percentage}
           arrayFiveFragments.push(hash1)
         end
       end
