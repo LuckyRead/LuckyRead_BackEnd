@@ -85,7 +85,20 @@ Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/8cgJxrO.jp
 Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/noAq1cd.jpg").read))
 Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/K5ArZqt.jpg").read))
 #-----------------------------------------------------------------------------------------
-Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/8FEMhNx.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://i.imgur.com/8FEMhNx.jpg").read))#24
+#-----------------------------------------------------------------------------------------
+Photo.create!(base64_image: Base64.encode64(open("http://www.formarte.edu.co/blog/wp-content/uploads/2016/07/La-Historia-800x500.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://steemitimages.com/DQmSWFtShgW9dLbaLUXBiAti2VPJh84Sp4WJyiVaHf86vUM/gymkana-de-misterio-divertida-madrid.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("http://elucabista.com/wp-content/uploads/2016/01/Ciencia-ficci%C3%B3n-800x478.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://www.webconsultas.com/sites/default/files/styles/slider_home_new/public/categorias/autoayuda.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://okdiario.com/img/2018/03/19/las-10-peliculas-de-terror-que-muchos-usuarios-de-netflix-no-pueden-terminar-de-ver-655x368.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://endimages.s3.amazonaws.com/cache/ea/20/ea20a3cb77903fb9e72ba0d1aef5b86a.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://www.fmdos.cl/wp-content/uploads/2017/06/Tristeza-destacada-800x495.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://1.bp.blogspot.com/-4XooYo12lgs/WJ6NowO6eOI/AAAAAAAAINs/Sn4nyYC4NGMJj4lFT4xjRLUpAUYxh46pwCLcB/s1600/cerebro%2Berotico%2B2.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("https://www.guatemala.com/fotos/2018/08/Teatro-de-comedia-gratuito-El-Ultimo-Sueno-1-885x500.jpg").read))
+Photo.create!(base64_image: Base64.encode64(open("http://static2.todanoticia.com/tn2/uploads/news_image/2016/08/19/saludybelleza.jpg").read))
+
+#-----------------------------------------------------------------------------------------
 5.times do
     country = Country.create!(
         country_name: Faker::Nation.capital_city
@@ -136,11 +149,15 @@ end
         reaction: REACTION_Fake[Faker::Number.between(0,2)]
     )
 end
+i = 0
+tName = ['Historia', 'Misterio', 'Ciencia Ficción', 'Autoayuda', 'Terror', 'Suspenso', 'Drama', 'Erótico', 'Comedia', 'Salud']
 10.times do
     topic = Topic.create!(
-        topic_name: Faker::Simpsons.quote,
-        score: Faker::Number.between(1, 100)
+        topic_name: tName[i],
+        score: Faker::Number.between(1, 100),
+        photos_id: (i + 25)
     )
+    i = i + 1
     3.times do                
         Friend.create!(
             follower: Faker::Number.between(1, 30),
@@ -150,11 +167,7 @@ end
             subtopic = SubTopic.create!(
                 sub_topic_name: Faker::Simpsons.quote
             )
-            reltopic = RelTopicSubTopic.create!(
-                topics_id: topic.id,
-                sub_topics_id: subtopic.id
-            )
-            SubTopicsTopic.create!(
+            reltopic = SubTopicsTopic.create!(
                 topic_id: topic.id,
                 sub_topic_id: subtopic.id
             )
@@ -168,8 +181,7 @@ end
                 datetime: Faker::Date.backward(14),
                 user_id: Faker::Number.between(1, 30),
                 fragment_id: Faker::Number.between(1,57),
-                likes: Faker::Number.between(1,100),
-                dislikes: Faker::Number.between(1,100)
+                likes: Faker::Number.between(1,100)
             )
             RelFragmentSubTopic.create!(
                 fragments_id: Faker::Number.between(1,57),
@@ -183,4 +195,10 @@ end
             )
         end                
     end         
+end
+30.times do
+    LikeComment.create!(
+        users_id: Faker::Number.between(1, 30),
+        comments_id: Faker::Number.between(1, 90)
+    )
 end

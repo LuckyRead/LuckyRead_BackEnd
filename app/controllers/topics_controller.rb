@@ -1,7 +1,30 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:add_many, :add_all_topic, :rm_all_topic, :rmone, :love, :add, :addone, :add_all]
+  before_action :authenticate_user,  only: [:get_all_in_one, :add_many, :add_all_topic, :rm_all_topic, :rmone, :love, :add, :addone, :add_all]
   
+  def get_all_in_one
+    @array = []
+    @topics = Topic.all.pluck('id')
+    @topics.each do |i|
+      @array1 = []
+      @subs = SubTopicsTopic.where('topic_id = ?', i).pluck('sub_topic_id')
+      @subs.each do |j|
+        @pref = SubTopicsUser.where('user_id = ? and sub_topic_id = ?', current_user.id, j)
+        @array1.push({
+          id: j,
+          sub_topic_name: SubTopic.find(j).sub_topic_name,
+          love?: @pref != []
+        })
+      end
+      @array.push({
+        id: i,
+        topic_name: Topic.find(i).topic_name,
+        sub_topics: @array1
+      })
+    end
+    render json: {topics: @array}, status: :ok
+  end
+
   def add_many
     if !params.has_key?(:topics_id)
       render json: {error: "Request hasn't topics_id attribute"}, status: :bad_request
@@ -140,7 +163,8 @@ class TopicsController < ApplicationController
       @hash = {
         :id => f.id,
         :topic_name => f.topic_name,
-        :score => f.score
+        :score => f.score,
+        :topic_image => Photo.find(f.photos_id).base64_image
       }
       @array.push(@hash)
     end

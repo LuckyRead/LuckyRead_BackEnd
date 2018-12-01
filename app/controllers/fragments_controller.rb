@@ -2,6 +2,39 @@ class FragmentsController < ApplicationController
   before_action :set_fragment, only: [:show, :update, :destroy]
   before_action :authenticate_user,  only: [:new, :create, :update, :destroy, :something]
 
+  def by_topic 
+    @array = []
+    @query1 = SubTopicsTopic.where('topic_id = ?', params[:id]).pluck('sub_topic_id')
+    @query1.each do |it|
+      @query2 = RelFragmentSubTopic.where('sub_topics_id = ?', it).pluck('fragments_id')
+      @query2.each do |jt|
+        @fragment = Fragment.find(jt)
+        if @fragment.photos_id.nil?
+          @array.push({
+            id: @fragment.id,
+            title: @fragment.title,
+            introduction: @fragment.introduction,
+            content: @fragment.content,
+            score: @fragment.score,
+            source: @fragment.source,
+            base64_image: Photo.find(24).base64_image
+          })
+        else
+          @array.push({
+            id: @fragment.id,
+            title: @fragment.title,
+            introduction: @fragment.introduction,
+            content: @fragment.content,
+            score: @fragment.score,
+            source: @fragment.source,
+            base64_image: Photo.find(@fragment.photos_id).base64_image
+          })
+        end
+      end
+    end
+    render json: {topic: Topic.find(params[:id]).topic_name, fragments: @array}
+  end
+
   def random_f
     @query1 = SubTopicsTopic.where('topic_id = ?', params[:id]).pluck('id')
     @array = []

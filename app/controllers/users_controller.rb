@@ -287,6 +287,7 @@ class UsersController < ApplicationController
     elsif !User.find_by(email: @user.email).nil?
       render json: {msj: "Email taken"}, status: :conflict
     else
+      @user.photos_id = 24
       if @user.save
         render json: @user, status: :created
         UserMailer.welcome_email(@user).deliver_now
