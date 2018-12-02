@@ -252,7 +252,7 @@ class FragmentsController < ApplicationController
             score: @fragment.score,
             source: @fragment.source,
             topics: Fragment.topicsUnderFragment(@fragment.id).uniq,
-            base64_image: Photo.find(@fragment.photos_id).base64_image
+            base64_image: Photo.find(@fragment.photos_id).base64_image,
             count_all => @percentage
           }}
           arrayFiveFragments.push(hash1)
