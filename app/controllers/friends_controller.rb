@@ -20,7 +20,7 @@ class FriendsController < ApplicationController
   def follow_five_users
     @user = current_user
     users_followed = []
-    5.times do
+    6.times do
       @numbre = Faker::Number.between(1, User.all.length)
       while @numbre == @user.id and User.find(@numbre).nil?
         @numbre = Faker::Number.between(1, User.all.length)
@@ -38,7 +38,7 @@ class FriendsController < ApplicationController
   def five_users_following_me
     @user = current_user
     users_follogin = []
-    5.times do
+    6.times do
       @numbre = Faker::Number.between(1, User.all.length)
       while @numbre == @user.id || User.find(@numbre).nil?
           @numbre = Faker::Number.between(1, User.all.length)
