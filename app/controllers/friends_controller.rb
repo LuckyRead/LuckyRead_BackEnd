@@ -40,7 +40,7 @@ class FriendsController < ApplicationController
     users_follogin = []
     5.times do
       @numbre = Faker::Number.between(1, 30)
-      while @numbre!= @user.id
+      while @numbre== @user.id
         @numbre = Faker::Number.between(1, 30)
       end
       hash2 = User.find(@numbre)
