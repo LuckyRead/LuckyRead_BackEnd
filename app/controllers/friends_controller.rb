@@ -29,6 +29,20 @@ class FriendsController < ApplicationController
       end
     end
   end
+
+  def five_users_following_me
+    @user = current_user
+    5.times do
+      @numbre = Faker::Number.between(1, 30)
+      while @numbre!= @user.id
+      Friend.create!(
+            follower: @user.id,
+            followed: @numbre
+        )
+      end
+    end
+  end
+    
   def random
     @user = current_user
     @array1 = []
