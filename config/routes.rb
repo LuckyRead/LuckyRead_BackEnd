@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   get 'api/fragments/by_topic/:id' => 'fragments#by_topic'
   get 'api/topics/get_all_in_one' => 'topics#get_all_in_one'
   get 'api/friend/followed' => 'friends#follow_five_users'
+  get 'api/friend/five_users_following_me' => 'friends#five_users_following_me'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
   #resources :preferences
