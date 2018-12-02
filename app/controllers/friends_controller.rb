@@ -1,6 +1,6 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:ifollow, :random, :unfllow, :follow, :followed, :follower, :create, :update, :destroy]
+  before_action :authenticate_user,  only: [:ifollow, :random, :unfllow, :follow, :followed, :follower, :create, :update, :destroy, :follow_five_users]
 
   def ifollow
     @user = current_user
@@ -17,6 +17,18 @@ class FriendsController < ApplicationController
     end
   end
 
+  def follow_five_users
+    @user = current_user
+    5.times do
+      @numbre = Faker::Number.between(1, 30)
+      while @numbre!= @user.id
+      Friend.create!(
+            follower: @numbre,
+            followed: @user.id
+        )
+      end
+    end
+  end
   def random
     @user = current_user
     @array1 = []
