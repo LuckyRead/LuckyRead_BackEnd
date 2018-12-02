@@ -251,9 +251,9 @@ class FragmentsController < ApplicationController
             content: @fragment.content,
             score: @fragment.score,
             source: @fragment.source,
+            topics: Fragment.topicsUnderFragment(@fragment.id).uniq,
             base64_image: Photo.find(@fragment.photos_id).base64_image,
-            count_all: @percentage
-          }}
+            }, :count_all => @percentage}
           arrayFiveFragments.push(hash1)
         end
       end
