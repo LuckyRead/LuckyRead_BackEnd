@@ -21,9 +21,9 @@ class FriendsController < ApplicationController
     @user = current_user
     users_followed = []
     5.times do
-      @numbre = Faker::Number.between(1, 30)
-      while @numbre== @user.id
-        @numbre = Faker::Number.between(1, 30)
+      @numbre = Faker::Number.between(1, User.all.length)
+      while @numbre== @user.id or User.find(@numbre).nil?
+        @numbre = Faker::Number.between(1, User.all.length)
       end
       hash1 = User.find(@numbre)
       users_followed.push(hash1)
@@ -39,9 +39,9 @@ class FriendsController < ApplicationController
     @user = current_user
     users_follogin = []
     5.times do
-      @numbre = Faker::Number.between(1, 30)
-      while @numbre== @user.id
-        @numbre = Faker::Number.between(1, 30)
+      @numbre = Faker::Number.between(1, User.all.length)
+      while @numbre == @user.id or User.find(@numbre).nil?
+          @numbre = Faker::Number.between(1, User.all.length)
       end
       hash2 = User.find(@numbre)
       users_follogin.push(hash2)
