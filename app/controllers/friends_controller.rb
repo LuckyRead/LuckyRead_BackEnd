@@ -25,7 +25,8 @@ class FriendsController < ApplicationController
       while @numbre== @user.id
         @numbre = Faker::Number.between(1, 30)
       end
-      users_followed.push(User.find(@numbre))
+      hash1 = User.find(@numbre)
+      users_followed.push(hash1)
       Friend.create!(
           follower: @numbre,
           followed: @user.id
@@ -42,7 +43,8 @@ class FriendsController < ApplicationController
       while @numbre!= @user.id
         @numbre = Faker::Number.between(1, 30)
       end
-      users_follogin.push(@numbre)
+      hash2 = User.find(@numbre)
+      users_follogin.push(hash2)
       Friend.create!(
           follower: @user.id,
            followed: @numbre
