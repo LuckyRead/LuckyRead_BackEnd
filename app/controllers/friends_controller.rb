@@ -115,7 +115,8 @@ class FriendsController < ApplicationController
     @array = []
     @friends.each do |id|
       @temp = User.find_by(id: id)
-      @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, profile_photo: Photo.find_by(id: @temp.photos_id).base64_image}
+      @query1 = Friend.where('follower = ? and followed = ?', id, @user.id)
+      @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, i_follow_them: (@query1 != []), profile_photo: Photo.find_by(id: @temp.photos_id).base64_image}
       @array.push(@hash)
     end
     render json: {who: 'Users who I follow', users: @array}, status: :ok
