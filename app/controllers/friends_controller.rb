@@ -22,7 +22,8 @@ class FriendsController < ApplicationController
     5.times do
       @numbre = Faker::Number.between(1, 30)
       while @numbre!= @user.id
-      Friend.create!(
+        @numbre = Faker::Number.between(1, 30)
+        Friend.create!(
             follower: @numbre,
             followed: @user.id
         )
@@ -35,7 +36,8 @@ class FriendsController < ApplicationController
     5.times do
       @numbre = Faker::Number.between(1, 30)
       while @numbre!= @user.id
-      Friend.create!(
+        @numbre = Faker::Number.between(1, 30)
+        Friend.create!(
             follower: @user.id,
             followed: @numbre
         )
