@@ -172,7 +172,7 @@ subtName = ['Arquitectura','Arte contemporáneo','Artes decorativas y diseño','
         )
         3.times do
             subtopic = SubTopic.create!(
-                sub_topic_name: subtName[Faker::Number.between(1, 211)]
+                sub_topic_name: subtName[Faker::Number.between(1, 200)]
             )
             reltopic = SubTopicsTopic.create!(
                 topic_id: topic.id,
