@@ -1,6 +1,6 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:ifollow, :random, :unfllow, :follow, :followed, :follower, :create, :update, :destroy, :follow_five_users]
+  before_action :authenticate_user,  only: [:ifollow, :random, :unfllow, :follow, :followed, :follower, :create, :update, :destroy, :follow_five_users, five_users_following_me]
 
   def ifollow
     @user = current_user
