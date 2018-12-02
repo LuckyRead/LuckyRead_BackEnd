@@ -22,7 +22,7 @@ class FriendsController < ApplicationController
     users_followed = []
     5.times do
       @numbre = Faker::Number.between(1, User.all.length)
-      while @numbre == @user.id || User.find(@numbre).nil?
+      while @numbre == @user.id and User.find(@numbre).nil?
         @numbre = Faker::Number.between(1, User.all.length)
       end
       hash1 = User.find(@numbre)
