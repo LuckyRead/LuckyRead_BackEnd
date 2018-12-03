@@ -119,7 +119,7 @@ class FriendsController < ApplicationController
     @array = []
     @friends.each do |id|
       @temp = User.find_by(id: id)
-      @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, profile_photo: Photo.find_by(id: @temp.photos_id).base64_image}
+      @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, profile_photo: Photo.find_by(id: @temp.photos_id).base64_image. i_follow_them: true}
       @array.push(@hash)
     end
     render json: {who: 'Users who follow me', users: @array}, status: :ok
