@@ -59,13 +59,13 @@ class FriendsController < ApplicationController
     @array2 = []
     5.times do
       @randFollowe = Faker::Number.between(1, User.all.length)
-      while @randrandFollowe == @user.id
-        @randrandFollowe = Faker::Number.between(1, User.all.length)
+      while @randFollowe == @user.id
+        @randFollowe = Faker::Number.between(1, User.all.length)
       end
       @array1.push(
         Friend.create!(
           follower: @user.id,
-          followed: @randrandFollowe
+          followed: @randFollowe
         )
       )
       @rand = Faker::Number.between(1, User.all.length)
