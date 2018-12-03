@@ -115,7 +115,7 @@ class FriendsController < ApplicationController
 
   def followed
     @user = current_user
-    @friends = Friend.where(:followed => @user.id).pluck(:follower)
+    @friends = Friend.where(:followed => @user.id)#.pluck(:follower)
     @array = []
     @friends.each do |follower|
       @temp = User.find_by(follower)
