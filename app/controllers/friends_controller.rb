@@ -118,7 +118,7 @@ class FriendsController < ApplicationController
     @friends = Friend.where(:followed => @user.id).pluck(:follower)
     @array = []
     @friends.each do |follower|
-      @temp = User.find_by(follower)
+      @temp = User.find_by(id: follower)
       @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, profile_photo: Photo.find_by(id: @temp.photos_id).base64_image, i_follow_them: true}
       @array.push(@hash)
     end
