@@ -269,6 +269,11 @@ class UsersController < ApplicationController
     render json: array, status: :ok
   end
 
+  def count_user_register
+    @users = User.all.length
+    render json: {"number of registered users", @users}, status: :ok
+  end
+
   def user_exist
     @user = User.find_by(username: params[:username].to_s.downcase)
     if @user.nil?
