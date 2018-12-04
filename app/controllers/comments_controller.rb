@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
     render json: array, status: :ok
   end
 
-  
+
   def count
     @comments = Comment.where('fragment_id = ?', params[:id])
     render json: {count: @comments.length}

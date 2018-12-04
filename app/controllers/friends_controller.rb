@@ -1,6 +1,6 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:ifollow, :random, :unfllow, :follow, :followed, :follower, :create, :update, :destroy, :follow_five_users, :five_users_following_me]
+  before_action :authenticate_user,  only: [:ifollow, :random, :unfllow, :follow, :followed, :follower, :create, :update, :destroy, :follow_five_users, :five_users_following_me, number_followed_and_followers]
 
   def ifollow
     @user = current_user
@@ -80,6 +80,14 @@ class FriendsController < ApplicationController
       )
     end
     render json: {new_people_who_you_follow: @array1, new_people_who_follow_you: @array2}, status: :ok
+  end
+
+  def number_followed_and_followers
+    @user = user_current
+    time = Time.now.to_formatted_s(:db) 
+    @followed = Friend.userfollowedesp(@user.id, time)
+    @follower = Friend.userfolloweresp(@user.id, time)
+    render json: {new_people_who_you_follow: @followed, new_people_who_follow_you: @follower}, status: :ok
   end
 
   def unfollow
