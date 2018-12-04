@@ -16,9 +16,7 @@ class CommentsController < ApplicationController
       message: params[:comment],
       datetime: DateTime.now,
       user_id: @user.id,
-      fragment_id: params[:fragment_id],
-      likes: 0,
-      dislikes: 0
+      fragment_id: params[:fragment_id]
     )
     render json: {new_comment_has_been_created: @c}, status: :created
   end
@@ -53,12 +51,13 @@ class CommentsController < ApplicationController
         @array = []
         @comments.each do |it|
           @user = User.find(it.user_id)
+          @likes = LikeComment.where('comments_id = ?', it)
           @array.push(
             {
               username: @user.username,
               name: @user.name,
               text: it.message,
-              likes: it.likes,
+              likes: @likes.length,
               datetime: it.created_at,
               liked_by_user?: (LikeComment.where('comments_id = ? and users_id = ?', it.id, @user.id) != []),
               profile_photo: Photo.find(@user.photos_id).base64_image

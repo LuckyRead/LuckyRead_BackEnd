@@ -5,7 +5,6 @@ class CreateComments < ActiveRecord::Migration[5.2]
       t.datetime :datetime, :null => false
       t.references :user, foreign_key: true, :null => false #users
       t.references :fragment, foreign_key: true, :null => false #fragmentS
-      t.string :likes, :null => false
 
       t.timestamps
     end
