@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:new, :get_comments]
+  before_action :authenticate_user,  only: [:new, :get_comments, :comments_responses]
 
   def new
     @user = current_user
@@ -23,6 +23,20 @@ class CommentsController < ApplicationController
     render json: {new_comment_has_been_created: @c}, status: :created
   end
 
+
+  def comments_responses
+    @id_comment = params[:id]
+    @responses = Response.find_by(comments_id: @id_comment)
+    array = []
+    @responses.each do |users_id, message|
+      @user = User.find(users_id)
+      @hash = {:photo => Photo.find(@user.photos_id).base64_image, :name => @user.name, :username => @user.username, :message => message}
+      array.push(@hash)
+    end
+    render json: array, status: :ok
+  end
+
+  
   def count
     @comments = Comment.where('fragment_id = ?', params[:id])
     render json: {count: @comments.length}

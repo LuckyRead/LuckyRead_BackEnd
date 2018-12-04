@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:preferences_topic, :preferences_sub_topic, :change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic, :userstopic]
+  before_action :authenticate_user,  only: [:preferences_topic, :preferences_sub_topic, :change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic, :userstopic, :count_user_register]
 
   def delete
     if params.has_key?(:email)
