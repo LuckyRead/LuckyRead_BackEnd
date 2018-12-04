@@ -117,6 +117,9 @@ class FragmentsController < ApplicationController
       render json: {error: 'User does not have any preference'}, status: :precondition_failed
     else
       @to_show = @array[Faker::Number.between(0, (@array.length - 1))]
+      @likes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 1)
+      @dislikes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], -1)
+      @meh_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 0)
       @fragment = {
         :id => @to_show[0],
         :title => @to_show[1],
@@ -124,6 +127,9 @@ class FragmentsController < ApplicationController
         :content => @to_show[3],
         :score => @to_show[4],
         :source => @to_show[5],
+        :likes_number => @likes_number.length,
+        :dislikes_number => @dislikes_number.length,
+        :meh_number => @meh_number.length,
         :topics => Fragment.topicsUnderFragment(@to_show[0]).uniq,
         :base64_image => Photo.find(@to_show[6]).base64_image
       }
@@ -158,6 +164,9 @@ class FragmentsController < ApplicationController
     @likesreaction = BigDecimal(Reaction.reactionlikesafragment(@id)*100/@allreaction)
     @dislikesallreaction = BigDecimal(Reaction.reactiondislikesafragment(@id)*100/@allreaction)
     @noureaction = BigDecimal(Reaction.reactionnoulikesafragment(@id)*100/@allreaction)
+    @likes_number = Reaction.where('fragments_id = ? and reaction = ?', @id, 1)
+    @dislikes_number = Reaction.where('fragments_id = ? and reaction = ?', @id, -1)
+    @meh_number = Reaction.where('fragments_id = ? and reaction = ?', @id, 0)
     arrayFragmentsreaction = []
     hash1 = {:percentagelikes => @likesreaction.round, :percentagedislikes => @dislikesallreaction.round, :percentagenoreaction => @noureaction.round}#:allreactions => @allreaction,
     hash2 = {
@@ -167,6 +176,9 @@ class FragmentsController < ApplicationController
       :content => @fragment.content,
       :score => @fragment.score,
       :source => @fragment.source,
+      :likes_number => @likes_number.length,
+      :dislikes_number => @dislikes_number.length,
+      :meh_number => @meh_number.length,
       :topics => Fragment.topicsUnderFragment(params[:id]).uniq,
       :base64_image => Photo.find(@fragment.photos_id).base64_image
     }

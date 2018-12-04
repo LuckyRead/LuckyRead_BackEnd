@@ -271,7 +271,7 @@ class UsersController < ApplicationController
 
   def count_user_register
     @users = User.all.length
-    render json: {"number of registered users", @users}, status: :ok
+    render json: {"number of registered users": @users}, status: :ok
   end
 
   def user_exist
