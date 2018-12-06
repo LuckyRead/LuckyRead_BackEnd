@@ -112,28 +112,73 @@ class FragmentsController < ApplicationController
 
   def something
     @user = current_user
-    @array = Fragment.Fragmentsubtopicwithprefecensuser(@user.id)
+    @array = Fragment.Fragmentsubtopicwithprefecensuser_any(@user.id)
     if @array == []
       render json: {error: 'User does not have any preference'}, status: :precondition_failed
     else
-      @to_show = @array[Faker::Number.between(0, (@array.length - 1))]
-      @likes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 1)
-      @dislikes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], -1)
-      @meh_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 0)
-      @fragment = {
-        :id => @to_show[0],
-        :title => @to_show[1],
-        :introduction => @to_show[2],
-        :content => @to_show[3],
-        :score => @to_show[4],
-        :source => @to_show[5],
-        :likes_number => @likes_number.length,
-        :dislikes_number => @dislikes_number.length,
-        :meh_number => @meh_number.length,
-        :topics => Fragment.topicsUnderFragment(@to_show[0]).uniq,
-        :base64_image => Photo.find(@to_show[6]).base64_image
-      }
-      render json: @fragment, status: :ok
+      @action_code = params[:option]
+      if @action_code == "0"
+        @to_show = @array[Faker::Number.between(0, (@array.length - 1))]
+        @likes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 1)
+        @dislikes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], -1)
+        @meh_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 0)
+        @fragment = {
+          :id => @to_show[0],
+          :title => @to_show[1],
+          :introduction => @to_show[2],
+          :content => @to_show[3],
+          :score => @to_show[4],
+          :source => @to_show[5],
+          :likes_number => @likes_number.length,
+          :dislikes_number => @dislikes_number.length,
+          :meh_number => @meh_number.length,
+          :topics => Fragment.topicsUnderFragment(@to_show[0]).uniq,
+          :base64_image => Photo.find(@to_show[6]).base64_image
+        }
+        render json: @fragment, status: :ok
+      elsif @action_code == "1"
+        @array = Fragment.Fragmentsubtopicwithprefecensuser_user(@user.id)
+        @to_show = @array[Faker::Number.between(0, (@array.length - 1))]
+        @likes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 1)
+        @dislikes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], -1)
+        @meh_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 0)
+        @fragment = {
+          :id => @to_show[0],
+          :title => @to_show[1],
+          :introduction => @to_show[2],
+          :content => @to_show[3],
+          :score => @to_show[4],
+          :source => @to_show[5],
+          :likes_number => @likes_number.length,
+          :dislikes_number => @dislikes_number.length,
+          :meh_number => @meh_number.length,
+          :topics => Fragment.topicsUnderFragment(@to_show[0]).uniq,
+          :base64_image => Photo.find(@to_show[6]).base64_image
+        }
+        render json: @fragment, status: :ok
+      elsif @action_code == "2"
+        @array = Fragment.Fragmentsubtopicwithprefecensuser_luckyread(@user.id)
+        @to_show = @array[Faker::Number.between(0, (@array.length - 1))]
+        @likes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 1)
+        @dislikes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], -1)
+        @meh_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 0)
+        @fragment = {
+          :id => @to_show[0],
+          :title => @to_show[1],
+          :introduction => @to_show[2],
+          :content => @to_show[3],
+          :score => @to_show[4],
+          :source => @to_show[5],
+          :likes_number => @likes_number.length,
+          :dislikes_number => @dislikes_number.length,
+          :meh_number => @meh_number.length,
+          :topics => Fragment.topicsUnderFragment(@to_show[0]).uniq,
+          :base64_image => Photo.find(@to_show[6]).base64_image
+        }
+        render json: @fragment, status: :ok
+      else
+        render json: {error: "Invalid option code"}
+      end
     end
   end
 

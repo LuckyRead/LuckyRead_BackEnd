@@ -47,12 +47,46 @@ class Fragment < ApplicationRecord
         )
     end
 
-    def self.Fragmentsubtopicwithprefecensuser (id)#Post 3 ID user
+    def self.Fragmentsubtopicwithprefecensuser_any (id)#Post 3 ID user
         return Fragment.joins("
             INNER JOIN rel_fragment_sub_topics ON fragments.id = rel_fragment_sub_topics.fragments_id
             INNER JOIN sub_topics_users ON sub_topics_users.sub_topic_id = rel_fragment_sub_topics.sub_topics_id
         ").where(
             "sub_topics_users.user_id = ?", id
+        ).pluck(
+            :id,
+            :title,
+            :introduction,
+            :content,
+            :score,
+            :source,
+            :photos_id
+        )
+    end
+
+    def self.Fragmentsubtopicwithprefecensuser_user (id)#Post 3 ID user
+        return Fragment.joins("
+            INNER JOIN rel_fragment_sub_topics ON fragments.id = rel_fragment_sub_topics.fragments_id
+            INNER JOIN sub_topics_users ON sub_topics_users.sub_topic_id = rel_fragment_sub_topics.sub_topics_id
+        ").where(
+            "sub_topics_users.user_id = ? and fragments.users_id != ?", id, 1
+        ).pluck(
+            :id,
+            :title,
+            :introduction,
+            :content,
+            :score,
+            :source,
+            :photos_id
+        )
+    end
+
+    def self.Fragmentsubtopicwithprefecensuser_luckyread (id)#Post 3 ID user
+        return Fragment.joins("
+            INNER JOIN rel_fragment_sub_topics ON fragments.id = rel_fragment_sub_topics.fragments_id
+            INNER JOIN sub_topics_users ON sub_topics_users.sub_topic_id = rel_fragment_sub_topics.sub_topics_id
+        ").where(
+            "sub_topics_users.user_id = ? and fragments.users_id = ?", id, 1
         ).pluck(
             :id,
             :title,

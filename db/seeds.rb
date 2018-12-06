@@ -97,7 +97,6 @@ Photo.create!(base64_image: Base64.encode64(open("https://www.fmdos.cl/wp-conten
 Photo.create!(base64_image: Base64.encode64(open("https://1.bp.blogspot.com/-4XooYo12lgs/WJ6NowO6eOI/AAAAAAAAINs/Sn4nyYC4NGMJj4lFT4xjRLUpAUYxh46pwCLcB/s1600/cerebro%2Berotico%2B2.jpg").read))
 Photo.create!(base64_image: Base64.encode64(open("https://www.guatemala.com/fotos/2018/08/Teatro-de-comedia-gratuito-El-Ultimo-Sueno-1-885x500.jpg").read))
 Photo.create!(base64_image: Base64.encode64(open("http://static2.todanoticia.com/tn2/uploads/news_image/2016/08/19/saludybelleza.jpg").read))
-
 #-----------------------------------------------------------------------------------------
 5.times do
     country = Country.create!(
@@ -108,8 +107,20 @@ end
     @city = City.create!(
         city_name: Faker::Nation.capital_city,
         countries_id: Faker::Number.between(1, 5)
-    )
+    ) 
 end
+User.create!(
+    username: 'LuckyRead',
+    name: 'Lucky',
+    lastname: 'Read',
+    email: 'luyckyreadis20182@gmail.com',
+    password: 'adminadmin',
+    city_id: Faker::Number.between(1, 15),
+    score: Faker::Number.between(1, 10),
+    talk_to_us: 'LuckyRead Staff',
+    photos_id: 24
+)
+#-----------------------------------------------------------------------------------------
 30.times do    
     @username = Faker::Name.unique.first_name
     while !User.find_by(username: @username).nil?
@@ -138,7 +149,7 @@ end
         content: fragment[:content],
         score: fragment[:score],
         source: fragment[:source],
-        users_id: fragment[:users_id],
+        users_id: 1,
         photos_id: fragment[:photos_id]
     )
 end
