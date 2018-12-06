@@ -44,11 +44,10 @@ class FragmentsController < ApplicationController
       @query1.each do |i|
         @query2 = RelFragmentSubTopic.where('sub_topics_id = ?', i).pluck('fragments_id')
         @query2.each do |j|
-          if !@array.include?(j)
-            @array.push(j)
-          end
+          @array.push(j)
         end
       end
+      @array = @array.uniq
       @fragment = Fragment.find(@array[Faker::Number.between(0, (@array.length - 1))])
       render json: {Fragment: {
         id: @fragment.id,
