@@ -32,7 +32,7 @@ class FragmentsController < ApplicationController
         end
       end
     end
-    render json: {topic: Topic.find(params[:id]).topic_name, fragments: @array}
+    render json: {topic: Topic.find(params[:id]).topic_name, fragments: @array.uniq}
   end
 
   def random_f
@@ -47,7 +47,6 @@ class FragmentsController < ApplicationController
           @array.push(j)
         end
       end
-      @array = @array.uniq
       @fragment = Fragment.find(@array[Faker::Number.between(0, (@array.length - 1))])
       render json: {Fragment: {
         id: @fragment.id,
