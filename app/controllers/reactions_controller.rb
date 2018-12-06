@@ -30,7 +30,17 @@ class ReactionsController < ApplicationController
     render json: {'Reactios of current users to all fragments: ', @reactions}, status: :ok
   end
 
+  def 
+    @user = current_user
+    @comments = Comment.find_by(user_id: @user.id)
+    @likes = 0
+    @comments.each do |id|
+      @likes = @likes + LikeComment.find_by(comments_id: id).group(:comments_id).count()
+    end
+    
 
+
+  end
   # PATCH/PUT /reactions/1
   def update
     if @reaction.update(reaction_params)
