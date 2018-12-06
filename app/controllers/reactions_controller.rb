@@ -27,7 +27,7 @@ class ReactionsController < ApplicationController
   def reactions_to_freagments
     @user = current_user
     @reactions = Reaction.find_by(users_id: @user.id)
-    render json: {'Reactios of current users to all fragments: ', @reactions}, status: :ok
+    render json: {Reactios_of_current_users_to_all_fragments: @reactions}, status: :ok
   end
 
 
