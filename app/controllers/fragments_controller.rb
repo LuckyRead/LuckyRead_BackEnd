@@ -87,15 +87,27 @@ class FragmentsController < ApplicationController
       render json: {error: "Request hasn't image_id attribute"}, status: :bad_request
       return
     end
-    @f = Fragment.create!(
-      title: params[:title],
-      introduction: params[:introduction],
-      content: params[:content],
-      score: 0,
-      source: params[:source],
-      users_id: @user.id,
-      photos_id: params[:image_id]
-    )
+    if params[:image_id].nil?
+      @f = Fragment.create!(
+        title: params[:title],
+        introduction: params[:introduction],
+        content: params[:content],
+        score: 0,
+        source: params[:source],
+        users_id: @user.id,
+        photos_id: 13
+      )
+    else
+      @f = Fragment.create!(
+        title: params[:title],
+        introduction: params[:introduction],
+        content: params[:content],
+        score: 0,
+        source: params[:source],
+        users_id: @user.id,
+        photos_id: params[:image_id]
+      )
+    end
     @array = []
     params[:sub_topics_id].each do |it|
       if SubTopic.where('id = ?', it) == []
