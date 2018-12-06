@@ -24,6 +24,13 @@ class ReactionsController < ApplicationController
     end
   end
 
+  def reactions_to_freagments
+    @user = current_user
+    @reactions = Reaction.find_by(users_id: @user.id)
+    render json: {'Reactios of current users to all fragments: ', @reactions}, status: :ok
+  end
+
+  
   # PATCH/PUT /reactions/1
   def update
     if @reaction.update(reaction_params)

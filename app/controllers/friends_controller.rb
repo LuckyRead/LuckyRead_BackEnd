@@ -83,7 +83,7 @@ class FriendsController < ApplicationController
   end
 
   def number_followed_and_followers
-    @user = user_current
+    @user = current_user
     time = Time.now.to_formatted_s(:db) 
     @followed = Friend.userfollowedesp(@user.id, time)
     @follower = Friend.userfolloweresp(@user.id, time)
