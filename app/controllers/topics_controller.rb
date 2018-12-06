@@ -91,6 +91,10 @@ class TopicsController < ApplicationController
         if !@sb.nil?
           @array.push({id: @sb.sub_topic_id, name: SubTopic.find(@sb.sub_topic_id).sub_topic_name})
           @sb.destroy
+          @secure = SubTopicsUser.find_by(sub_topic_id: it[:sub_topic_id])
+          if !@secure.nil?
+            @secure.destroy
+          end
         end
       end
       if @array == []
