@@ -9,6 +9,9 @@ class FragmentsController < ApplicationController
       @query2 = RelFragmentSubTopic.where('sub_topics_id = ?', it).pluck('fragments_id')
       @query2.each do |jt|
         @fragment = Fragment.find(jt)
+        if @fragment.users_id != 1
+          next
+        end
         if @fragment.photos_id.nil?
           @array.push({
             id: @fragment.id,
