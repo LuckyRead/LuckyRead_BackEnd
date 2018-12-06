@@ -218,9 +218,15 @@ class FragmentsController < ApplicationController
     @fragment = Fragment.find(params[:id])
     @id = params[:id]
     @allreaction = Reaction.allreactionafragment(@id)
-    @likesreaction = BigDecimal(Reaction.reactionlikesafragment(@id)*100/@allreaction)
-    @dislikesallreaction = BigDecimal(Reaction.reactiondislikesafragment(@id)*100/@allreaction)
-    @noureaction = BigDecimal(Reaction.reactionnoulikesafragment(@id)*100/@allreaction)
+    if @allreaction == 0
+      @likesreaction = 0
+      @dislikesallreaction = 0
+      @noureaction = 0
+    else
+      @likesreaction = BigDecimal(Reaction.reactionlikesafragment(@id)*100/@allreaction)
+      @dislikesallreaction = BigDecimal(Reaction.reactiondislikesafragment(@id)*100/@allreaction)
+      @noureaction = BigDecimal(Reaction.reactionnoulikesafragment(@id)*100/@allreaction)
+    end
     @likes_number = Reaction.where('fragments_id = ? and reaction = ?', @id, 1)
     @dislikes_number = Reaction.where('fragments_id = ? and reaction = ?', @id, -1)
     @meh_number = Reaction.where('fragments_id = ? and reaction = ?', @id, 0)
