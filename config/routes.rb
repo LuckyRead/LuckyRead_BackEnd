@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   get 'api/comment/comments_responses/:id' => 'comments#comments_responses'
   get 'api/fragment/something/:id' => 'fragments#random_f'
   post 'api/topic/add_many' => 'topics#add_many'
+  get 'api/user/reactions/reactions_to_freagments' => 'reactions#reactions_to_freagments'
   get 'api/fragments/by_topic/:id' => 'fragments#by_topic'
   get 'api/topics/get_all_in_one' => 'topics#get_all_in_one'
   get 'api/friend/followed' => 'friends#follow_five_users'

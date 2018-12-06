@@ -1,6 +1,6 @@
 class ReactionsController < ApplicationController
   before_action :set_reaction, only: [:show, :update, :destroy]
-
+  before_action :authenticate_user,  only: [:reactions_to_freagments]
   # GET /reactions
   def index
     @reactions = Reaction.all.paginate(page: params[:page], per_page: 10)
@@ -30,7 +30,7 @@ class ReactionsController < ApplicationController
     render json: {'Reactios of current users to all fragments: ', @reactions}, status: :ok
   end
 
-  
+
   # PATCH/PUT /reactions/1
   def update
     if @reaction.update(reaction_params)
