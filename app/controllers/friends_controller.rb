@@ -93,26 +93,34 @@ class FriendsController < ApplicationController
   def unfollow
     @follower = current_user
     @followed = User.find_by(username: params[:username])
-    @exist = Friend.where('follower = ? and followed = ?', @follower.id, @followed.id)
-    if @exist == []
-      render json: {error: 'Friendship not fount'}, status: :ok
+    if @followed.nil?
+      render json: {error: "Can't find an user with this username: '#{params[:username]}'"}
     else
-      render json: @exist[0].destroy, status: :ok
+      @exist = Friend.where('follower = ? and followed = ?', @follower.id, @followed.id)
+      if @exist == []
+        render json: {error: 'Friendship not fount'}, status: :ok
+      else
+        render json: @exist[0].destroy, status: :ok
+      end
     end
   end
 
   def follow
     @follower = current_user
     @followed = User.find_by(username: params[:username])
-    @exist = Friend.where('follower = ? and followed = ?', @follower.id, @followed.id)
-    if @exist == []
-      @new_Friend = Friend.create!(
-        follower: @follower.id,
-        followed: @followed.id
-      )
-      render json: @new_Friend, status: :ok
+    if @followed.nil?
+      render json: {error: "Can't find an user with this username: '#{params[:username]}'"}
     else
-      render json: {error: 'Friendship alredy exist', proof: @exist}
+      @exist = Friend.where('follower = ? and followed = ?', @follower.id, @followed.id)
+      if @exist == []
+        @new_Friend = Friend.create!(
+          follower: @follower.id,
+          followed: @followed.id
+        )
+        render json: @new_Friend, status: :ok
+      else
+        render json: {error: 'Friendship alredy exist', proof: @exist}
+      end
     end
   end
 
