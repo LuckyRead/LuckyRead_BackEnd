@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     @user = current_user
     @user.username = params[:username].to_s.downcase
     if @user.save
-      render json: {talk_to_us: 'updated'}, status: :ok
+      render json: {username: 'updated'}, status: :ok
     else
       render json: {error: @user.errors}, status: :not_modified
     end
