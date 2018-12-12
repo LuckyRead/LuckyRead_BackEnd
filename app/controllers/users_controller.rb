@@ -118,7 +118,7 @@ class UsersController < ApplicationController
 
   def all_info_user
     @username = params[:username]
-    @hash = User.find(30)
+    @hash = User.find_by(username: @username)
     array = []
     array.push(@hash)
     render json: array, status: :ok
