@@ -119,7 +119,9 @@ class UsersController < ApplicationController
   def all_info_user
     @username = params[:username]
     @hash = User.find(1)
-    render json: @hash, status: :ok
+    array = []
+    array.push(@hash)
+    render json: array, status: :ok
   end
 
   def login_ggle
