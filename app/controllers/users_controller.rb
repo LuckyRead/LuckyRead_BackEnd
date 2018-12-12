@@ -116,8 +116,7 @@ class UsersController < ApplicationController
   end
 
 
-  def all_info_user
-    @username = params[:username].to_s
+  def all_info_user     
     @hash = User.all
     array = []
     array.push(@hash)
