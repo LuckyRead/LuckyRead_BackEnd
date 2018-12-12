@@ -64,7 +64,7 @@ Rails.application.routes.draw do
   get 'api/user/reactions/reactions_to_freagments' => 'reactions#reactions_to_freagments'
   get 'api/fragments/by_topic/:id' => 'fragments#by_topic'
   get 'api/topics/get_all_in_one' => 'topics#get_all_in_one'
-  post 'api/users/all_info_user' => 'users#all_info_user'
+  get 'api/users/all_info_user/:username' => 'users#all_info_user'
   get 'api/friend/followed' => 'friends#follow_five_users'
   get 'api/friend/number_followed_and_followers' => 'friends#number_followed_and_followers'
   get 'api/friend/five_users_following_me' => 'friends#five_users_following_me'
