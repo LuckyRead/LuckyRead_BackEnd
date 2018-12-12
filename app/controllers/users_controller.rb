@@ -118,9 +118,9 @@ class UsersController < ApplicationController
 
   def all_info_user
     @username = params[:username]
-    render json: {User.find_by(username: @username)}, status: :ok
+    render json: User.find_by(username: @username), status: :ok
   end
-  
+
   def login_ggle
     @API_URL = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token='+params[:tokenId]
     response = HTTParty.get(@API_URL)
