@@ -118,7 +118,7 @@ class UsersController < ApplicationController
 
   def all_info_user
     @username = params[:username]
-    @hash = User.where("users.username = ?", @username)
+    @hash = User.where("users.name = ?", @username)
     render json: @hash, status: :ok
   end
 
