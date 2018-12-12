@@ -116,8 +116,9 @@ class UsersController < ApplicationController
   end
 
 
-  def all_info_user     
-    @hash = User.all
+  def all_info_user  
+    #Clorinda   
+    @hash = User.checkusername(params[:username])
     array = []
     array.push(@hash)
     render json: array, status: :ok
