@@ -135,7 +135,7 @@ class UsersController < ApplicationController
     }
     @array.push(@hash)
     @usersfollower = []
-    @follower = Friend.find_by(follower: @user.id)
+    @follower = Friend.find_by(follower: @user.id).pluck(follower)
 =begin 
     @follower.each do |follower|
       @u =  User.find(follower)
