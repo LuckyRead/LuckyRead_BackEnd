@@ -122,42 +122,42 @@ class UsersController < ApplicationController
     @user = User.find_by(username: @usern)
     @photo = Photo.find(@user.photos_id)
     @follower = Friend.find_by(follower: @user.id)
-    usersfollower = []
+    @usersfollower = []
     @follower.each do |follower|
-      u =  User.find(follower)
-      photofollower = Photo.find(u.photos_id)
+      @u =  User.find(follower)
+      photofollower = Photo.find(@u.photos_id)
       @userfollower = {
-        :id => u.id,
-        :username =>  u.username,
-        :name => u.name,
-        :lastname => u.lastname,
-        :email => u.email,
-        :city_id => u.city_id,
-        :score => u.score,
-        :talk_to_us => u.talk_to_us,
+        :id => @u.id,
+        :username =>  @u.username,
+        :name => @u.name,
+        :lastname => @u.lastname,
+        :email => @u.email,
+        :city_id => @u.city_id,
+        :score => @u.score,
+        :talk_to_us => @u.talk_to_us,
         :photo => photofollower.base64_image
       }
-      usersfollower.push(@userfollower)
+      @usersfollower.push(@userfollower)
     end
     @followed = Friend.find_by(followed: @user.id)
-    usersfollowed = []
+    @usersfollowed = []
     @followed.each do |followed|
-      zu = User.find(followed)
-      photofollowed = Photo.find(zu.photos_id)
+      @zu = User.find(followed)
+      photofollowed = Photo.find(@zu.photos_id)
       @userfollowed = {
-        :id => zu.id,
-        :username =>  zu.username,
-        :name => zu.name,
-        :lastname => zu.lastname,
-        :email => zu.email,
-        :city_id => zu.city_id,
-        :score => zu.score,
-        :talk_to_us => zu.talk_to_us,
+        :id => @zu.id,
+        :username =>  @zu.username,
+        :name => @zu.name,
+        :lastname => @zu.lastname,
+        :email => @zu.email,
+        :city_id => @zu.city_id,
+        :score => @zu.score,
+        :talk_to_us => @zu.talk_to_us,
         :photo => photofollowed.base64_image
       }
-      usersfollowed.push(@userfollowed)
+      @usersfollowed.push(@userfollowed)
     end
-    array = []
+    @array = []
     @hash = {
       :id => @user.id,
       :username =>  @user.username,
@@ -169,7 +169,7 @@ class UsersController < ApplicationController
       :talk_to_us => @user.talk_to_us,
       :photo => @photo.base64_image
     }
-    array.push(@hash)
+    @array.push(@hash)
     render json: @hash, status: :ok
   end
 
