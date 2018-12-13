@@ -142,17 +142,17 @@ class UsersController < ApplicationController
     @followed = Friend.find_by(followed: @user.id)
     usersfollowed = []
     @followed.each do |followeda|
-      u = User.find(followeda.followed)
-      photofollowed = Photo.find(u.photos_id)
+      zu = User.find(followeda.followed)
+      photofollowed = Photo.find(zu.photos_id)
       @userfollowed = {
-        :id => u.id,
-        :username =>  u.username,
-        :name => u.name,
-        :lastname => u.lastname,
-        :email => u.email,
-        :city_id => u.city_id,
-        :score => u.score,
-        :talk_to_us => u.talk_to_us,
+        :id => zu.id,
+        :username =>  zu.username,
+        :name => zu.name,
+        :lastname => zu.lastname,
+        :email => zu.email,
+        :city_id => zu.city_id,
+        :score => zu.score,
+        :talk_to_us => zu.talk_to_us,
         :photo => photofollowed.base64_image
       }
       usersfollowed.push(@userfollowed)
