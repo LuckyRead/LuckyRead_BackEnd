@@ -133,6 +133,7 @@ class UsersController < ApplicationController
       :talk_to_us => @user.talk_to_us,
       :photo => @photo.base64_image
     }
+=begin    
     @array.push(@hash)
     @usersfollower = []
     @follower = Friend.find_by(follower: @user.id)
@@ -152,7 +153,7 @@ class UsersController < ApplicationController
       }
       @usersfollower.push(@userfollower)
     end
-=begin
+
     @usersfollowed = []
     @followed = Friend.find_by(followed: @user.id)
     @followed.each do |followed|
