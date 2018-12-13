@@ -118,7 +118,7 @@ class UsersController < ApplicationController
 
   def all_info_user  
     #Clorinda   
-    @hash = User.where("users.username = ?", params[:username])
+    @hash = User.where("users.username = ?", params[:username].to_s)
     array = []
     array.push(@hash)
     render json: array, status: :ok
