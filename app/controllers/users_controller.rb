@@ -136,9 +136,8 @@ class UsersController < ApplicationController
     @array.push(@hash)
     @usersfollower = []
     @follower = Friend.find_by(follower: @user.id).pluck(follower)
-
     @follower.each do |follower|
-      @u =  User.find(follower)
+      @u =  User.find_by(id: follower)
       photofollower = Photo.find(@u.photos_id)
       @userfollower = {
         :id => @u.id,
