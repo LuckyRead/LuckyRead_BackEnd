@@ -119,10 +119,20 @@ class UsersController < ApplicationController
   def all_info_user  
     #Clorinda   
     @usern = params[:username]
-    @hash = User.find_by(username: @usern)
-    array = []
-    array.push(@hash)
-    render json: array, status: :ok
+    @user = User.find_by(username: @usern)
+    @photo = Photo.find(@user.photos_id)
+    @hash = {
+      :id => @user
+      :username =>  @user.username
+      :name => @user.name
+      :lastname => @user.lastname
+      :email => @user.email
+      :city_id => @user.city_id
+      :score => @user.score
+      :talk_to_us => @user.talk_to_us
+      :photo => @photo.base64_image
+    }
+    render json: @hash, status: :ok
   end
 
   def login_ggle
