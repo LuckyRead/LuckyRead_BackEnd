@@ -134,10 +134,11 @@ class UsersController < ApplicationController
       :photo => @photo.base64_image
     }
     @array.push(@hash)
+=begin 
     @usersfollower = []
     @follower = Friend.find_by(follower: @user.id).pluck(follower)
     @follower.each do |follower|
-      @u =  User.find_by(id: follower)
+      @u = User.find_by(id: follower)
       photofollower = Photo.find(@u.photos_id)
       @userfollower = {
         :id => @u.id,
@@ -152,7 +153,6 @@ class UsersController < ApplicationController
       }
       @usersfollower.push(@userfollower)
     end
-=begin 
     @usersfollowed = []
     @followed = Friend.find_by(followed: @user.id)
     @followed.each do |followed|
@@ -173,6 +173,33 @@ class UsersController < ApplicationController
     end
 =end    
     render json: @array, status: :ok
+  end
+
+  def followed
+    @usern = params[:username]
+    @user = User.find_by(username: @usern)
+    @friends = Friend.where(:followed => @user.id).pluck(:follower)
+    @array = []
+    @friends.each do |follower|
+      @temp = User.find(follower)
+      @query1 = Friend.where('follower = ? and followed = ?', @user.id, @temp.id)
+      @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, profile_photo: Photo.find_by(id: @temp.photos_id).base64_image, i_follow_them: (@query1 != [])}
+      @array.push(@hash)
+    end
+    render json: {who: 'Users who follow me', users: @array}, status: :ok
+  end
+
+  def follower
+    @usern = params[:username]
+    @user = User.find_by(username: @usern)
+    @friends = Friend.where(:follower => @user.id).pluck(:followed)
+    @array = []
+    @friends.each do |id|
+      @temp = User.find_by(id: id)
+      @hash = {id: @temp.id, username: @temp.username, name: @temp.name, lastname: @temp.lastname, i_follow_them: true, profile_photo: Photo.find_by(id: @temp.photos_id).base64_image}
+      @array.push(@hash)
+    end
+    render json: {who: 'Users who I follow', users: @array}, status: :ok
   end
 
   def login_ggle
