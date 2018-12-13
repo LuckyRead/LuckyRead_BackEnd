@@ -121,8 +121,21 @@ class UsersController < ApplicationController
     @usern = params[:username]
     @user = User.find_by(username: @usern)
     @photo = Photo.find(@user.photos_id)
-    @follower = Friend.find_by(follower: @user.id)
+    @array = []
+    @hash = {
+      :id => @user.id,
+      :username =>  @user.username,
+      :name => @user.name,
+      :lastname => @user.lastname,
+      :email => @user.email,
+      :city_id => @user.city_id,
+      :score => @user.score,
+      :talk_to_us => @user.talk_to_us,
+      :photo => @photo.base64_image
+    }
+    @array.push(@hash)
     @usersfollower = []
+    @follower = Friend.find_by(follower: @user.id)
     @follower.each do |follower|
       @u =  User.find(follower)
       photofollower = Photo.find(@u.photos_id)
@@ -139,8 +152,9 @@ class UsersController < ApplicationController
       }
       @usersfollower.push(@userfollower)
     end
-    @followed = Friend.find_by(followed: @user.id)
+=begin
     @usersfollowed = []
+    @followed = Friend.find_by(followed: @user.id)
     @followed.each do |followed|
       @zu = User.find(followed)
       photofollowed = Photo.find(@zu.photos_id)
@@ -157,19 +171,7 @@ class UsersController < ApplicationController
       }
       @usersfollowed.push(@userfollowed)
     end
-    @array = []
-    @hash = {
-      :id => @user.id,
-      :username =>  @user.username,
-      :name => @user.name,
-      :lastname => @user.lastname,
-      :email => @user.email,
-      :city_id => @user.city_id,
-      :score => @user.score,
-      :talk_to_us => @user.talk_to_us,
-      :photo => @photo.base64_image
-    }
-    @array.push(@hash)
+=end    
     render json: @hash, status: :ok
   end
 
