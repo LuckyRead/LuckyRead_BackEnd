@@ -133,8 +133,8 @@ class UsersController < ApplicationController
       :talk_to_us => @user.talk_to_us,
       :photo => @photo.base64_image
     }
-=begin    
     @array.push(@hash)
+=begin 
     @usersfollower = []
     @follower = Friend.find_by(follower: @user.id)
     @follower.each do |follower|
@@ -173,7 +173,7 @@ class UsersController < ApplicationController
       @usersfollowed.push(@userfollowed)
     end
 =end    
-    render json: @hash, status: :ok
+    render json: @array, status: :ok
   end
 
   def login_ggle
