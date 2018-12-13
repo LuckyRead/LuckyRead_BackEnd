@@ -168,7 +168,7 @@ class UsersController < ApplicationController
       :photo => @photo.base64_image
     }
     array.push(@hash)
-    render json: {array, usersfollower, usersfollowed}, status: :ok
+    render json: array, status: :ok
   end
 
   def login_ggle
