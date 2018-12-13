@@ -134,7 +134,7 @@ class UsersController < ApplicationController
         :city_id => u.city_id,
         :score => u.score,
         :talk_to_us => u.talk_to_us,
-        :photo => photofollower.base64_image
+        :photo => @photofollower.base64_image
       }
       usersfollower.push(@userfollower)
     end
@@ -151,7 +151,7 @@ class UsersController < ApplicationController
         :city_id => u.city_id,
         :score => u.score,
         :talk_to_us => u.talk_to_us,
-        :photo => photofollowed.base64_image
+        :photo => @photofollowed.base64_image
       }
       usersfollowed.push(@userfollowed)
     end
