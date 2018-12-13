@@ -123,8 +123,8 @@ class UsersController < ApplicationController
     @photo = Photo.find(@user.photos_id)
     @follower = Friend.find_by(follower: @user.id)
     usersfollower = []
-    @follower.each do |z|
-      u =  User.find(z.follower)
+    @follower.each do |follower|
+      u =  User.find(follower.follower)
       @photofollower = Photo.find(u.photos_id)
       @userfollower = {
         :id => u.id,
@@ -141,8 +141,8 @@ class UsersController < ApplicationController
     end
     @followed = Friend.find_by(followed: @user.id)
     usersfollowed = []
-    @followed.each do |z|
-      u = User.find(z.followed)
+    @followed.each do |followed|
+      u = User.find(followed.followed)
       @photofollowed = Photo.find(u.photos_id)
       @userfollowed = {
         :id => u.id,
