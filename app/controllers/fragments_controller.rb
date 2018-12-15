@@ -286,19 +286,20 @@ class FragmentsController < ApplicationController
     if @users == nil
       @arrays.push("username not valid")
     else
-      @fragments = Fragment.find_by(users_id: @users.id)
+      @fragments = Fragment.find_by(users_id: @users.id).pluck(id)
       if @fragments == nil
         @arrays.push("you don't have fragments to show")
       else
         @fragments.each do |id|
+          fragment = Fragment.find(id)
           hash = {
-            :id => id.id,
-            :title => id.title,
-            :introduction => id.introduction,
-            :content => id.content,
-            :score => id.score,
-            :source => id.source,
-            :base64_image => Photo.find(id.photos_id).base64_image
+            :id => fragment.id,
+            :title => fragment.title,
+            :introduction => fragment.introduction,
+            :content => fragment.content,
+            :score => fragment.score,
+            :source => fragment.source,
+            :base64_image => Photo.find(fragment.photos_id).base64_image
           }
           @arrays.push(hash)  
         end
