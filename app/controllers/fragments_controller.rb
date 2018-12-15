@@ -290,6 +290,7 @@ class FragmentsController < ApplicationController
       if @fragments == nil
         @arrays.push("you don't have fragments to show")
       else
+=begin
         @fragments.each do |fragment|
           hash = {
             :id => fragment.id,
@@ -299,7 +300,8 @@ class FragmentsController < ApplicationController
             :score => fragment.score,
             :source => fragment.source,
             :base64_image => Photo.find(fragment.photos_id).base64_image
-          }
+          }  
+=end      hash = fragment
           @arrays.push(hash)
         end
       end
