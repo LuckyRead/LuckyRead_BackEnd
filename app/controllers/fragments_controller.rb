@@ -283,7 +283,7 @@ class FragmentsController < ApplicationController
     @username = params[:username]
     @users = User.find_by(username: @username)
     @array = []
-    if @user == nil
+    if @users == nil
       @array.push("username not valid")
     else
       @fragments = Fragment.find_by(users_id: @users.id)
