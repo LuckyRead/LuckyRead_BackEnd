@@ -143,7 +143,7 @@ class UsersController < ApplicationController
       :name => @user.name,
       :lastname => @user.lastname,
       :email => @user.email,
-      :city_id => @user.city_id,
+      :city => City.find(@user.city_id).city_name,
       :score => @user.score,
       :talk_to_us => @user.talk_to_us,
       :photo => @photo.base64_image
