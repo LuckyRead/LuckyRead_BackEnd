@@ -299,7 +299,7 @@ class FragmentsController < ApplicationController
         })
       end
     else
-      @array.push({"you don't have fragments to show"})
+      @array.push({error: "you don't have fragments to show"})
     end
     render json: @array, status: :ok
   end
