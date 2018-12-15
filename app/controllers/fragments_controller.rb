@@ -285,7 +285,7 @@ class FragmentsController < ApplicationController
     @fragments = Fragment.find_by(users_id: @user.id)
     @array = []
     if @fragments == nil
-      @array.push({"you don't have fragments to show"})
+      @array.push("you don't have fragments to show")
     else
       @fragments.each do |fragment|
         @array.push({
@@ -297,6 +297,7 @@ class FragmentsController < ApplicationController
           source: fragment.source,
           base64_image: Photo.find(fragment.photos_id).base64_image
         })
+      end
     end
     render json: @array, status: :ok
   end
