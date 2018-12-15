@@ -284,17 +284,19 @@ class FragmentsController < ApplicationController
     @user = User.find_by(username: @username)
     @fragments = Fragment.find_by(users_id: @user.id)
     @array = []
-      @fragments.each do |fragment|
+=begin    
+    @fragments.each do |fragment|
       @array.push({
-              id: fragment.id,
-              title: fragment.title,
-              introduction: fragment.introduction,
-              content: fragment.content,
-              score: fragment.score,
-              source: fragment.source
-              #base64_image: Photo.find(fragment.photos_id).base64_image
-            })
+        id: fragment.id,
+        title: fragment.title,
+        introduction: fragment.introduction,
+        content: fragment.content,
+        score: fragment.score,
+        source: fragment.source
+        base64_image: Photo.find(fragment.photos_id).base64_image
+      })
     end
+=end
     render json: @array, status: :ok
   end
 
