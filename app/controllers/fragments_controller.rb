@@ -284,7 +284,7 @@ class FragmentsController < ApplicationController
     @user = User.find_by(username: @username)
     @fragments = Fragment.find_by(users_id: @user.id)
     @array = []
-    if @fragments.nil?
+    if Fragment.find_by(users_id: @user.id)?
       render json: {"you don't have fragment to show"}, status: :ok
     else 
       @fragments.each do |fragment|
