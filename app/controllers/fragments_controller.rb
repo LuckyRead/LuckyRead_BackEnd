@@ -291,8 +291,8 @@ class FragmentsController < ApplicationController
               introduction: fragment.introduction,
               content: fragment.content,
               score: fragment.score,
-              source: fragment.source,
-              base64_image: Photo.find(fragment.photos_id).base64_image
+              source: fragment.source
+              #base64_image: Photo.find(fragment.photos_id).base64_image
             })
     end
     render json: @array, status: :ok
