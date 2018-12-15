@@ -297,6 +297,9 @@ class FragmentsController < ApplicationController
       })
     end
 =end
+    @fragments.each do |fragment|
+      array.push(fragment.id)
+    end
     render json: @array, status: :ok
   end
 
