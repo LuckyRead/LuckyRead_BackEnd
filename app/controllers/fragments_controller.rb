@@ -281,12 +281,12 @@ class FragmentsController < ApplicationController
 
   def show_fragments_user
     @username = params[:username]
-    @user = User.find_by(username: @username)
+    @users = User.find_by(username: @username)
     @array = []
     if @user == nil
       @array.push("username not valid")
     else
-      @fragments = Fragment.find_by(users_id: @user.id)
+      @fragments = Fragment.find_by(users_id: @users.id)
       if @fragments == nil
         @array.push("you don't have fragments to show")
       else
