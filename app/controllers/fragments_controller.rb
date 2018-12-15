@@ -284,22 +284,18 @@ class FragmentsController < ApplicationController
     @user = User.find_by(username: @username)
     @fragments = Fragment.find_by(users_id: @user.id)
     @array = []
-    if Fragment.find_by(users_id: @user.id)?
-      render json: {"you don't have fragment to show"}, status: :ok
-    else 
       @fragments.each do |fragment|
-        @array.push({
-                id: fragment.id,
-                title: fragment.title,
-                introduction: fragment.introduction,
-                content: fragment.content,
-                score: fragment.score,
-                source: fragment.source,
-                base64_image: Photo.find(fragment.photos_id).base64_image
-              })
-      end
-      render json: @array, status: :ok
+      @array.push({
+              id: fragment.id,
+              title: fragment.title,
+              introduction: fragment.introduction,
+              content: fragment.content,
+              score: fragment.score,
+              source: fragment.source,
+              base64_image: Photo.find(fragment.photos_id).base64_image
+            })
     end
+    render json: @array, status: :ok
   end
 
   def new_fragments
