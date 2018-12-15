@@ -72,6 +72,7 @@ Rails.application.routes.draw do
   get 'api/friend/number_followed_and_followers' => 'friends#number_followed_and_followers'
   get 'api/friend/five_users_following_me' => 'friends#five_users_following_me'
   get 'api/cities/get_all' => 'cities#get_all'
+  get 'api/user/index' => 'users#index'
   patch 'api/users/change_city' => 'users#change_city'
   root :to => 'responses#api_test'
   #resources :rel_fragment_sub_topics
