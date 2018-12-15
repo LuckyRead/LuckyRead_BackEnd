@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   get 'api/user/all_info_user/:username' => 'users#all_info_user'
   get 'api/user/all_info_user_follower/:username' => 'users#follower'
   get 'api/user/all_info_user_followed/:username' => 'users#followed'
+  get 'api/user/my_fragments/:username' => 'fragments#show_fragments_user'
   get 'api/friend/followed' => 'friends#follow_five_users'
   get 'api/friend/number_followed_and_followers' => 'friends#number_followed_and_followers'
   get 'api/friend/five_users_following_me' => 'friends#five_users_following_me'

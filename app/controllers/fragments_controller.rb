@@ -1,6 +1,6 @@
 class FragmentsController < ApplicationController
   before_action :set_fragment, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:new, :create, :update, :destroy, :something]
+  before_action :authenticate_user,  only: [:new, :create, :update, :destroy, :something, :show_fragments_user]
 
   def by_topic 
     @array = []
@@ -276,6 +276,26 @@ class FragmentsController < ApplicationController
     end
   end
 
+
+  def show_fragments_user
+    @username = params[:username]
+    @user = User.find_by(username: @username)
+    @fragments = Fragment.find_by(username: @user.id)
+    @array = []
+    @fragments.each do |id|
+      @array.push({
+              id: @fragment.id,
+              title: @fragment.title,
+              introduction: @fragment.introduction,
+              content: @fragment.content,
+              score: @fragment.score,
+              source: @fragment.source,
+              base64_image: Photo.find(@fragment.photos_id).base64_image
+            })
+    end
+
+    render json: @array, status: :ok
+  end
   def new_fragments
     arrayFragments = []
     Fragment.fragmentold.each do |id|

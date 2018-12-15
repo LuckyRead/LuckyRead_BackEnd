@@ -116,6 +116,8 @@ User.create!(
     email: 'luyckyreadis20182@gmail.com',
     password: 'adminadmin',
     city_id: Faker::Number.between(1, 15),
+    #age: Faker::Number.between(18, 65)
+    #birthday: Faker::Date.birthday(18, 65) 
     score: Faker::Number.between(1, 10),
     talk_to_us: 'LuckyRead Staff',
     photos_id: 24
@@ -138,6 +140,8 @@ User.create!(
         password: Faker::Internet.password,
         city_id: Faker::Number.between(1, 15),
         score: Faker::Number.between(1, 10),
+        #age: Faker::Number.between(18, 65)
+        #birthday: Faker::Date.birthday(18, 65) 
         talk_to_us: Faker::HarryPotter.quote,
         photos_id: Faker::Number.between(1, 12)
     )

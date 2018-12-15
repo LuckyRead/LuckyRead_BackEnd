@@ -5,6 +5,8 @@ class User < ApplicationRecord
     validates :email, presence: true, length: {maximum: 200, minimum: 5}, format: {with: /\A\S+@.+\.\S+\z/}
     validates :username, presence: true, uniqueness: true, length: {maximum: 50, minimum: 2}, format: {with: /\A\S+\z/}
     validates :score, presence: false
+    #validates :age, presence: true 
+    #validates :birthday, presence: true
     validates :talk_to_us, length: {maximum: 10000}
     has_many :fragments, through: :reaction
     has_and_belongs_to_many :sub_topics#, :through => :preferences
