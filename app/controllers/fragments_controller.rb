@@ -282,28 +282,29 @@ class FragmentsController < ApplicationController
   def show_fragments_user
     @username = params[:username]
     @users = User.find_by(username: @username)
-    @array = []
+    @arrays = []
     if @users == nil
-      @array.push("username not valid")
+      @arrays.push("username not valid")
     else
       @fragments = Fragment.find_by(users_id: @users.id)
       if @fragments == nil
-        @array.push("you don't have fragments to show")
+        @arrays.push("you don't have fragments to show")
       else
         @fragments.each do |fragment|
-          @array.push({
-            id: fragment.id,
-            title: fragment.title,
-            introduction: fragment.introduction,
-            content: fragment.content,
-            score: fragment.score,
-            source: fragment.source,
-            base64_image: Photo.find(fragment.photos_id).base64_image
-          })
+          hash = {
+            :id => fragment.id,
+            :title => fragment.title,
+            :introduction => fragment.introduction,
+            :content => fragment.content,
+            :score => fragment.score,
+            :source => fragment.source,
+            :base64_image => Photo.find(fragment.photos_id).base64_image
+          }
+          @arrays.push(hash)
         end
       end
     end
-    render json: @array, status: :ok
+    render json: @arrays, status: :ok
   end
 
   def new_fragments
