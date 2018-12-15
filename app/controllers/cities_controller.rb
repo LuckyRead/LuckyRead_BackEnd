@@ -1,6 +1,17 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [:show, :update, :destroy]
 
+  def get_all
+    @array = []
+    City.all.each do |city|
+      @array.push({
+        id: city.id,
+        name: city.city_name
+      })
+    end
+    render json: {all_cities: @array}, status: :ok
+  end
+
   # GET /cities
   def index
     @cities = City.all.paginate(page: params[:page], per_page: 10)

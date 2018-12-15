@@ -1,6 +1,21 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:preferences_topic, :preferences_sub_topic, :change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic, :userstopic, :count_user_register]
+  before_action :authenticate_user,  only: [:change_city, :preferences_topic, :preferences_sub_topic, :change_username, :showpdf, :change_talk, :change_password ,:info, :current, :update, :destroy, :preferences_sub_topic, :preferences_topic, :userstopic, :count_user_register]
+
+  def change_city
+    @user = current_user
+    @city = City.find(params[:city_id])
+    if @city.nil?
+      render json: {error: "Can't found city with this id"}
+    else
+      @user.city_id = @city.id
+      if @user.save
+        render json: {city: 'updated'}, status: :ok
+      else
+        render json: {error: @user.errors}, status: :not_modified
+      end
+    end
+  end
 
   def delete
     if params.has_key?(:email)
@@ -128,7 +143,7 @@ class UsersController < ApplicationController
       :name => @user.name,
       :lastname => @user.lastname,
       :email => @user.email,
-      :city_id => @user.city_id,
+      :city => City.find(@user.city_id).city_name,
       :score => @user.score,
       :talk_to_us => @user.talk_to_us,
       :photo => @photo.base64_image

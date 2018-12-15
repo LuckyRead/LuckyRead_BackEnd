@@ -137,6 +137,7 @@ class FragmentsController < ApplicationController
         @likes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 1)
         @dislikes_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], -1)
         @meh_number = Reaction.where('fragments_id = ? and reaction = ?', @to_show[0], 0)
+        @reaction = Reaction.where('fragments_id = ? and users_id = ?', @to_show[0], @user.id)
         @fragment = {
           :id => @to_show[0],
           :title => @to_show[1],
@@ -144,6 +145,7 @@ class FragmentsController < ApplicationController
           :content => @to_show[3],
           :score => @to_show[4],
           :source => @to_show[5],
+          :user_reaction => @reaction[0].reaction,
           :likes_number => @likes_number.length,
           :dislikes_number => @dislikes_number.length,
           :meh_number => @meh_number.length,
