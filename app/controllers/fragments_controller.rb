@@ -286,7 +286,7 @@ class FragmentsController < ApplicationController
     @temp = []
     @temp.push(@fragments)
     @array = []
-    if !@temp.nil?
+    if !@temp == null
       fragments.each do |fragment|
         @array.push({
           id: fragment.id,
