@@ -1,6 +1,6 @@
 class FragmentsController < ApplicationController
   before_action :set_fragment, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:new, :create, :update, :destroy, :something, :show_fragments_user]
+  before_action :authenticate_user,  only: [:new, :create, :update, :destroy, :something]
 
   def by_topic 
     @array = []
@@ -300,6 +300,7 @@ class FragmentsController < ApplicationController
       end
     render json: @array, status: :ok
   end
+
   def new_fragments
     arrayFragments = []
     Fragment.fragmentold.each do |id|
