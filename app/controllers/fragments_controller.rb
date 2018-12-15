@@ -287,19 +287,19 @@ class FragmentsController < ApplicationController
     if @fragments.nil?
       render json: {"you don't have fragment to show"}, status: :ok
     else 
-      @fragments.each do |@fragment|
+      @fragments.each do |fragment|
         @array.push({
-                id: @fragment.id,
-                title: @fragment.title,
-                introduction: @fragment.introduction,
-                content: @fragment.content,
-                score: @fragment.score,
-                source: @fragment.source,
-                base64_image: Photo.find(@fragment.photos_id).base64_image
+                id: fragment.id,
+                title: fragment.title,
+                introduction: fragment.introduction,
+                content: fragment.content,
+                score: fragment.score,
+                source: fragment.source,
+                base64_image: Photo.find(fragment.photos_id).base64_image
               })
       end
+      render json: @array, status: :ok
     end
-    render json: @array, status: :ok
   end
 
   def new_fragments
