@@ -1,6 +1,6 @@
 class FragmentsController < ApplicationController
   before_action :set_fragment, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:new, :create, :update, :destroy, :something]
+  before_action :authenticate_user,  only: [:new, :create, :update, :destroy, :something, :show_fragments_user]
 
   def by_topic 
     @array = []
