@@ -285,8 +285,8 @@ class FragmentsController < ApplicationController
     @fragments = Fragment.find_by(users_id: @user.id)
     @array = []
     @array.push(@fragments)
-    if @fragments.nil?
-      render json: {"you don't have fragmets to show"}, status: :created
+    if !@fragments.nil?
+      render json: {"you don't have fragmets to show"}, status: :ok
     else
       render json: @array, status: :ok
     end
