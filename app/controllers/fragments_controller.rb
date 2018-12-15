@@ -284,7 +284,8 @@ class FragmentsController < ApplicationController
     @user = User.find_by(username: @username)
     @fragments = Fragment.find_by(users_id: @user.id)
     @array = []
-=begin    
+    @array.push(@fragments)
+=begin
     @fragments.each do |fragment|
       @array.push({
         id: fragment.id,
@@ -297,9 +298,6 @@ class FragmentsController < ApplicationController
       })
     end
 =end
-    @fragments.each do |id|
-      #array.push(fragment.id)
-    end
     render json: @array, status: :ok
   end
 
