@@ -282,7 +282,7 @@ class FragmentsController < ApplicationController
   def show_fragments_user
     @username = params[:username]
     @user = User.find_by(username: @username)
-    @fragments = Fragment.find_by(username: @user.id)
+    @fragments = Fragment.find_by(users_id: @user.id)
     @array = []
     @fragments.each do |id|
       @array.push({
