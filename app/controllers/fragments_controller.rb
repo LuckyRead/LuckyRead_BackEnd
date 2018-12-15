@@ -291,7 +291,7 @@ class FragmentsController < ApplicationController
         @arrays.push("you don't have fragments to show")
       else
         @fragments.each do |id|
-          fragment = Fragment.find(id)
+          fragment = Fragment.find_by(id: id)
           hash = {
             :id => fragment.id,
             :title => fragment.title,
