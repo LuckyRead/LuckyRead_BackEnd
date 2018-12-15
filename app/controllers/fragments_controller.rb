@@ -298,6 +298,7 @@ class FragmentsController < ApplicationController
                 base64_image: Photo.find(@fragment.photos_id).base64_image
               })
       end
+    end
     render json: @array, status: :ok
   end
 
