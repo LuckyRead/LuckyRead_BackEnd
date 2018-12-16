@@ -36,7 +36,7 @@ class ReactionsController < ApplicationController
     @temp = Reaction.new(
         users_id: @user.id,
         fragments_id: params[:id_fragment],
-        reaction: params[:reaction]
+        reaction: params[:reaction].to_s
     )
     if @temp.save!
       render json: @temp, status: :created, location: @temp
