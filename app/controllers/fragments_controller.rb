@@ -1,6 +1,25 @@
 class FragmentsController < ApplicationController
   before_action :set_fragment, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:new, :create, :update, :destroy, :something, :show_fragments_user]
+  before_action :authenticate_user,  only: [:update_fragment, :new, :create, :update, :destroy, :something, :show_fragments_user]
+
+  def update_fragment
+    @user = current_user
+    @fragment = Fragment.find(params[:id])
+    if @fragment.nil?
+      render json: {error: "Can't find any fragments with this id"}
+      return
+    end
+    if @user.id != @fragment.users_id
+      render json: {error: "You can't have privileges to edit this fragment"}, status: :ok
+    else
+      @fragment.title = params[:title]
+      @fragment.introduction = params[:introduction]
+      @fragment.content = params[:content]
+      @fragment.source = params[:source]
+      @fragment.photos_id = params[:image_id]
+      render json: {updated: @fragment}
+    end
+  end
 
   def by_topic 
     @array = []
