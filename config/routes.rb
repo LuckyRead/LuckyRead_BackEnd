@@ -70,6 +70,7 @@ Rails.application.routes.draw do
   get 'api/user/my_fragments/:username' => 'fragments#show_fragments_user'
   get 'api/friend/followed' => 'friends#follow_five_users'
   get 'api/friend/number_followed_and_followers' => 'friends#number_followed_and_followers'
+  post 'api/fragment/reaction' => 'reactions#reaction'
   get 'api/friend/five_users_following_me' => 'friends#five_users_following_me'
   get 'api/cities/get_all' => 'cities#get_all'
   get 'api/user/index' => 'users#index'

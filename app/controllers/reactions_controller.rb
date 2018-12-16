@@ -1,6 +1,6 @@
 class ReactionsController < ApplicationController
   before_action :set_reaction, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:reactions_to_freagments]
+  before_action :authenticate_user,  only: [:reactions_to_freagments, :like]
   # GET /reactions
   def index
     @reactions = Reaction.all.paginate(page: params[:page], per_page: 10)
@@ -30,6 +30,22 @@ class ReactionsController < ApplicationController
     render json: {Reactios_of_current_users_to_all_fragments: @reactions}, status: :ok
   end
 
+
+  def reaction
+    @user = current_user
+    @temp = Reaction.new(
+        users_id: @user.id,
+        fragments_id: params[:id_fragment],
+        reaction: params[:reaction]
+    )
+    if @temp.save
+      render json: @temp, status: :created, location: @temp
+    else
+      render json: @temp.errors, status: :unprocessable_entity
+    end
+  end
+
+  
   def numbers_of_likes
     @user = current_user
     @comments = Comment.find_by(user_id: @user.id)
