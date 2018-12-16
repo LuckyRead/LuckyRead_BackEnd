@@ -284,9 +284,9 @@ class UsersController < ApplicationController
           break
         end
         if photo.nil?
-          @hash = {username: @user.username, name: @user.name, lastname: @user.lastname, profie_photo: Photo.find(24).base64_image}
+          @hash = {username: @user.username, name: @user.name, lastname: @user.lastname, profile_photo: Photo.find(24).base64_image}
         else
-          @hash = {username: @user.username, name: @user.name, lastname: @user.lastname, profie_photo: Photo.find_by(id: @user.photos_id).base64_image}
+          @hash = {username: @user.username, name: @user.name, lastname: @user.lastname, profile_photo: Photo.find_by(id: @user.photos_id).base64_image}
         end
         @array.push(@hash)
       end
