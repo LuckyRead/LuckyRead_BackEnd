@@ -283,12 +283,14 @@ class FragmentsController < ApplicationController
     @username = params[:username]
     @users = User.find_by(username: @username)
     @arrays = []
-    if @users == nil
-      @arrays.push("username not valid")
+    if @users.nil?
+      render json: {error: "Can't find an user with this username"}
+      return
     else
-      @fragments = Fragment.find_by(users_id: @users.id).pluck(id)
-      if @fragments == nil
-        @arrays.push("you don't have fragments to show")
+      @fragments = Fragment.where(users_id: @users.id)
+      if @fragments.nil?
+        render json: {error: "you don't have fragments to show"}
+        return
       else
         @fragments.each do |id|
           fragment = Fragment.find_by(id: id)
@@ -305,7 +307,7 @@ class FragmentsController < ApplicationController
         end
       end
     end
-    render json: @arrays, status: :ok
+    render json: {fragments: @arrays}, status: :ok
   end
 
   def new_fragments
