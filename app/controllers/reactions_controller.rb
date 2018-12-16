@@ -36,9 +36,9 @@ class ReactionsController < ApplicationController
     @temp = Reaction.new(
         users_id: @user.id,
         fragments_id: params[:id_fragment],
-        reaction: 1
+        reaction: params[:reaction]
     )
-    if @temp.save
+    if @temp.save!
       render json: @temp, status: :created, location: @temp
     else
       render json: @temp.errors, status: :unprocessable_entity
