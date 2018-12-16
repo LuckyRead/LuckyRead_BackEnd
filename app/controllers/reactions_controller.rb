@@ -33,7 +33,7 @@ class ReactionsController < ApplicationController
 
   def reaction
     @user = current_user
-    @temp = Reaction.new(
+    @temp = Reaction.create!(
         users_id: @user.id,
         fragments_id: params[:id_fragment],
         reaction: params[:reaction].to_s
