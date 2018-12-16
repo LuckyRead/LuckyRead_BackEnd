@@ -1,6 +1,6 @@
 class ReactionsController < ApplicationController
   before_action :set_reaction, only: [:show, :update, :destroy]
-  before_action :authenticate_user,  only: [:reactions_to_freagments, :like]
+  before_action :authenticate_user,  only: [:reactions_to_freagments, :reaction]
   # GET /reactions
   def index
     @reactions = Reaction.all.paginate(page: params[:page], per_page: 10)
