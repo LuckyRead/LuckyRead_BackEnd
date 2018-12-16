@@ -38,7 +38,7 @@ class ReactionsController < ApplicationController
         fragments_id: params[:id_fragment],
         reaction: params[:reaction].to_s
     )
-    if @temp.save!
+    if @temp.save
       render json: @temp, status: :created, location: @temp
     else
       render json: @temp.errors, status: :unprocessable_entity
